@@ -86,7 +86,8 @@ begin
   cGender := InputBox('Register Client','Gender <M/F>?','M')[1];
   sClientID := Uppercase(copy(sName,1,2)) +Uppercase(copy(sSurname,1,2)) + inttostr(randomrange(10,100));
   //Question 2.2.3 - Code here
-  //chaging stuff on maccccc
+  //changing stuff again
+  //more changes
 end;
 
 procedure TfrmQuestion2.OptionA1Click(Sender: TObject);

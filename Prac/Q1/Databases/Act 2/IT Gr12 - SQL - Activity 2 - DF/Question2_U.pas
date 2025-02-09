@@ -65,6 +65,7 @@ var
   iFemales, iMales  : integer;
 begin
   //Question 2.2.1 - Code here
+
 end;
 
 procedure TfrmQuestion2.btnDeleteClick(Sender: TObject);
@@ -93,7 +94,7 @@ begin
   with dmQuestion2 do
   begin
     qryQ2.SQL.Clear;
-    qryQ2.SQL.Add('...');
+    qryQ2.SQL.Add('SELECT * FROM tblClients ORDER BY Surname, Name ');
     qryQ2.Open;
   end;
 end;
@@ -103,7 +104,7 @@ begin
   with dmQuestion2 do
   begin
     qryQ2.SQL.Clear;
-    qryQ2.SQL.Add('...');
+    qryQ2.SQL.Add('SELECT OrderID, OrderDate, ProductDescription FROM tblOrders WHERE ProductDescription = "Milk" AND OrderDate BETWEEN #18/08/2018# AND #25/08/2018#');
     qryQ2.Open;
   end;
 end;
@@ -113,7 +114,7 @@ begin
   with dmQuestion2 do
   begin
     qryQ2.SQL.Clear;
-    qryQ2.SQL.Add('...');
+    qryQ2.SQL.Add('SELECT ClientID, OrderDate, FORMAT(SUM(Number * Price), "CURRENCY") AS [Total Cost] FROM tblOrders GROUP BY ClientID, OrderDate');
     qryQ2.Open;
   end;
 end;
@@ -123,7 +124,7 @@ begin
   with dmQuestion2 do
   begin
     qryQ2.SQL.Clear;
-    qryQ2.SQL.Add('...');
+    qryQ2.SQL.Add('UPDATE tblClients SET PremiumUser = True WHERE Gender = "F" AND CellNumber LIKE "083%"');
     qryQ2.ExecSQL;
     MessageDlg('Records have been updated', mtInformation,[mbok],0);
   end;
@@ -134,7 +135,7 @@ begin
  with dmQuestion2 do
   begin
     qryQ2.SQL.Clear;
-    qryQ2.SQL.Add('...');
+    qryQ2.SQL.Add('INSERT INTO tblOrders VALUES ("Ham200", Now(), "Hamburger", 3, 15, "YAIS92")');
     qryQ2.ExecSQL;
     MessageDlg('Record have been inserted', mtInformation,[mbok],0);
   end;

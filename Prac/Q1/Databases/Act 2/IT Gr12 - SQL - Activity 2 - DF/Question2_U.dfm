@@ -11,25 +11,19 @@ object frmQuestion2: TfrmQuestion2
   Font.Name = 'Tahoma'
   Font.Style = []
   Menu = mmOptions
-  OldCreateOrder = False
   OnActivate = FormActivate
-  PixelsPerInch = 96
   TextHeight = 13
   object PageControl1: TPageControl
     Left = 0
     Top = 0
     Width = 986
     Height = 486
-    ActivePage = tbsQ2_2
+    ActivePage = tbsQ2_1
     Align = alClient
     TabOrder = 0
     object tbsQ2_1: TTabSheet
       Caption = 'Question 2.1 SQL'
       OnShow = tbsQ2_1Show
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object grdQ2: TDBGrid
         Left = 0
         Top = 0

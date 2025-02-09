@@ -21,14 +21,16 @@ object frmQuestion2: TfrmQuestion2
     ActivePage = tbsQ2_1
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 976
+    ExplicitHeight = 454
     object tbsQ2_1: TTabSheet
       Caption = 'Question 2.1 SQL'
       OnShow = tbsQ2_1Show
       object grdQ2: TDBGrid
         Left = 0
         Top = 0
-        Width = 978
-        Height = 458
+        Width = 970
+        Height = 445
         Align = alClient
         DataSource = dmQuestion2.dsrQ2
         TabOrder = 0

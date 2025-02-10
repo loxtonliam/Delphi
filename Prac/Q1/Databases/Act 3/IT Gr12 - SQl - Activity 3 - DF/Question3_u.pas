@@ -150,12 +150,14 @@ end;
 procedure TQuestion_3.btnQuestion3_2_1Click(Sender: TObject);
 var
 position : integer;
+Title: string;
 begin
   /// enter your code below//
   tblVideos.first;
   While not tblVideos.eof do
   begin
-    position := LastDelimiter(uppercase(tblVideos['VideoTitle']), 'THE');
+    Title := tblVideos['VideoTitle'];
+    position := Pos('THE', uppercase(Title));
     if  position <> 0  then
     begin
       redDisplay.lines.add(tblVideos['VideoTitle'])
@@ -168,9 +170,25 @@ end;
 // Question 3.2.2   6 marks
 // =====================================================================
 procedure TQuestion_3.btnQuestion3_2_2Click(Sender: TObject);
+var
+idislikes : integer;
 begin
   /// enter your code below//
 
+  tblVideos.first;
+  while not tblvideos.eof do
+  begin
+   iDislikes := tblVideos['Dislikes'];
+   if iDislikes > 8 then
+   begin
+     tblVideos.delete;
+   end
+   else
+   begin
+     tblVideos.next;
+   end;
+
+  end;
 
 
 end;

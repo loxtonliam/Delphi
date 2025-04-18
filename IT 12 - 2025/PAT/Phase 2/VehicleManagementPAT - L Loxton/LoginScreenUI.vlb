@@ -1,0 +1,13 @@
+﻿[]
+Coordinates=293,1,91,36
+
+[imgLoginLineLbl]
+Coordinates=77,10,57,58
+Visible=True
+
+[imgGreyDiv]
+Coordinates=10,10,57,58
+
+[imgBG]
+Coordinates=10,78,57,58
+

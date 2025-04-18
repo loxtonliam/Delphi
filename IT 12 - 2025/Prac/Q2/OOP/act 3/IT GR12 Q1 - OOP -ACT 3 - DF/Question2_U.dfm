@@ -9,8 +9,6 @@ object frmQuestion2: TfrmQuestion2
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
-  PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
     Left = 0

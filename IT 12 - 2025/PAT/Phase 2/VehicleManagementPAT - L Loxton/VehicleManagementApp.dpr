@@ -6,7 +6,8 @@ uses
   DBConnection in 'DBConnection.pas' {DataModule1: TDataModule},
   SignUpScreenUI in 'SignUpScreenUI.pas' {frmSignup},
   MainScreenUI in 'MainScreenUI.pas' {frmMain},
-  Shared_U in 'Shared_U.pas';
+  Shared_U in 'Shared_U.pas',
+  LicenseGenerationUI in 'LicenseGenerationUI.pas' {frmLicenseGen};
 
 {$R *.res}
 
@@ -17,5 +18,6 @@ begin
   Application.CreateForm(TDataModule1, DataModule1);
   Application.CreateForm(TfrmSignup, frmSignup);
   Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TfrmLicenseGen, frmLicenseGen);
   Application.Run;
 end.

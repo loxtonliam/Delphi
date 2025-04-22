@@ -1,30 +1,27 @@
 object frmMain: TfrmMain
   Left = 0
   Top = 0
-  Margins.Left = 6
-  Margins.Top = 6
-  Margins.Right = 6
-  Margins.Bottom = 6
   Caption = 'Form1'
-  ClientHeight = 1132
-  ClientWidth = 874
+  ClientHeight = 550
+  ClientWidth = 461
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -23
+  Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  PixelsPerInch = 180
-  TextHeight = 31
+  OnClose = FormClose
+  OnShow = FormShow
+  TextHeight = 15
   object imgBG: TImage
-    Left = -30
-    Top = -72
-    Width = 904
-    Height = 1204
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = -16
+    Top = -38
+    Width = 482
+    Height = 642
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Picture.Data = {
       0A544A504547496D616765AE1F0000FFD8FFE000104A46494600010201004800
       480000FFDB004300010101010101010101010101010101010101010101010101
@@ -283,14 +280,14 @@ object frmMain: TfrmMain
     Stretch = True
   end
   object imgGreyDiv: TImage
-    Left = -26
-    Top = 135
-    Width = 900
-    Height = 997
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = -14
+    Top = 72
+    Width = 480
+    Height = 532
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Picture.Data = {
       0A544A504547496D616765E3170000FFD8FFE000104A46494600010201004800
       480000FFDB004300010101010101010101010101010101010101010101010101
@@ -488,13 +485,9 @@ object frmMain: TfrmMain
   end
   object Image1: TImage
     Left = 0
-    Top = 11
-    Width = 121
-    Height = 155
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Top = 6
+    Width = 65
+    Height = 83
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000000300000
       003008060000005702F987000000097048597300000B1300000B1301009A9C18
@@ -510,14 +503,10 @@ object frmMain: TfrmMain
     Stretch = True
   end
   object Image2: TImage
-    Left = 765
-    Top = -16
-    Width = 151
-    Height = 152
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 408
+    Top = -9
+    Width = 81
+    Height = 82
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000000540000
       00760806000000560FB4FC000000097048597300000B1300000B1301009A9C18
@@ -596,22 +585,27 @@ object frmMain: TfrmMain
     Stretch = True
   end
   object lblTitleMain: TLabel
-    Left = 133
-    Top = -4
-    Width = 185
-    Height = 170
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 71
+    Top = -2
+    Width = 98
+    Height = 91
     Caption = 'Hi, '
     Color = 3747125
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 3747125
-    Font.Height = -128
+    Font.Height = -68
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentColor = False
     ParentFont = False
+  end
+  object btnGen: TButton
+    Left = 144
+    Top = 160
+    Width = 75
+    Height = 25
+    Caption = 'Generate'
+    TabOrder = 0
+    OnClick = btnGenClick
   end
 end

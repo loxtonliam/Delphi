@@ -35,7 +35,7 @@ type
 
 var
   frmLogin: TfrmLogin;
-  sUsername, sPassword: String;
+  sUsername, sPassword, sID: String;
 
 implementation
 
@@ -63,25 +63,6 @@ begin
     begin
       sUsername := edtUsernameLogin.text;
       sPassword := edtPasswordLogin.text;
-      if chbAdmin.checked then
-      begin
-        with Datamodule1 do
-        begin
-          ADOQuery1.sql.text := 'SELECT * FROM tblAdmin WHERE Username = "' +
-            sUsername + '" AND Password = "' + sPassword + '"';
-          ADOQuery1.open;
-          if ADOQuery1.RecordCount > 0 then
-          begin
-            showmessage('Successful login');
-            frmMain.show;
-            frmLogin.hide;
-          end
-          else
-          begin
-            showmessage('unsuccessful');
-          end
-        end
-      end;
 
       with Datamodule1 do
       begin
@@ -91,6 +72,7 @@ begin
         if ADOQuery1.RecordCount > 0 then
         begin
           showmessage('Successful login');
+          sID := tblUsers['UserID'];
           frmMain.show;
           frmLogin.hide;
         end

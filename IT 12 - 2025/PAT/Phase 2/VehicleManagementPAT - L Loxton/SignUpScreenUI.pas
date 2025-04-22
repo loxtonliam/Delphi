@@ -162,7 +162,8 @@ begin
         showmessage('Account successfully added');
         frmLogin.show;
         frmSignup.hide;
-      finally
+      except
+        on E: Exception do
         showmessage('Problem with adding data to DB');
       end;
 

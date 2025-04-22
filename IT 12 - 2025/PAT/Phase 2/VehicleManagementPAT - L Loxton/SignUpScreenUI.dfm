@@ -1,32 +1,27 @@
 object frmSignup: TfrmSignup
   Left = 0
   Top = 0
-  Margins.Left = 6
-  Margins.Top = 6
-  Margins.Right = 6
-  Margins.Bottom = 6
   Caption = 'Form1'
-  ClientHeight = 1132
-  ClientWidth = 874
+  ClientHeight = 550
+  ClientWidth = 461
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -92
+  Font.Height = -49
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnClose = FormClose
   OnShow = FormShow
-  PixelsPerInch = 180
-  TextHeight = 123
+  TextHeight = 66
   object imgBG: TImage
-    Left = -30
-    Top = -72
-    Width = 904
-    Height = 1204
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = -16
+    Top = -38
+    Width = 482
+    Height = 642
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Picture.Data = {
       0A544A504547496D616765AE1F0000FFD8FFE000104A46494600010201004800
       480000FFDB004300010101010101010101010101010101010101010101010101
@@ -285,14 +280,14 @@ object frmSignup: TfrmSignup
     Stretch = True
   end
   object imgGreyDiv: TImage
-    Left = -26
-    Top = 284
-    Width = 900
-    Height = 863
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = -14
+    Top = 151
+    Width = 480
+    Height = 461
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Picture.Data = {
       0A544A504547496D616765E3170000FFD8FFE000104A46494600010201004800
       480000FFDB004300010101010101010101010101010101010101010101010101
@@ -489,50 +484,50 @@ object frmSignup: TfrmSignup
     Stretch = True
   end
   object lblLoginTitle: TLabel
-    Left = 32
-    Top = 12
-    Width = 820
-    Height = 139
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = 17
+    Top = 6
+    Width = 435
+    Height = 74
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Placeholder Title'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -104
+    Font.Height = -55
     Font.Name = 'Segoe UI'
     Font.Style = [fsBold]
     ParentFont = False
   end
   object lblSignUpScreen: TLabel
-    Left = 504
-    Top = 167
-    Width = 264
-    Height = 101
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = 269
+    Top = 89
+    Width = 142
+    Height = 55
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Sign Up'
     Color = 8808980
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 8283156
-    Font.Height = -76
+    Font.Height = -41
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentColor = False
     ParentFont = False
   end
   object imgLoginLineLbl: TImage
-    Left = 434
-    Top = 269
-    Width = 440
-    Height = 32
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = 231
+    Top = 143
+    Width = 235
+    Height = 18
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Picture.Data = {
       0A544A504547496D616765AA020000FFD8FFE000104A46494600010201004800
       480000FFDB004300010101010101010101010101010101010101010101010101
@@ -560,19 +555,19 @@ object frmSignup: TfrmSignup
     Stretch = True
   end
   object lblLoginSignUpScreen: TLabel
-    Left = 7
-    Top = 167
-    Width = 453
-    Height = 101
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = 4
+    Top = 89
+    Width = 242
+    Height = 55
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Login Screen '
     Color = clBlack
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
-    Font.Height = -76
+    Font.Height = -41
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentColor = False
@@ -580,14 +575,14 @@ object frmSignup: TfrmSignup
     OnClick = lblLoginSignUpScreenClick
   end
   object imgLoginButton: TImage
-    Left = 168
-    Top = 958
-    Width = 508
-    Height = 192
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = 90
+    Top = 511
+    Width = 271
+    Height = 102
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Center = True
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000000F00000
@@ -661,17 +656,17 @@ object frmSignup: TfrmSignup
     OnClick = imgLoginButtonClick
   end
   object edtUsername: TEdit
-    Left = 136
-    Top = 317
-    Width = 556
-    Height = 67
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = 73
+    Top = 169
+    Width = 296
+    Height = 39
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -43
+    Font.Height = -23
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -679,18 +674,14 @@ object frmSignup: TfrmSignup
     Text = 'Username'
   end
   object chbCarOwner: TCheckBox
-    Left = 276
-    Top = 915
-    Width = 250
-    Height = 50
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 147
+    Top = 488
+    Width = 134
+    Height = 27
     Caption = 'Car Owner?'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -38
+    Font.Height = -20
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -698,18 +689,14 @@ object frmSignup: TfrmSignup
     OnClick = chbCarOwnerClick
   end
   object chbAdmin: TCheckBox
-    Left = 276
-    Top = 958
-    Width = 250
-    Height = 50
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 147
+    Top = 511
+    Width = 134
+    Height = 27
     Caption = 'Admin?'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -38
+    Font.Height = -20
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -717,17 +704,17 @@ object frmSignup: TfrmSignup
     OnClick = chbAdminClick
   end
   object edtPassword: TEdit
-    Left = 136
-    Top = 384
-    Width = 556
-    Height = 67
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = 73
+    Top = 205
+    Width = 296
+    Height = 39
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -43
+    Font.Height = -23
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -735,17 +722,17 @@ object frmSignup: TfrmSignup
     Text = 'Password'
   end
   object edtConfirmPassword: TEdit
-    Left = 136
-    Top = 467
-    Width = 556
-    Height = 67
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = 73
+    Top = 249
+    Width = 296
+    Height = 39
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -43
+    Font.Height = -23
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -753,17 +740,17 @@ object frmSignup: TfrmSignup
     Text = 'Confirm Password'
   end
   object edtFirstName: TEdit
-    Left = 136
-    Top = 542
-    Width = 556
-    Height = 67
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = 73
+    Top = 289
+    Width = 296
+    Height = 39
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -43
+    Font.Height = -23
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -771,17 +758,17 @@ object frmSignup: TfrmSignup
     Text = 'First Name'
   end
   object edtLastName: TEdit
-    Left = 136
-    Top = 617
-    Width = 556
-    Height = 67
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = 73
+    Top = 329
+    Width = 296
+    Height = 39
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -43
+    Font.Height = -23
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -789,17 +776,17 @@ object frmSignup: TfrmSignup
     Text = 'Last Name'
   end
   object edtEmail: TEdit
-    Left = 136
-    Top = 692
-    Width = 556
-    Height = 67
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = 73
+    Top = 369
+    Width = 296
+    Height = 39
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -43
+    Font.Height = -23
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -807,17 +794,17 @@ object frmSignup: TfrmSignup
     Text = 'Email Address'
   end
   object edtContact: TEdit
-    Left = 136
-    Top = 759
-    Width = 556
-    Height = 67
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = 73
+    Top = 405
+    Width = 296
+    Height = 39
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -43
+    Font.Height = -23
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -825,19 +812,15 @@ object frmSignup: TfrmSignup
     Text = 'Contact Number'
   end
   object dtpDOB: TDateTimePicker
-    Left = 141
-    Top = 836
-    Width = 551
-    Height = 67
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 75
+    Top = 446
+    Width = 294
+    Height = 39
     Date = 45744.000000000000000000
-    Time = 0.565735798612877200
+    Time = 0.565735798612877300
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -43
+    Font.Height = -23
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False

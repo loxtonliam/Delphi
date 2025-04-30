@@ -11,6 +11,7 @@ object frmLicenseGen: TfrmLicenseGen
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnClose = FormClose
+  OnShow = FormShow
   TextHeight = 15
   object btnGen: TButton
     Left = 40
@@ -52,7 +53,7 @@ object frmLicenseGen: TfrmLicenseGen
   end
   object cmbProvince: TComboBox
     Left = 376
-    Top = 144
+    Top = 145
     Width = 145
     Height = 23
     TabOrder = 3

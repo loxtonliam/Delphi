@@ -15,6 +15,7 @@ type
     cmbProvince: TComboBox;
     procedure btnGenClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,30 +33,33 @@ uses
   LoginScreenUI, DBConnection, Shared_U;
 
 procedure TfrmLicenseGen.btnGenClick(Sender: TObject);
+{
+simple license generation based on province and last entry in DB
+}
 var
   sProv, sType, sLicense, sNewest, sNum: string;
   i: Integer;
 
 begin
-  sProv := cmbProvince.Items[cmbProvince.ItemIndex];
-  sType := cmbLicenseType.Items[cmbLicenseType.ItemIndex];
+  sProv := inttostr(cmbProvince.Itemindex);
+  sType := inttostr(cmbLicenseType.Itemindex);
   with DataModule1 do
   begin
 
     try
       ADOQuery1.close;
       ADOQuery1.SQL.text :=
-        'SELECT Top 1 * FROM tblLicenses ORDER BY createdAt DESC';
+        'SELECT Top 1 * FROM tblLicenses WHERE provinceID = '+sType+' ORDER BY createdAt DESC';
       ADOQuery1.open;
       if not ADOQuery1.IsEmpty then
       begin
-       sNewest := tblLicenses['LicenseID'];
+        sNewest := ADOQuery1.FieldByName('licenseID').AsString;
       end
       else
       begin
         sNewest := '';
       end;
-      
+
     except
       on E: Exception do
         sNewest := '';
@@ -71,50 +75,67 @@ begin
   begin
     for i := 1 to length(sNewest) do
     begin
-      if strtoint(sNewest[i]) in [0 .. 9] then
+      if sNewest[i] in ['0' .. '9'] then
       begin
         sNum := sNum + sNewest[i];
       end;
     end;
-    sNum := Inttostr(strtoint(sNum) + 1);
+    sNum := inttostr(strtoint(sNum) + 1);
 
   end;
 
-  case cmbProvince.ItemIndex of
+  case cmbProvince.Itemindex of
 
-  0: sLicense := 'B ' + sNum + ' GP';
-  1: sLicense := 'CA ' + sNum;
-  2: sLicense := 'ND ' + sNum;
-  3: sLicense := 'EL ' + sNum + ' EC';
-  4: sLicense := 'L ' + sNum + ' L';
-  5: sLicense := sNum + ' MP';
-  6: sLicense := sNum + ' NW';
-  7: sLicense := sNum + ' NC';
-  8: sLicense := sNum + ' FS';
-  
+    0:
+      sLicense := 'B ' + sNum + ' GP';
+    1:
+      sLicense := 'CA ' + sNum;
+    2:
+      sLicense := 'ND ' + sNum;
+    3:
+      sLicense := 'EL ' + sNum + ' EC';
+    4:
+      sLicense := 'L ' + sNum + ' L';
+    5:
+      sLicense := sNum + ' MP';
+    6:
+      sLicense := sNum + ' NW';
+    7:
+      sLicense := sNum + ' NC';
+    8:
+      sLicense := sNum + ' FS';
 
   end;
 
   with DataModule1 do
   begin
     tblLicenses.insert;
-    TDB.UpdateField('licenseID',sLicense,tblLicenses);
-    TDB.UpdateField('licenseType',sType,tblLicenses);
-    TDB.UpdateField('ExpirationDate',DateTostr(incYear(Date,1)),tblLicenses);
-    TDB.UpdateField('createdAt',DateToStr(Date),tblLicenses);
-    TDB.UpdateField('updatedAt',datetostr(Date),tblLicenses);
-    TDB.UpdateField('ownerID',sID,tblLicenses);
-    TDB.UpdateField('province',sProv,tblLicenses);
+    TDB.UpdateField('licenseID', sLicense, tblLicenses);
+    TDB.UpdateField('typeID', sType, tblLicenses);
+    TDB.UpdateField('ExpirationDate', DateTostr(incYear(Date, 1)), tblLicenses);
+    TDB.UpdateField('createdAt', DateTostr(Date), tblLicenses);
+    TDB.UpdateField('updatedAt', DateTostr(Date), tblLicenses);
+    TDB.UpdateField('ownerID', sID, tblLicenses);
+    TDB.UpdateField('provinceID', sProv, tblLicenses);
     tblLicenses.post;
     tblLicenses.Refresh;
   end;
-
-  showmessage('License added: ' + sLicense);
+  RichEdit1.clear;
+  RichEdit1.lines.add('License added: ' + sLicense);
 end;
 
 procedure TfrmLicenseGen.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-Application.Terminate;
+  Application.Terminate;
+end;
+
+procedure TfrmLicenseGen.FormShow(Sender: TObject);
+begin
+DataModule1.OpenTables;
+  if sID = '' then
+  begin
+    sID := 'FL4802'
+  end;
 end;
 
 end.

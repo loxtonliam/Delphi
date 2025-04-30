@@ -83,9 +83,16 @@ begin
 end;
 
 procedure TfrmSignup.imgLoginButtonClick(Sender: TObject);
+{
+Sign up of user
+- extract from edit boxed
+- check for unique vals
+- update DB
+}
 var
-  sUser, sPass, sPassConfirmed, sFirstName, sLastName, sEmail, sType, sContact,
-    sUserID, OwnerID, AdminID: string;
+  sUser, sPass, sPassConfirmed, sFirstName, sLastName, sEmail, sContact,
+    sUserID, OwnerID, AdminID, sType: string;
+
   DOB : tDatetime;
 
 begin
@@ -109,31 +116,11 @@ begin
       try
         if chbAdmin.checked then
         begin
-          sType := 'Admin';
-          AdminID := 'A' + InttoStr(random(10000) + 1) + copy(sFirstName, 1, 1);
-          with Datamodule1 do
-          begin
-            tblAdminAccounts.insert;
-            tdb.UpdateField('adminID', AdminID, tblAdminAccounts);
-            tdb.UpdateField('createdAt', DateToStr(Date), tblAdminAccounts);
-            tdb.UpdateField('updatedAt', DateToStr(Date), tblAdminAccounts);
-            tblAdminAccounts.post;
-            tblAdminAccounts.refresh;
-          end; // DM
+          sType := '0';
         end // if
         else
         begin
-          sType := 'CarOwner';
-          OwnerID := 'CO' + InttoStr(random(10000) + 1) +
-            copy(sFirstName, 1, 1);
-          with Datamodule1 do
-          begin
-            tblCarOwners.insert;
-            tdb.UpdateField('ownerID', OwnerID, tblCarOwners);
-            tblCarOwners.post;
-            tblCarOwners.refresh;
-          end; // DM
-
+          sType := '1';
 
 
         end; // else
@@ -149,7 +136,7 @@ begin
           tdb.UpdateField('contactNumber', sContact, tblUsers);
           tdb.UpdateField('dateOfBirth', DateToStr(DOB), tblUsers);
           tdb.UpdateField('accountStatus', 'Active', tblUsers);
-          tdb.UpdateField('userRole', sType, tblUsers);
+          tdb.UpdateField('userRoleID', sType, tblUsers);
           tdb.UpdateField('createdAt', DateToStr(Date), tblUsers);
           tdb.UpdateField('updatedAt', DateToStr(Date), tblUsers);
           tdb.UpdateField('emailAddress', sEmail, tblUsers);

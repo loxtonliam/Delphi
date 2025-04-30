@@ -12,17 +12,19 @@ type
     tblLicensingStations: TADOTable;
     tblLicenses: TADOTable;
     tblFines: TADOTable;
-    tblCarOwners: TADOTable;
-    tblAdminAccounts: TADOTable;
+    tblProvinces: TADOTable;
+    tblLicenseTypes: TADOTable;
     dsTblUsers: TDataSource;
-    dsCarOwners: TDataSource;
+    dsProvinces: TDataSource;
     dsTestApplications: TDataSource;
-    dsAdminAccounts: TDataSource;
+    dsLicenseTypes: TDataSource;
     dsLicensingStations: TDataSource;
     dsLicenses: TDataSource;
     dsFines: TDataSource;
     VehicleManagementDB: TADOConnection;
     ADOQuery1: TADOQuery;
+    tblUserRoles: TADOTable;
+    dsUserRoles: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
     procedure OpenTables;
   private
@@ -56,32 +58,35 @@ begin
    //Connection for every table you have
    tblUsers.Connection := VehicleManagementDB;//ADOTable1 must be named ADOtablename(your associated table)
    tblTestApplications.Connection := VehicleManagementDB;
-   tblAdminAccounts.Connection := VehicleManagementDB;
+   tblLicenseTypes.Connection := VehicleManagementDB;
    tblLicensingStations.Connection := VehicleManagementDB;
    tblLicenses.Connection := VehicleManagementDB;
    tblFines.Connection := VehicleManagementDB;
-   tblCarOwners.Connection := VehicleManagementDB;
+   tblProvinces.Connection := VehicleManagementDB;
+   tblUserRoles.Connection := VehicleManagementDB;
 
 
    //Each ADOTable is associated with each table name in access
    tblUsers.TableName := 'tblUsers';//table name spelled as in in MS access
    tblTestApplications.TableName := 'tblTestApplications';//table name spelled as in in MS access
-   tblAdminAccounts.TableName := 'tblAdminAccounts';
+   tblLicenseTypes.TableName := 'tblLicenseTypes';
    tblLicensingStations.TableName := 'tblLicensingStations';
    tblLicenses.TableName := 'tblLicenses';
    tblFines.TableName := 'tblFines';
-   tblCarOwners.TableName := 'tblCarOwners';
+   tblProvinces.TableName := 'tblProvinces';
+   tblUserRoles.TableName := 'tblUserRoles';
 
 
    //a data source is named DSTableName.
    //each data source must be associated with the correct ADOtable
    dsTblUsers.DataSet := tblUsers;
-   dsAdminAccounts.DataSet := tblAdminAccounts;
+   dsLicenseTypes.DataSet := tblLicenseTypes;
    dsTestApplications.DataSet := tblTestApplications;
    dsLicensingStations.DataSet := tblLicensingStations;
    dsLicenses.DataSet := tblLicenses;
    dsFines.DataSet := tblFines;
-   dsCarOwners.DataSet := tblCarOwners;
+   dsProvinces.DataSet := tblProvinces;
+   dsUserRoles.DataSet := tblUserRoles;
 
   //leave this line of code commented
   ADOQuery1.Connection := VehicleManagementDB;
@@ -94,8 +99,9 @@ begin
  tblLicensingStations.open;
  tblLicenses.open;
  tblFines.open;
- tblCarOwners.open;
- tblAdminAccounts.open;
+ tblProvinces.open;
+ tblLicenseTypes.open;
+ tblUserRoles.open;
 end;
 
 end.

@@ -14,10 +14,10 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfrmLicenseGen, frmLicenseGen);
   Application.CreateForm(TfrmLogin, frmLogin);
   Application.CreateForm(TDataModule1, DataModule1);
   Application.CreateForm(TfrmSignup, frmSignup);
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TfrmLicenseGen, frmLicenseGen);
   Application.Run;
 end.

@@ -55,6 +55,10 @@ begin
 end;
 
 procedure TfrmLogin.imgLoginButtonClick(Sender: TObject);
+{
+ Login using sql query
+ - check for matching records
+}
 begin
 
   if TValidation.notEmpty(edtUsernameLogin.text, 'Username') then
@@ -72,7 +76,7 @@ begin
         if ADOQuery1.RecordCount > 0 then
         begin
           showmessage('Successful login');
-          sID := tblUsers['UserID'];
+          sID := ADOQuery1.FieldByName('UserID').AsString;
           frmMain.show;
           frmLogin.hide;
         end

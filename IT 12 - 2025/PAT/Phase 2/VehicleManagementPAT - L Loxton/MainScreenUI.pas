@@ -15,9 +15,11 @@ type
     Image2: TImage;
     lblTitleMain: TLabel;
     btnGen: TButton;
+    btnProfile: TButton;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnGenClick(Sender: TObject);
+    procedure btnProfileClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,12 +33,18 @@ implementation
 
 {$R *.dfm}
 uses
-DBConnection, LoginScreenUI, LicenseGenerationUI;
+DBConnection, LoginScreenUI, LicenseGenerationUI, ProfileUI;
 
 procedure TfrmMain.btnGenClick(Sender: TObject);
 begin
 frmMain.hide;
 frmLicenseGen.show;
+end;
+
+procedure TfrmMain.btnProfileClick(Sender: TObject);
+begin
+ frmMain.hide;
+ frmprofile.show;
 end;
 
 procedure TfrmMain.FormClose(Sender: TObject; var Action: TCloseAction);

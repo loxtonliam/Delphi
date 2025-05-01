@@ -7,17 +7,24 @@ uses
   SignUpScreenUI in 'SignUpScreenUI.pas' {frmSignup},
   MainScreenUI in 'MainScreenUI.pas' {frmMain},
   Shared_U in 'Shared_U.pas',
-  LicenseGenerationUI in 'LicenseGenerationUI.pas' {frmLicenseGen};
+  LicenseGenerationUI in 'LicenseGenerationUI.pas' {frmLicenseGen},
+  ProfileUI in 'ProfileUI.pas' {frmProfile},
+  RoutingUI in 'RoutingUI.pas' {frmRouting},
+  FinesUI in 'FinesUI.pas' {Form1},
+  Fines_U in 'Fines_U.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TfrmLicenseGen, frmLicenseGen);
   Application.CreateForm(TfrmLogin, frmLogin);
+  Application.CreateForm(TfrmRouting, frmRouting);
+  Application.CreateForm(TfrmLicenseGen, frmLicenseGen);
   Application.CreateForm(TDataModule1, DataModule1);
   Application.CreateForm(TfrmSignup, frmSignup);
   Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TfrmProfile, frmProfile);
+  Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.

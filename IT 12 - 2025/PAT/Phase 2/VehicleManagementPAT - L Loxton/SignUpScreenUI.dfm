@@ -2,7 +2,7 @@ object frmSignup: TfrmSignup
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 550
+  ClientHeight = 608
   ClientWidth = 461
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

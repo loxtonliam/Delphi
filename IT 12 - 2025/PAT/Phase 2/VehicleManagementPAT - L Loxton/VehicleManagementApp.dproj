@@ -147,6 +147,19 @@
             <Form>frmLicenseGen</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="ProfileUI.pas">
+            <Form>frmProfile</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="RoutingUI.pas">
+            <Form>frmRouting</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="FinesUI.pas">
+            <Form>Form1</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Fines_U.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

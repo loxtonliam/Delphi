@@ -519,7 +519,7 @@ object frmLogin: TfrmLogin
     Stretch = True
   end
   object imgLoginButton: TImage
-    Left = 90
+    Left = 92
     Top = 480
     Width = 271
     Height = 102

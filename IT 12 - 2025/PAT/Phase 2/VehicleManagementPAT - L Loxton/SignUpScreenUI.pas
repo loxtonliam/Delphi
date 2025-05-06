@@ -84,16 +84,16 @@ end;
 
 procedure TfrmSignup.imgLoginButtonClick(Sender: TObject);
 {
-Sign up of user
-- extract from edit boxed
-- check for unique vals
-- update DB
+  Sign up of user
+  - extract from edit boxed
+  - check for unique vals
+  - update DB
 }
 var
   sUser, sPass, sPassConfirmed, sFirstName, sLastName, sEmail, sContact,
     sUserID, OwnerID, AdminID, sType: string;
 
-  DOB : tDatetime;
+  DOB: tDatetime;
 
 begin
 
@@ -102,14 +102,33 @@ begin
   if sPass = sPassConfirmed then
   begin
     if (tdb.ExistingRecordCheck('tblUsers', 'Username', sUser))
-      {(tdb.ExistingRecordCheck('tblUsers', 'Email', sEmail))} then
+    { (tdb.ExistingRecordCheck('tblUsers', 'Email', sEmail)) } then
     begin
-      sUser := edtUsername.text;
-      sFirstName := edtFirstName.text;
-      sLastName := edtLastName.text;
+      if (TValidation.notEmpty(edtUsername.text, 'Username')) AND
+        (TValidation.notEmpty(edtFirstName.text, 'First Name')) AND
+        (TValidation.notEmpty(edtLastName.text, 'Last Name')) then
+      begin
+        sUser := edtUsername.text;
+        sFirstName := edtFirstName.text;
+        sLastName := edtLastName.text;
+      end;
+
+
       sEmail := edtEmail.text;
-      sContact := edtContact.text;
-      DOB := dtpDOB.Date;
+      if length(sContact) = 10 then
+      begin
+       sContact := edtContact.text;
+      end
+      else
+      begin
+        showmessage('Contact number must be ten digits long');
+      end;
+
+      if dtpDOB.Date < Date then
+      begin
+       DOB := dtpDOB.Date;
+      end;
+
       sUserID := copy(sFirstName, 1, 1) + copy(sLastName, 1, 1) +
         InttoStr(random(10000 - 1 + 1) + 1);
 
@@ -121,7 +140,6 @@ begin
         else
         begin
           sType := '1';
-
 
         end; // else
 
@@ -141,7 +159,6 @@ begin
           tdb.UpdateField('updatedAt', DateToStr(Date), tblUsers);
           tdb.UpdateField('emailAddress', sEmail, tblUsers);
 
-
           tblUsers.post;
           tblUsers.refresh;
         end; // if DM
@@ -151,7 +168,7 @@ begin
         frmSignup.hide;
       except
         on E: Exception do
-        showmessage('Problem with adding data to DB');
+          showmessage('Problem with adding data to DB');
       end;
 
     end; // if exist

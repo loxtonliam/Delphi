@@ -12,7 +12,6 @@ type
   TfrmSignup = class(TForm)
     imgBG: TImage;
     imgGreyDiv: TImage;
-    lblLoginTitle: TLabel;
     lblSignUpScreen: TLabel;
     imgLoginLineLbl: TImage;
     lblLoginSignUpScreen: TLabel;
@@ -27,6 +26,7 @@ type
     edtEmail: TEdit;
     edtContact: TEdit;
     dtpDOB: TDateTimePicker;
+    imgLogoMain: TImage;
     procedure lblLoginSignUpScreenClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure chbCarOwnerClick(Sender: TObject);

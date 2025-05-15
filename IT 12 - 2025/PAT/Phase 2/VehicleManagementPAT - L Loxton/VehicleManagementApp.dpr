@@ -18,6 +18,7 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm1, Form1);
   Application.CreateForm(TfrmLogin, frmLogin);
   Application.CreateForm(TfrmRouting, frmRouting);
   Application.CreateForm(TfrmLicenseGen, frmLicenseGen);
@@ -25,6 +26,5 @@ begin
   Application.CreateForm(TfrmSignup, frmSignup);
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TfrmProfile, frmProfile);
-  Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.

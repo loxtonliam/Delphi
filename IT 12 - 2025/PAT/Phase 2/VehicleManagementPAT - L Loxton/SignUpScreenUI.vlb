@@ -1,9 +1,6 @@
 ﻿[lblLoginSignUpScreen]
 Coordinates=222,78,124,51
 
-[lblLoginTitle]
-Coordinates=128,78,75,51
-
 [lblSignUpScreen]
 Coordinates=74,10,96,51
 Visible=True

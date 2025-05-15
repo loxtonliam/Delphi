@@ -42,7 +42,7 @@ end;
 
 function TFine.getDate: string;
 begin
-  result := fdate;
+  result := fDueDate;
 end;
 
 procedure TFine.SetAmount(dAmnt: double);

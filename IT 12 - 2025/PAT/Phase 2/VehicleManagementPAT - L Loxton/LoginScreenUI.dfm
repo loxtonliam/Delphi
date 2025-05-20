@@ -1,27 +1,32 @@
 object frmLogin: TfrmLogin
   Left = 0
   Top = 0
+  Margins.Left = 6
+  Margins.Top = 6
+  Margins.Right = 6
+  Margins.Bottom = 6
   Caption = 'Form3'
-  ClientHeight = 566
-  ClientWidth = 467
+  ClientHeight = 1061
+  ClientWidth = 876
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -13
+  Font.Height = -24
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnClose = FormClose
   OnShow = FormShow
-  TextHeight = 17
+  PixelsPerInch = 180
+  TextHeight = 32
   object imgBG: TImage
-    Left = -11
-    Top = -11
-    Width = 482
-    Height = 642
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Left = -21
+    Top = -21
+    Width = 904
+    Height = 1204
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 8
     Picture.Data = {
       0A544A504547496D616765AE1F0000FFD8FFE000104A46494600010201004800
       480000FFDB004300010101010101010101010101010101010101010101010101
@@ -280,14 +285,14 @@ object frmLogin: TfrmLogin
     Stretch = True
   end
   object imgGreyDiv: TImage
-    Left = -9
-    Top = 150
-    Width = 480
-    Height = 461
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Left = -17
+    Top = 281
+    Width = 900
+    Height = 865
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 8
     Picture.Data = {
       0A544A504547496D616765E3170000FFD8FFE000104A46494600010201004800
       480000FFDB004300010101010101010101010101010101010101010101010101
@@ -484,14 +489,14 @@ object frmLogin: TfrmLogin
     Stretch = True
   end
   object imgLoginLineLbl: TImage
-    Left = 7
-    Top = 150
-    Width = 235
-    Height = 17
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Left = 13
+    Top = 281
+    Width = 441
+    Height = 32
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 8
     Picture.Data = {
       0A544A504547496D616765AA020000FFD8FFE000104A46494600010201004800
       480000FFDB004300010101010101010101010101010101010101010101010101
@@ -519,14 +524,14 @@ object frmLogin: TfrmLogin
     Stretch = True
   end
   object imgLoginButton: TImage
-    Left = 92
-    Top = 480
-    Width = 271
-    Height = 102
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Left = 173
+    Top = 900
+    Width = 508
+    Height = 191
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 8
     Center = True
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000000F00000
@@ -585,38 +590,38 @@ object frmLogin: TfrmLogin
     OnClick = imgLoginButtonClick
   end
   object LblLogin: TLabel
-    Left = 6
-    Top = 96
-    Width = 231
-    Height = 55
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Left = 11
+    Top = 180
+    Width = 438
+    Height = 102
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 8
     Caption = 'Login Screen'
     Color = 8283156
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 8283156
-    Font.Height = -41
+    Font.Height = -77
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentColor = False
     ParentFont = False
   end
   object lblSignUp: TLabel
-    Left = 294
-    Top = 96
-    Width = 142
-    Height = 55
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Left = 551
+    Top = 180
+    Width = 268
+    Height = 102
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 8
     Caption = 'Sign Up'
     Color = clBlack
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
-    Font.Height = -41
+    Font.Height = -77
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentColor = False
@@ -624,14 +629,14 @@ object frmLogin: TfrmLogin
     OnClick = lblSignUpClick
   end
   object imgEmailIcon: TImage
-    Left = 26
-    Top = 265
-    Width = 32
-    Height = 40
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Left = 49
+    Top = 497
+    Width = 60
+    Height = 75
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 8
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000000230000
       002308060000001ED9B359000000097048597300000B1300000B1301009A9C18
@@ -657,14 +662,14 @@ object frmLogin: TfrmLogin
     Stretch = True
   end
   object imgPassIcon: TImage
-    Left = 26
-    Top = 375
-    Width = 32
-    Height = 41
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Left = 49
+    Top = 703
+    Width = 60
+    Height = 77
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 8
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000000230000
       002308060000001ED9B359000000097048597300000B1300000B1301009A9C18
@@ -688,10 +693,14 @@ object frmLogin: TfrmLogin
     Stretch = True
   end
   object imgLogoMain: TImage
-    Left = 6
-    Top = 6
-    Width = 504
-    Height = 137
+    Left = 11
+    Top = 11
+    Width = 945
+    Height = 257
+    Margins.Left = 6
+    Margins.Top = 6
+    Margins.Right = 6
+    Margins.Bottom = 6
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D494844520000020F0000
       00890806000000AB53DB4E000000097048597300000B1300000B1301009A9C18
@@ -1117,18 +1126,18 @@ object frmLogin: TfrmLogin
     Stretch = True
   end
   object edtUsernameLogin: TEdit
-    Left = 66
-    Top = 265
-    Width = 297
-    Height = 49
+    Left = 124
+    Top = 497
+    Width = 557
+    Height = 82
     Hint = 'Username'
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 8
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -30
+    Font.Height = -56
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -1138,18 +1147,18 @@ object frmLogin: TfrmLogin
     TextHint = 'Username'
   end
   object edtPasswordLogin: TEdit
-    Left = 66
-    Top = 375
-    Width = 297
-    Height = 49
+    Left = 124
+    Top = 703
+    Width = 557
+    Height = 82
     Hint = 'Password'
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 8
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -30
+    Font.Height = -56
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -1160,27 +1169,35 @@ object frmLogin: TfrmLogin
     TextHint = 'Password'
   end
   object DBGrid1: TDBGrid
-    Left = 526
-    Top = 185
-    Width = 320
-    Height = 120
+    Left = 986
+    Top = 347
+    Width = 600
+    Height = 225
+    Margins.Left = 6
+    Margins.Top = 6
+    Margins.Right = 6
+    Margins.Bottom = 6
     DataSource = DataModule1.dsTblUsers
     TabOrder = 2
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
-    TitleFont.Height = -13
+    TitleFont.Height = -24
     TitleFont.Name = 'Segoe UI'
     TitleFont.Style = []
   end
   object chbAdmin: TCheckBox
-    Left = 171
-    Top = 437
-    Width = 134
-    Height = 26
+    Left = 321
+    Top = 819
+    Width = 251
+    Height = 49
+    Margins.Left = 6
+    Margins.Top = 6
+    Margins.Right = 6
+    Margins.Bottom = 6
     Caption = 'Admin?'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -20
+    Font.Height = -38
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False

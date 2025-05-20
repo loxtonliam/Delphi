@@ -10,7 +10,7 @@ uses
   LicenseGenerationUI in 'LicenseGenerationUI.pas' {frmLicenseGen},
   ProfileUI in 'ProfileUI.pas' {frmProfile},
   RoutingUI in 'RoutingUI.pas' {frmRouting},
-  FinesUI in 'FinesUI.pas' {Form1},
+  FinesUI in 'FinesUI.pas' {frmFines},
   Fines_U in 'Fines_U.pas';
 
 {$R *.res}
@@ -18,13 +18,13 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
   Application.CreateForm(TfrmLogin, frmLogin);
+  Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TfrmFines, frmFines);
   Application.CreateForm(TfrmRouting, frmRouting);
   Application.CreateForm(TfrmLicenseGen, frmLicenseGen);
   Application.CreateForm(TDataModule1, DataModule1);
   Application.CreateForm(TfrmSignup, frmSignup);
-  Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TfrmProfile, frmProfile);
   Application.Run;
 end.

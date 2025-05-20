@@ -9,7 +9,7 @@ uses
   Vcl.StdCtrls, Fines_U, Vcl.ComCtrls;
 
 type
-  TForm1 = class(TForm)
+  TfrmFines = class(TForm)
     imgBG: TImage;
     imgGreyDiv: TImage;
     lblFinesTitle: TLabel;
@@ -21,6 +21,7 @@ type
     procedure btnSearchFinesClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnLoadFineClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -29,7 +30,7 @@ type
   end;
 
 var
-  Form1: TForm1;
+  frmFines: TfrmFines;
 
 implementation
 
@@ -38,7 +39,7 @@ implementation
 uses
   DBConnection, LoginScreenUI;
 
-procedure TForm1.btnLoadFineClick(Sender: TObject);
+procedure TfrmFines.btnLoadFineClick(Sender: TObject);
 var
   iPos: integer;
   sFineID, sFineSelected: string;
@@ -72,7 +73,7 @@ begin
   end;
 end;
 
-procedure TForm1.btnSearchFinesClick(Sender: TObject);
+procedure TfrmFines.btnSearchFinesClick(Sender: TObject);
 begin
   ListBox1.show;
   RichEdit1.hide;
@@ -104,7 +105,12 @@ begin
   end;
 end;
 
-procedure TForm1.FormShow(Sender: TObject);
+procedure TfrmFines.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Application.terminate;
+end;
+
+procedure TfrmFines.FormShow(Sender: TObject);
 begin
   Datamodule1.OpenTables;
   if sID = '' then

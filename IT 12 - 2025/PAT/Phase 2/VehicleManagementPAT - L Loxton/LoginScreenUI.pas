@@ -27,6 +27,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure imgLoginButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+
   private
     { Private declarations }
   public
@@ -45,6 +46,8 @@ uses
   DBConnection, SignUpSCreenUI, Shared_U, MainScreenUI;
 
 {$R *.dfm}
+
+
 
 procedure TfrmLogin.FormClose(Sender: TObject; var Action: TCloseAction);
 begin

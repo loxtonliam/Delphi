@@ -1,26 +1,32 @@
-object Form1: TForm1
+object frmFines: TfrmFines
   Left = 0
   Top = 0
-  Caption = 'Form1'
-  ClientHeight = 608
-  ClientWidth = 462
+  Margins.Left = 6
+  Margins.Top = 6
+  Margins.Right = 6
+  Margins.Bottom = 6
+  Caption = 'Fines'
+  ClientHeight = 1140
+  ClientWidth = 864
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -12
+  Font.Height = -23
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnClose = FormClose
   OnShow = FormShow
-  TextHeight = 15
+  PixelsPerInch = 180
+  TextHeight = 31
   object imgBG: TImage
-    Left = -16
-    Top = -201
-    Width = 482
-    Height = 810
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Left = -30
+    Top = -377
+    Width = 905
+    Height = 1519
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 8
     Picture.Data = {
       0A544A504547496D616765AE1F0000FFD8FFE000104A46494600010201004800
       480000FFDB004300010101010101010101010101010101010101010101010101
@@ -279,14 +285,14 @@ object Form1: TForm1
     Stretch = True
   end
   object imgGreyDiv: TImage
-    Left = -18
-    Top = 147
-    Width = 480
-    Height = 461
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Left = -35
+    Top = 276
+    Width = 902
+    Height = 864
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 8
     Picture.Data = {
       0A544A504547496D616765E3170000FFD8FFE000104A46494600010201004800
       480000FFDB004300010101010101010101010101010101010101010101010101
@@ -483,44 +489,56 @@ object Form1: TForm1
     Stretch = True
   end
   object lblFinesTitle: TLabel
-    Left = 153
-    Top = 17
-    Width = 132
-    Height = 74
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Left = 287
+    Top = 32
+    Width = 249
+    Height = 139
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 8
     Caption = 'Fines'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -55
+    Font.Height = -104
     Font.Name = 'Segoe UI'
     Font.Style = [fsBold]
     ParentFont = False
   end
   object btnSearchFines: TButton
-    Left = 192
-    Top = 184
-    Width = 75
-    Height = 25
+    Left = 360
+    Top = 345
+    Width = 141
+    Height = 47
+    Margins.Left = 6
+    Margins.Top = 6
+    Margins.Right = 6
+    Margins.Bottom = 6
     Caption = 'Search Fines'
     TabOrder = 0
     OnClick = btnSearchFinesClick
   end
   object ListBox1: TListBox
-    Left = 151
-    Top = 255
-    Width = 152
-    Height = 146
-    ItemHeight = 15
+    Left = 284
+    Top = 479
+    Width = 285
+    Height = 273
+    Margins.Left = 6
+    Margins.Top = 6
+    Margins.Right = 6
+    Margins.Bottom = 6
+    ItemHeight = 31
     TabOrder = 1
   end
   object cmbSort: TComboBox
-    Left = 309
-    Top = 255
-    Width = 145
-    Height = 23
+    Left = 579
+    Top = 479
+    Width = 273
+    Height = 39
+    Margins.Left = 6
+    Margins.Top = 6
+    Margins.Right = 6
+    Margins.Bottom = 6
     TabOrder = 2
     Text = 'Sort By'
     Items.Strings = (
@@ -530,22 +548,30 @@ object Form1: TForm1
       'fineAmount DESC')
   end
   object btnLoadFine: TButton
-    Left = 309
-    Top = 284
-    Width = 145
-    Height = 25
+    Left = 579
+    Top = 533
+    Width = 273
+    Height = 46
+    Margins.Left = 6
+    Margins.Top = 6
+    Margins.Right = 6
+    Margins.Bottom = 6
     Caption = 'Load Selected Fine'
     TabOrder = 3
     OnClick = btnLoadFineClick
   end
   object RichEdit1: TRichEdit
-    Left = -2
-    Top = 232
-    Width = 305
-    Height = 169
+    Left = -5
+    Top = 435
+    Width = 574
+    Height = 317
+    Margins.Left = 6
+    Margins.Top = 6
+    Margins.Right = 6
+    Margins.Bottom = 6
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -23
     Font.Name = 'Segoe UI'
     Font.Style = []
     Lines.Strings = (

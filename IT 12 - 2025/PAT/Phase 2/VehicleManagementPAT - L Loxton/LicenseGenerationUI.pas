@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, DateUtils;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, DateUtils,
+  Vcl.Imaging.jpeg, Vcl.ExtCtrls, Vcl.Imaging.pngimage;
 
 type
   TfrmLicenseGen = class(TForm)
@@ -13,9 +14,21 @@ type
     RichEdit1: TRichEdit;
     cmbLicenseType: TComboBox;
     cmbProvince: TComboBox;
+    imgBG: TImage;
+    imgGreyDiv: TImage;
+    imgSmallLlogo: TImage;
+    imgBlueMenuBar: TImage;
+    pnlMenu: TPanel;
+    lblTestsMenu: TLabel;
+    lblStationsMenu: TLabel;
+    lblMainMenu: TLabel;
+    lblFinesMenu: TLabel;
+    imgWhiteMenu: TImage;
+    btnProfile: TImage;
     procedure btnGenClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
+    procedure lblMainMenuClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -30,7 +43,7 @@ implementation
 {$R *.dfm}
 
 uses
-  LoginScreenUI, DBConnection, Shared_U;
+  LoginScreenUI, DBConnection, Shared_U, MainScreenUI;
 
 procedure TfrmLicenseGen.btnGenClick(Sender: TObject);
 {
@@ -113,8 +126,8 @@ begin
     TDB.UpdateField('licenseID', sLicense, tblLicenses);
     TDB.UpdateField('typeID', sType, tblLicenses);
     TDB.UpdateField('ExpirationDate', DateTostr(incYear(Date, 1)), tblLicenses);
-    TDB.UpdateField('createdAt', DateTostr(Date), tblLicenses);
-    TDB.UpdateField('updatedAt', DateTostr(Date), tblLicenses);
+    TDB.UpdateField('createdAt', DateTimeTostr(Now), tblLicenses);
+    TDB.UpdateField('updatedAt', DateTimeTostr(Now), tblLicenses);
     TDB.UpdateField('ownerID', sID, tblLicenses);
     TDB.UpdateField('provinceID', sProv, tblLicenses);
     tblLicenses.post;
@@ -136,6 +149,12 @@ DataModule1.OpenTables;
   begin
     sID := 'FL4802'
   end;
+end;
+
+procedure TfrmLicenseGen.lblMainMenuClick(Sender: TObject);
+begin
+ frmLicenseGen.hide;
+ frmMain.show;
 end;
 
 end.

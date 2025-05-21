@@ -1,32 +1,27 @@
 object frmLicenseGen: TfrmLicenseGen
   Left = 0
   Top = 0
-  Margins.Left = 6
-  Margins.Top = 6
-  Margins.Right = 6
-  Margins.Bottom = 6
   Caption = 'License Generation'
-  ClientHeight = 1123
-  ClientWidth = 860
+  ClientHeight = 596
+  ClientWidth = 453
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -23
+  Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnClose = FormClose
   OnShow = FormShow
-  PixelsPerInch = 180
-  TextHeight = 31
+  TextHeight = 15
   object imgBG: TImage
-    Left = -30
-    Top = -82
-    Width = 905
-    Height = 1205
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = -16
+    Top = -44
+    Width = 483
+    Height = 643
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Picture.Data = {
       0A544A504547496D616765AE1F0000FFD8FFE000104A46494600010201004800
       480000FFDB004300010101010101010101010101010101010101010101010101
@@ -285,14 +280,14 @@ object frmLicenseGen: TfrmLicenseGen
     Stretch = True
   end
   object imgGreyDiv: TImage
-    Left = -42
-    Top = 125
-    Width = 902
-    Height = 998
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = -22
+    Top = 67
+    Width = 481
+    Height = 532
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Picture.Data = {
       0A544A504547496D616765E3170000FFD8FFE000104A46494600010201004800
       480000FFDB004300010101010101010101010101010101010101010101010101
@@ -489,14 +484,10 @@ object frmLicenseGen: TfrmLicenseGen
     Stretch = True
   end
   object imgSmallLlogo: TImage
-    Left = 708
-    Top = -17
-    Width = 152
-    Height = 154
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 378
+    Top = -9
+    Width = 81
+    Height = 82
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000000540000
       00760806000000560FB4FC000000097048597300000B1300000B1301009A9C18
@@ -576,13 +567,9 @@ object frmLicenseGen: TfrmLicenseGen
   end
   object imgBlueMenuBar: TImage
     Left = 0
-    Top = 12
-    Width = 122
-    Height = 155
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Top = 6
+    Width = 65
+    Height = 83
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000000300000
       003008060000005702F987000000097048597300000B1300000B1301009A9C18
@@ -596,29 +583,22 @@ object frmLicenseGen: TfrmLicenseGen
       000D03D03C00719C66319F2F4A2F0000000049454E44AE426082}
     Proportional = True
     Stretch = True
+    OnClick = imgBlueMenuBarClick
   end
   object btnGen: TButton
-    Left = 75
-    Top = 270
-    Width = 141
-    Height = 47
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 40
+    Top = 144
+    Width = 75
+    Height = 25
     Caption = 'Gen License'
     TabOrder = 0
     OnClick = btnGenClick
   end
   object RichEdit1: TRichEdit
-    Left = 225
-    Top = 495
-    Width = 482
-    Height = 197
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 120
+    Top = 264
+    Width = 257
+    Height = 105
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -23
@@ -630,14 +610,10 @@ object frmLicenseGen: TfrmLicenseGen
     TabOrder = 1
   end
   object cmbLicenseType: TComboBox
-    Left = 255
-    Top = 272
-    Width = 272
-    Height = 39
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 136
+    Top = 145
+    Width = 145
+    Height = 23
     TabOrder = 2
     Text = 'License Type'
     Items.Strings = (
@@ -648,14 +624,10 @@ object frmLicenseGen: TfrmLicenseGen
       'EC: Heavy Motor Vehicle with Trailer')
   end
   object cmbProvince: TComboBox
-    Left = 585
-    Top = 272
-    Width = 272
-    Height = 39
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 312
+    Top = 145
+    Width = 145
+    Height = 23
     TabOrder = 3
     Text = 'Province'
     Items.Strings = (
@@ -670,70 +642,56 @@ object frmLicenseGen: TfrmLicenseGen
       'Free State')
   end
   object pnlMenu: TPanel
-    Left = -16
+    Left = -9
     Top = 0
-    Width = 407
-    Height = 1099
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Width = 218
+    Height = 586
     Color = 4927789
     ParentBackground = False
     TabOrder = 4
     Visible = False
     object lblTestsMenu: TLabel
-      Left = 55
-      Top = 741
-      Width = 173
-      Height = 100
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Left = 29
+      Top = 395
+      Width = 93
+      Height = 54
       Caption = 'Tests'
       Color = 3878202
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -75
+      Font.Height = -40
       Font.Name = 'Segoe UI'
       Font.Style = [fsBold]
       ParentColor = False
       ParentFont = False
+      OnClick = lblTestsMenuClick
     end
     object lblStationsMenu: TLabel
-      Left = 55
-      Top = 400
-      Width = 151
-      Height = 100
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Left = 29
+      Top = 213
+      Width = 81
+      Height = 54
       Caption = 'Find'
       Color = 3812665
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -75
+      Font.Height = -40
       Font.Name = 'Segoe UI'
       Font.Style = [fsBold]
       ParentColor = False
       ParentFont = False
+      OnClick = lblStationsMenuClick
     end
     object lblMainMenu: TLabel
-      Left = 55
-      Top = 219
-      Width = 178
-      Height = 100
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Left = 29
+      Top = 117
+      Width = 95
+      Height = 54
       Caption = 'Main'
       Color = 3812666
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -75
+      Font.Height = -40
       Font.Name = 'Segoe UI'
       Font.Style = [fsBold]
       ParentColor = False
@@ -741,33 +699,26 @@ object frmLicenseGen: TfrmLicenseGen
       OnClick = lblMainMenuClick
     end
     object lblFinesMenu: TLabel
-      Left = 55
-      Top = 560
-      Width = 179
-      Height = 100
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Left = 29
+      Top = 299
+      Width = 96
+      Height = 54
       Caption = 'Fines'
       Color = 3812666
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -75
+      Font.Height = -40
       Font.Name = 'Segoe UI'
       Font.Style = [fsBold]
       ParentColor = False
       ParentFont = False
+      OnClick = lblFinesMenuClick
     end
     object imgWhiteMenu: TImage
-      Left = 11
-      Top = 11
-      Width = 111
-      Height = 154
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Left = 9
+      Top = 6
+      Width = 59
+      Height = 82
       Picture.Data = {
         0954506E67496D61676589504E470D0A1A0A0000000D49484452000000300000
         003008060000005702F987000000097048597300000B1300000B1301009A9C18
@@ -781,16 +732,13 @@ object frmLicenseGen: TfrmLicenseGen
         5EAF0D54317AB240A70000000049454E44AE426082}
       Proportional = True
       Stretch = True
+      OnClick = imgWhiteMenuClick
     end
     object btnProfile: TImage
-      Left = 266
-      Top = 945
-      Width = 111
-      Height = 154
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Left = 142
+      Top = 504
+      Width = 59
+      Height = 82
       Picture.Data = {
         0954506E67496D61676589504E470D0A1A0A0000000D494844520000003C0000
         004208060000000BD4B5C3000000097048597300000B1300000B1301009A9C18

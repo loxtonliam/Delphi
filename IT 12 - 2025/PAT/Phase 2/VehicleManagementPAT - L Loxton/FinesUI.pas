@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.jpeg, Vcl.ExtCtrls,
-  Vcl.StdCtrls, Fines_U, Vcl.ComCtrls;
+  Vcl.StdCtrls, Fines_U, Vcl.ComCtrls, Vcl.Imaging.pngimage;
 
 type
   TfrmFines = class(TForm)
@@ -18,10 +18,22 @@ type
     cmbSort: TComboBox;
     btnLoadFine: TButton;
     RichEdit1: TRichEdit;
+    imgBlueMenuBar: TImage;
+    pnlMenu: TPanel;
+    lblTestsMenu: TLabel;
+    lblLicense: TLabel;
+    lblMainMenu: TLabel;
+    lblRoutingMenu: TLabel;
+    imgWhiteMenu: TImage;
+    btnProfile: TImage;
     procedure btnSearchFinesClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnLoadFineClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure lblMainMenuClick(Sender: TObject);
+    procedure lblLicenseClick(Sender: TObject);
+    procedure lblRoutingMenuClick(Sender: TObject);
+    procedure lblTestsMenuClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -37,7 +49,7 @@ implementation
 {$R *.dfm}
 
 uses
-  DBConnection, LoginScreenUI;
+  DBConnection, LoginScreenUI, Shared_U;
 
 procedure TfrmFines.btnLoadFineClick(Sender: TObject);
 var
@@ -118,6 +130,26 @@ begin
     sID := 'FL4802'
   end;
 
+end;
+
+procedure TfrmFines.lblRoutingMenuClick(Sender: TObject);
+begin
+ TMenu.RoutingScreen(frmFines)
+end;
+
+procedure TfrmFines.lblLicenseClick(Sender: TObject);
+begin
+ TMenu.LicenseScreen(frmFines)
+end;
+
+procedure TfrmFines.lblMainMenuClick(Sender: TObject);
+begin
+TMenu.MainScreen(frmFines)
+end;
+
+procedure TfrmFines.lblTestsMenuClick(Sender: TObject);
+begin
+  TMenu.TestScreen(frmFines)
 end;
 
 end.

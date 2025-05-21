@@ -45,6 +45,9 @@ type
     procedure imgBlueMenuBarClick(Sender: TObject);
     procedure imgWhiteMenuClick(Sender: TObject);
     procedure lblMenuLicensesClick(Sender: TObject);
+    procedure lblTestsMenuClick(Sender: TObject);
+    procedure btnTestsClick(Sender: TObject);
+    procedure btnSeeMoreClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -60,7 +63,7 @@ implementation
 
 uses
   DBConnection, LoginScreenUI, LicenseGenerationUI, ProfileUI, RoutingUI,
-  FinesUI;
+  FinesUI, TestsUI;
 
 procedure TfrmMain.btnFinesClick(Sender: TObject);
 begin
@@ -80,10 +83,22 @@ begin
   frmprofile.show;
 end;
 
+procedure TfrmMain.btnSeeMoreClick(Sender: TObject);
+begin
+frmMain.hide;
+frmLicenseGen.show;
+end;
+
 procedure TfrmMain.btnStationsClick(Sender: TObject);
 begin
   frmMain.hide;
   frmRouting.show;
+end;
+
+procedure TfrmMain.btnTestsClick(Sender: TObject);
+begin
+frmMain.hide;
+frmTests.show;
 end;
 
 procedure TfrmMain.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -125,5 +140,11 @@ end;
 
 
 
+
+procedure TfrmMain.lblTestsMenuClick(Sender: TObject);
+begin
+frmMain.hide;
+frmTests.show;
+end;
 
 end.

@@ -29,6 +29,11 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure lblMainMenuClick(Sender: TObject);
+    procedure lblStationsMenuClick(Sender: TObject);
+    procedure lblFinesMenuClick(Sender: TObject);
+    procedure lblTestsMenuClick(Sender: TObject);
+    procedure imgBlueMenuBarClick(Sender: TObject);
+    procedure imgWhiteMenuClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -144,6 +149,7 @@ end;
 
 procedure TfrmLicenseGen.FormShow(Sender: TObject);
 begin
+pnlMenu.hide;
 DataModule1.OpenTables;
   if sID = '' then
   begin
@@ -151,10 +157,34 @@ DataModule1.OpenTables;
   end;
 end;
 
+procedure TfrmLicenseGen.imgBlueMenuBarClick(Sender: TObject);
+begin
+pnlMenu.show;
+end;
+
+procedure TfrmLicenseGen.imgWhiteMenuClick(Sender: TObject);
+begin
+pnlMenu.hide;
+end;
+
+procedure TfrmLicenseGen.lblFinesMenuClick(Sender: TObject);
+begin
+TMenu.FinesScreen(frmLicenseGen)
+end;
+
 procedure TfrmLicenseGen.lblMainMenuClick(Sender: TObject);
 begin
- frmLicenseGen.hide;
- frmMain.show;
+ TMenu.MainScreen(frmLicenseGen);
+end;
+
+procedure TfrmLicenseGen.lblStationsMenuClick(Sender: TObject);
+begin
+TMenu.RoutingScreen(frmLicenseGen)
+end;
+
+procedure TfrmLicenseGen.lblTestsMenuClick(Sender: TObject);
+begin
+TMenu.TestScreen(frmLicenseGen)
 end;
 
 end.

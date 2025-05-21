@@ -4,7 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, DBConnection, Data.Win.ADODB, Vcl.StdCtrls, Vcl.ExtCtrls;
+  Dialogs, DBConnection, Data.Win.ADODB, Vcl.StdCtrls, Vcl.ExtCtrls,
+  MainScreenUI, LoginScreenUI, LicenseGenerationUI, FinesUI, SignUpScreenUI,
+  TestsUI, RoutingUI;
 
 type
   TValidation = class(Tobject)
@@ -27,6 +29,7 @@ type
     class function isValidCode(sValue, sFieldName: String;
       iRange: Integer): boolean;
     class function isValidStringAZ(sValue: String): boolean;
+    class function isValidIndex(iIndex: Integer; sFor: string): boolean;
   end;
 
   TDB = class(Tobject)
@@ -41,12 +44,22 @@ type
       Table: TADOTable);
   end;
 
+  TMenu = class(Tobject)
+  public
+    class procedure MainScreen(Form: TForm);
+    class procedure LicenseScreen(Form: TForm);
+    class procedure TestScreen(Form: TForm);
+    class procedure RoutingScreen(Form: TForm);
+    class procedure FinesScreen(Form: TForm);
+  end;
+
 var
   bAdmin: boolean;
 
 implementation
 
-class procedure TDB.ShowHidePassword(imgName: TImage; edtName: TEdit; iState: Integer);
+class procedure TDB.ShowHidePassword(imgName: TImage; edtName: TEdit;
+  iState: Integer);
 begin
 
   // checking if iState is even, if it is even => show password picture is currently shown
@@ -66,7 +79,8 @@ begin
   end;
 end;
 
-class procedure TDB.UpdateField(field: string; input: Variant; Table: TADOTable);
+class procedure TDB.UpdateField(field: string; input: Variant;
+  Table: TADOTable);
 begin
 
   with DataModule1 do
@@ -321,6 +335,19 @@ begin
   result := bFlag;
 end;
 
+class function TValidation.isValidIndex(iIndex: Integer; sFor: string): boolean;
+begin
+  if iIndex > -1 then
+  begin
+    result := true;
+  end
+  else
+  begin
+    showmessage('Please select a value for: "' + sFor + '"');
+    result := False;
+  end;
+end;
+
 class function TValidation.isValidInteger(sValue, sFieldName: String): boolean;
 Var
   bFlag: boolean;
@@ -424,5 +451,35 @@ begin
   result := bFlag;
 end; // function
 
+{ TMenu }
+
+class procedure TMenu.FinesScreen(Form: TForm);
+begin
+ Form.hide;
+frmFines.show;
+end;
+
+class procedure TMenu.LicenseScreen(Form: TForm);
+begin
+  Form.hide;
+  frmLicenseGen.show;
+end;
+
+class procedure TMenu.MainScreen(Form: TForm);
+begin
+  Form.hide;
+  frmMain.show;
+end;
+
+class procedure TMenu.RoutingScreen(Form: TForm);
+begin
+  Form.hide;
+  frmRouting.show;
+end;
+
+class procedure TMenu.TestScreen(Form: TForm);
+begin
+
+end;
 
 end.

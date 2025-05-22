@@ -48,6 +48,8 @@ type
     procedure lblTestsMenuClick(Sender: TObject);
     procedure btnTestsClick(Sender: TObject);
     procedure btnSeeMoreClick(Sender: TObject);
+    procedure lblStationsMenuClick(Sender: TObject);
+    procedure lblFinesMenuClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -63,7 +65,7 @@ implementation
 
 uses
   DBConnection, LoginScreenUI, LicenseGenerationUI, ProfileUI, RoutingUI,
-  FinesUI, TestsUI;
+  FinesUI, TestsUI, Shared_U;
 
 procedure TfrmMain.btnFinesClick(Sender: TObject);
 begin
@@ -132,19 +134,27 @@ begin
 pnlMenu.visible := false;
 end;
 
+procedure TfrmMain.lblFinesMenuClick(Sender: TObject);
+begin
+TMenu.FinesScreen(frmMain)
+end;
+
 procedure TfrmMain.lblMenuLicensesClick(Sender: TObject);
 begin
-frmMain.hide;
- frmLicenseGen.show;
+TMenu.LicenseScreen(frmMain)
 end;
 
 
 
 
+procedure TfrmMain.lblStationsMenuClick(Sender: TObject);
+begin
+  TMenu.RoutingScreen(frmMain)
+end;
+
 procedure TfrmMain.lblTestsMenuClick(Sender: TObject);
 begin
-frmMain.hide;
-frmTests.show;
+TMenu.TestScreen(frmMain)
 end;
 
 end.

@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.jpeg, Vcl.ExtCtrls,
-  Vcl.Imaging.pngimage, Vcl.StdCtrls;
+  Vcl.Imaging.pngimage, Vcl.StdCtrls, Vcl.ComCtrls;
 
 type
   TfrmProfile = class(TForm)
@@ -14,8 +14,12 @@ type
     Image2: TImage;
     lblTitle: TLabel;
     imgLoginButton: TImage;
+    redAccountInfo: TRichEdit;
+    btnLogout: TButton;
     procedure imgLoginButtonClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure btnLogoutClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -30,11 +34,30 @@ implementation
 {$R *.dfm}
 
 uses
-  DBConnection, LoginScreenUI;
+  DBConnection, LoginScreenUI, Shared_U;
+
+procedure TfrmProfile.btnLogoutClick(Sender: TObject);
+begin
+ if UpperCase(inputbox('','Are you sure you want to logout? Y/N','')) = 'Y' then
+ begin
+   frmProfile.hide;
+   frmLogin.show;
+   sID := '';
+   bAdmin := false;
+ end;
+
+end;
 
 procedure TfrmProfile.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 application.terminate;
+end;
+
+procedure TfrmProfile.FormShow(Sender: TObject);
+begin
+DataModule1.OpenTables;
+redAccountInfo.clear;
+redAccountInfo.lines.add(DataModule1.userToString(sId));
 end;
 
 procedure TfrmProfile.imgLoginButtonClick(Sender: TObject);

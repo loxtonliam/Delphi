@@ -1,32 +1,27 @@
 object frmMain: TfrmMain
   Left = 0
   Top = 0
-  Margins.Left = 6
-  Margins.Top = 6
-  Margins.Right = 6
-  Margins.Bottom = 6
   Caption = 'Form1'
-  ClientHeight = 1108
-  ClientWidth = 853
+  ClientHeight = 550
+  ClientWidth = 465
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -23
+  Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnClose = FormClose
   OnShow = FormShow
-  PixelsPerInch = 180
-  TextHeight = 31
+  TextHeight = 15
   object imgBG: TImage
-    Left = -30
-    Top = -71
-    Width = 906
-    Height = 1204
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = -16
+    Top = -38
+    Width = 483
+    Height = 642
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Picture.Data = {
       0A544A504547496D616765AE1F0000FFD8FFE000104A46494600010201004800
       480000FFDB004300010101010101010101010101010101010101010101010101
@@ -285,14 +280,14 @@ object frmMain: TfrmMain
     Stretch = True
   end
   object imgGreyDiv: TImage
-    Left = -26
-    Top = 135
-    Width = 902
-    Height = 998
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
+    Left = -14
+    Top = 72
+    Width = 481
+    Height = 532
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Picture.Data = {
       0A544A504547496D616765E3170000FFD8FFE000104A46494600010201004800
       480000FFDB004300010101010101010101010101010101010101010101010101
@@ -490,13 +485,9 @@ object frmMain: TfrmMain
   end
   object imgBlueMenuBar: TImage
     Left = 0
-    Top = 11
-    Width = 122
-    Height = 156
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Top = 6
+    Width = 65
+    Height = 83
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000000300000
       003008060000005702F987000000097048597300000B1300000B1301009A9C18
@@ -513,14 +504,10 @@ object frmMain: TfrmMain
     OnClick = imgBlueMenuBarClick
   end
   object imgSmallLlogo: TImage
-    Left = 765
-    Top = -17
-    Width = 152
-    Height = 154
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 408
+    Top = -9
+    Width = 81
+    Height = 82
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000000540000
       00760806000000560FB4FC000000097048597300000B1300000B1301009A9C18
@@ -599,52 +586,40 @@ object frmMain: TfrmMain
     Stretch = True
   end
   object lblNext: TLabel
-    Left = 11
-    Top = 236
-    Width = 563
-    Height = 100
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 6
+    Top = 126
+    Width = 301
+    Height = 54
     Caption = 'NEXT RENEWAL: '
     Color = 1468
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clRed
-    Font.Height = -75
+    Font.Height = -40
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentColor = False
     ParentFont = False
   end
   object lblActive: TLabel
-    Left = 11
-    Top = 339
-    Width = 632
-    Height = 128
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 6
+    Top = 181
+    Width = 338
+    Height = 68
     Caption = 'Active Licenses'
     Color = 3812663
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 3747125
-    Font.Height = -96
+    Font.Height = -51
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentColor = False
     ParentFont = False
   end
   object imgGreen: TImage
-    Left = 11
-    Top = 467
-    Width = 853
-    Height = 129
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 6
+    Top = 249
+    Width = 455
+    Height = 69
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000001A50000
       002E080600000088D20601000000097048597300000B1300000B1301009A9C18
@@ -672,14 +647,10 @@ object frmMain: TfrmMain
     Stretch = True
   end
   object imgRedRec: TImage
-    Left = 11
-    Top = 600
-    Width = 853
-    Height = 129
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 6
+    Top = 320
+    Width = 455
+    Height = 69
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000001A50000
       002E080600000088D20601000000097048597300000B1300000B1301009A9C18
@@ -707,14 +678,10 @@ object frmMain: TfrmMain
     Stretch = True
   end
   object btnGreenRenew: TImage
-    Left = 593
-    Top = 478
-    Width = 249
-    Height = 83
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 316
+    Top = 255
+    Width = 133
+    Height = 44
     ParentShowHint = False
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D494844520000006F0000
@@ -764,14 +731,10 @@ object frmMain: TfrmMain
     Stretch = True
   end
   object btnRedRenew: TImage
-    Left = 593
-    Top = 609
-    Width = 249
-    Height = 81
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 316
+    Top = 325
+    Width = 133
+    Height = 43
     ParentShowHint = False
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D494844520000006F0000
@@ -821,14 +784,10 @@ object frmMain: TfrmMain
     Stretch = True
   end
   object btnSeeMore: TImage
-    Left = 326
-    Top = 714
-    Width = 250
-    Height = 81
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 174
+    Top = 381
+    Width = 133
+    Height = 43
     ParentShowHint = False
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D494844520000006F0000
@@ -882,14 +841,10 @@ object frmMain: TfrmMain
     OnClick = btnSeeMoreClick
   end
   object btnStations: TImage
-    Left = 101
-    Top = 894
-    Width = 111
-    Height = 143
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 54
+    Top = 477
+    Width = 59
+    Height = 76
     ParentShowHint = False
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000000300000
@@ -937,14 +892,10 @@ object frmMain: TfrmMain
     OnClick = btnStationsClick
   end
   object btnFines: TImage
-    Left = 377
-    Top = 896
-    Width = 120
-    Height = 178
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 201
+    Top = 478
+    Width = 64
+    Height = 95
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000000300000
       003008060000005702F987000000097048597300000B1300000B1301009A9C18
@@ -972,14 +923,10 @@ object frmMain: TfrmMain
     OnClick = btnFinesClick
   end
   object btnTests: TImage
-    Left = 632
-    Top = 895
-    Width = 120
-    Height = 179
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 337
+    Top = 477
+    Width = 64
+    Height = 96
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000000300000
       003008060000005702F987000000097048597300000B1300000B1301009A9C18
@@ -1005,118 +952,90 @@ object frmMain: TfrmMain
     OnClick = btnTestsClick
   end
   object lblStations: TLabel
-    Left = 60
-    Top = 838
-    Width = 183
-    Height = 45
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 32
+    Top = 447
+    Width = 97
+    Height = 23
     Caption = 'Find Stations'
     Color = 3812664
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 3747125
-    Font.Height = -32
+    Font.Height = -17
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentColor = False
     ParentFont = False
   end
   object lblFines: TLabel
-    Left = 377
-    Top = 838
-    Width = 110
-    Height = 45
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 201
+    Top = 447
+    Width = 58
+    Height = 23
     Caption = 'X Fines!'
     Color = 3812665
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 3747125
-    Font.Height = -32
+    Font.Height = -17
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentColor = False
     ParentFont = False
   end
   object lblTests: TLabel
-    Left = 656
-    Top = 838
-    Width = 70
-    Height = 45
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 350
+    Top = 447
+    Width = 36
+    Height = 23
     Caption = 'Tests'
     Color = 3812666
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 3747125
-    Font.Height = -32
+    Font.Height = -17
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentColor = False
     ParentFont = False
   end
   object Image10: TImage
-    Left = 718
-    Top = 225
-    Width = 197
-    Height = 197
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 383
+    Top = 120
+    Width = 105
+    Height = 105
   end
   object lblTitleMain: TLabel
-    Left = 133
-    Top = -6
-    Width = 185
-    Height = 170
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Left = 71
+    Top = -3
+    Width = 98
+    Height = 91
     Caption = 'Hi, '
     Color = 3747125
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 3747125
-    Font.Height = -128
+    Font.Height = -68
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentColor = False
     ParentFont = False
   end
   object pnlMenu: TPanel
-    Left = -17
+    Left = -9
     Top = 0
-    Width = 409
-    Height = 1133
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Width = 218
+    Height = 604
     Color = 4927789
     ParentBackground = False
     TabOrder = 0
     Visible = False
     object lblTestsMenu: TLabel
-      Left = 54
-      Top = 741
-      Width = 173
-      Height = 100
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Left = 29
+      Top = 395
+      Width = 93
+      Height = 54
       Caption = 'Tests'
       Color = 3878202
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -75
+      Font.Height = -40
       Font.Name = 'Segoe UI'
       Font.Style = [fsBold]
       ParentColor = False
@@ -1124,19 +1043,15 @@ object frmMain: TfrmMain
       OnClick = lblTestsMenuClick
     end
     object lblStationsMenu: TLabel
-      Left = 54
-      Top = 399
-      Width = 151
-      Height = 100
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Left = 29
+      Top = 213
+      Width = 81
+      Height = 54
       Caption = 'Find'
       Color = 3812665
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -75
+      Font.Height = -40
       Font.Name = 'Segoe UI'
       Font.Style = [fsBold]
       ParentColor = False
@@ -1144,19 +1059,15 @@ object frmMain: TfrmMain
       OnClick = lblStationsMenuClick
     end
     object lblMenuLicenses: TLabel
-      Left = 54
-      Top = 227
-      Width = 288
-      Height = 100
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Left = 29
+      Top = 121
+      Width = 154
+      Height = 54
       Caption = 'Licenses'
       Color = 3812664
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -75
+      Font.Height = -40
       Font.Name = 'Segoe UI'
       Font.Style = [fsBold]
       ParentColor = False
@@ -1164,19 +1075,15 @@ object frmMain: TfrmMain
       OnClick = lblMenuLicensesClick
     end
     object lblFinesMenu: TLabel
-      Left = 54
-      Top = 561
-      Width = 179
-      Height = 100
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Left = 29
+      Top = 299
+      Width = 96
+      Height = 54
       Caption = 'Fines'
       Color = 3812666
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -75
+      Font.Height = -40
       Font.Name = 'Segoe UI'
       Font.Style = [fsBold]
       ParentColor = False
@@ -1184,14 +1091,10 @@ object frmMain: TfrmMain
       OnClick = lblFinesMenuClick
     end
     object imgWhiteMenu: TImage
-      Left = 11
-      Top = 11
-      Width = 111
-      Height = 154
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Left = 6
+      Top = 6
+      Width = 59
+      Height = 82
       Picture.Data = {
         0954506E67496D61676589504E470D0A1A0A0000000D49484452000000300000
         003008060000005702F987000000097048597300000B1300000B1301009A9C18
@@ -1208,14 +1111,10 @@ object frmMain: TfrmMain
       OnClick = imgWhiteMenuClick
     end
     object btnProfile: TImage
-      Left = 266
-      Top = 945
-      Width = 111
-      Height = 154
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Left = 142
+      Top = 504
+      Width = 59
+      Height = 82
       Picture.Data = {
         0954506E67496D61676589504E470D0A1A0A0000000D494844520000003C0000
         004208060000000BD4B5C3000000097048597300000B1300000B1301009A9C18

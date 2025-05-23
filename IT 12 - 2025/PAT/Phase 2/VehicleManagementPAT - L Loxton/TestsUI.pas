@@ -159,7 +159,7 @@ end;
 
 procedure TfrmTests.lblFinesMenuClick(Sender: TObject);
 begin
-TMenu.TestScreen(frmTests)
+TMenu.FinesScreen(frmTests)
 end;
 
 procedure TfrmTests.lblMainMenuClick(Sender: TObject);

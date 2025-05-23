@@ -281,7 +281,7 @@ object frmFines: TfrmFines
   end
   object imgGreyDiv: TImage
     Left = -19
-    Top = 72
+    Top = 96
     Width = 481
     Height = 461
     Margins.Left = 4
@@ -518,10 +518,11 @@ object frmFines: TfrmFines
       000D03D03C00719C66319F2F4A2F0000000049454E44AE426082}
     Proportional = True
     Stretch = True
+    OnClick = imgBlueMenuBarClick
   end
   object btnSearchFines: TButton
     Left = 192
-    Top = 184
+    Top = 201
     Width = 75
     Height = 25
     Caption = 'Search Fines'
@@ -536,30 +537,17 @@ object frmFines: TfrmFines
     ItemHeight = 15
     TabOrder = 1
   end
-  object cmbSort: TComboBox
-    Left = 309
-    Top = 255
-    Width = 145
-    Height = 23
-    TabOrder = 2
-    Text = 'Sort By'
-    Items.Strings = (
-      'fineDate ASC'
-      'fineDate DESC'
-      'fineAmount ASC'
-      'fineAmount DESC')
-  end
   object btnLoadFine: TButton
-    Left = 309
-    Top = 284
+    Left = 289
+    Top = 201
     Width = 145
     Height = 25
     Caption = 'Load Selected Fine'
-    TabOrder = 3
+    TabOrder = 2
     OnClick = btnLoadFineClick
   end
   object RichEdit1: TRichEdit
-    Left = -3
+    Left = 81
     Top = 232
     Width = 306
     Height = 169
@@ -571,16 +559,77 @@ object frmFines: TfrmFines
     Lines.Strings = (
       'RichEdit1')
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 3
+  end
+  object cmbSort: TComboBox
+    Left = 151
+    Top = 172
+    Width = 145
+    Height = 23
+    TabOrder = 5
+    Text = 'Sort By'
+    Items.Strings = (
+      'fineDate ASC'
+      'fineDate DESC'
+      'fineAmount ASC'
+      'fineAmount DESC')
+  end
+  object edtID: TEdit
+    Left = 162
+    Top = 172
+    Width = 121
+    Height = 23
+    TabOrder = 6
+    Text = 'Enter ID'
+  end
+  object spnFine: TSpinEdit
+    Left = 162
+    Top = 407
+    Width = 121
+    Height = 24
+    MaxValue = 0
+    MinValue = 0
+    TabOrder = 7
+    Value = 0
+  end
+  object DatePicker1: TDatePicker
+    Left = 146
+    Top = 448
+    Date = 45800.000000000000000000
+    DateFormat = 'm/d/yyyy'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    TabOrder = 8
+  end
+  object btnSubmit: TButton
+    Left = 192
+    Top = 505
+    Width = 75
+    Height = 25
+    Caption = 'SubmitFine'
+    TabOrder = 9
+    OnClick = btnSubmitClick
+  end
+  object btnSeachLicenses: TButton
+    Left = 162
+    Top = 201
+    Width = 102
+    Height = 25
+    Caption = 'Search Licenses'
+    TabOrder = 10
+    OnClick = btnSeachLicensesClick
   end
   object pnlMenu: TPanel
-    Left = -9
-    Top = 0
+    Left = 0
+    Top = 1
     Width = 218
     Height = 586
     Color = 4927789
     ParentBackground = False
-    TabOrder = 5
+    TabOrder = 4
     Visible = False
     object lblTestsMenu: TLabel
       Left = 28
@@ -706,5 +755,21 @@ object frmFines: TfrmFines
       Proportional = True
       Stretch = True
     end
+  end
+  object cmbType: TComboBox
+    Left = 302
+    Top = 407
+    Width = 145
+    Height = 23
+    TabOrder = 11
+    Text = 'Type of Fine'
+    Items.Strings = (
+      'Speeding'
+      'DUI'
+      'Reckless Driving'
+      'Seatbelt Violation'
+      'Unlicensed Vehicle'
+      'Using Cellphone'
+      'Overloading Vehicle')
   end
 end

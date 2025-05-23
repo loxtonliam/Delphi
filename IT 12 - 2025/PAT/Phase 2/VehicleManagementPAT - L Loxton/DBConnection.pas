@@ -27,6 +27,7 @@ type
     dsUserRoles: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
     procedure OpenTables;
+    function userToString(id:string): string;
   private
     { Private declarations }
   public
@@ -41,6 +42,8 @@ implementation
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
+uses
+LoginScreenUI;
 
 
 
@@ -102,6 +105,24 @@ begin
  tblProvinces.open;
  tblLicenseTypes.open;
  tblUserRoles.open;
+end;
+
+function TDataModule1.userToString(id:string): string;
+begin
+with DataModule1 do
+begin
+  ADOQuery1.Close;
+  ADOQuery1.SQL.Text := 'SELECT * FROM tblUsers WHERE userID = "'+id+'"';
+  ADOQuery1.Open;
+    result := 'ID: ' + ADOQuery1.FieldByName('userID').AsString + #13 +
+      'Username: ' + ADOQuery1.FieldByName('Username').AsString + #13 +
+      'First Name: ' + ADOQuery1.FieldByName('firstName').AsString + #13 +
+      'lastName: ' + ADOQuery1.FieldByName('lastName').AsString + #13 +
+      'Email: ' + ADOQuery1.FieldByName('emailAddress').asstring + #13 + 'Contact: ' +
+      ADOQuery1.FieldByName('contactNumber').AsString + #13 + 'DOB: ' +
+      ADOQuery1.FieldByName('dateOfBirth').AsString;
+  end;
+
 end;
 
 end.

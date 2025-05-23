@@ -87,8 +87,8 @@ end;
 
 procedure TfrmMain.btnSeeMoreClick(Sender: TObject);
 begin
-frmMain.hide;
-frmLicenseGen.show;
+  frmMain.hide;
+  frmLicenseGen.show;
 end;
 
 procedure TfrmMain.btnStationsClick(Sender: TObject);
@@ -99,8 +99,8 @@ end;
 
 procedure TfrmMain.btnTestsClick(Sender: TObject);
 begin
-frmMain.hide;
-frmTests.show;
+  frmMain.hide;
+  frmTests.show;
 end;
 
 procedure TfrmMain.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -111,41 +111,55 @@ end;
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
   pnlMenu.visible := false;
-  with Datamodule1 do
+  if bAdmin then
   begin
-    ADOQuery1.close;
-    ADOQuery1.SQL.Text := 'SELECT * FROM tblUsers WHERE Username = "' +
-      sUsername + '"';
-    ADOQuery1.open;
-    if ADOQuery1.RecordCount > 0 then
+    lblTitleMain.caption := 'Hi, Admin';
+  end
+  else
+  begin
+    with Datamodule1 do
     begin
-      lblTitleMain.caption := 'Hi, ' + tblUsers['firstName'];
+      // getting first name for title
+      ADOQuery1.close;
+      ADOQuery1.SQL.Text := 'SELECT * FROM tblUsers WHERE Username = "' +
+        sUsername + '"';
+      ADOQuery1.open;
+      if ADOQuery1.RecordCount > 0 then
+      begin
+        lblTitleMain.caption := 'Hi, ' + ADOQuery1.FieldByName('firstName').AsString;
+      end;
+
+      // fine number
+      ADOQuery1.close;
+      ADOQuery1.SQL.Text := 'SELECT * FROM tblFines WHERE ownerID = "' +
+        sID + '"';
+      ADOQuery1.open;
+      lblFines.caption := IntToStr(ADOQuery1.RecordCount) + ' Fines!';
+
     end;
   end;
+
 end;
 
 procedure TfrmMain.imgBlueMenuBarClick(Sender: TObject);
 begin
-pnlMenu.Visible := true;
+  pnlMenu.visible := true;
 end;
 
 procedure TfrmMain.imgWhiteMenuClick(Sender: TObject);
 begin
-pnlMenu.visible := false;
+  pnlMenu.visible := false;
 end;
 
 procedure TfrmMain.lblFinesMenuClick(Sender: TObject);
 begin
-TMenu.FinesScreen(frmMain)
+  TMenu.FinesScreen(frmMain)
 end;
 
 procedure TfrmMain.lblMenuLicensesClick(Sender: TObject);
 begin
-TMenu.LicenseScreen(frmMain)
+  TMenu.LicenseScreen(frmMain)
 end;
-
-
-
 
 procedure TfrmMain.lblStationsMenuClick(Sender: TObject);
 begin
@@ -154,7 +168,7 @@ end;
 
 procedure TfrmMain.lblTestsMenuClick(Sender: TObject);
 begin
-TMenu.TestScreen(frmMain)
+  TMenu.TestScreen(frmMain)
 end;
 
 end.

@@ -479,7 +479,8 @@ end;
 
 class procedure TMenu.TestScreen(Form: TForm);
 begin
-
+  form.hide;
+  frmTests.show;
 end;
 
 end.

@@ -32,13 +32,14 @@ type
     { Private declarations }
   public
     { Public declarations }
+
   end;
 
 var
   frmLogin: TfrmLogin;
   sUsername, sPassword, sID: String;
   fDatafile: textfile;
-  bAdmin: boolean;
+
 
 implementation
 

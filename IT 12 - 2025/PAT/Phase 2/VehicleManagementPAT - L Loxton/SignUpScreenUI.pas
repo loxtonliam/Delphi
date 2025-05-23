@@ -111,22 +111,34 @@ begin
         sUser := edtUsername.text;
         sFirstName := edtFirstName.text;
         sLastName := edtLastName.text;
-      end;
-
-
-      sEmail := edtEmail.text;
-      if length(sContact) = 10 then
-      begin
-       sContact := edtContact.text;
       end
       else
       begin
-        showmessage('Contact number must be ten digits long');
+        exit;
+      end;
+
+      sEmail := edtEmail.text;
+      if TValidation.notEmpty(edtContact.text, 'Contact') then
+      begin
+        sContact := edtContact.Text;
+        if length(sContact) = 10 then
+        begin
+          sContact := edtContact.text;
+        end
+        else
+        begin
+          showmessage('Contact number must be ten digits long');
+          exit;
+        end;
       end;
 
       if dtpDOB.Date < Date then
       begin
-       DOB := dtpDOB.Date;
+        DOB := dtpDOB.Date;
+      end
+      else
+      begin
+        exit;
       end;
 
       sUserID := copy(sFirstName, 1, 1) + copy(sLastName, 1, 1) +

@@ -55,11 +55,19 @@ uses
   Shared_U, LoginScreenUI, DBConnection;
 
 procedure TfrmTests.btnApplyClick(Sender: TObject);
+{
+ allows for test applications
+ - validate inputs
+ - generate unique id
+ - extract station id
+ - input vals
+}
 var
   sType, sStation, sAppID, sStationID: string;
   dDate: TDateTime;
 
 begin
+//validation
   if TValidation.isValidIndex(cmbType.ItemIndex, 'Type') then
   begin
     sType := cmbType.items[cmbType.ItemIndex];

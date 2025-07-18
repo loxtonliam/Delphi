@@ -1,21 +1,12 @@
-﻿[lblLoginSignUpScreen]
-Coordinates=222,78,124,51
-
-[lblSignUpScreen]
-Coordinates=74,10,96,51
-Visible=True
-
-[imgBG]
+﻿[imgBG]
 Coordinates=10,10,48,51
 
 [imgGreyDiv]
 Coordinates=194,10,72,51
 
-[imgLoginLineLbl]
-Coordinates=10,78,97,51
-
 []
-Coordinates=149,167,40,51
+Coordinates=74,10,96,51
+Visible=True
 
 [edtName]
 Coordinates=241,148,57,51

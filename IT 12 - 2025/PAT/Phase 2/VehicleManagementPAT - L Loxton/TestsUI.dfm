@@ -605,14 +605,14 @@ object frmTests: TfrmTests
   object lblType: TLabel
     Left = 31
     Top = 149
-    Width = 90
+    Width = 92
     Height = 15
     Caption = 'Choose Test Type'
   end
   object lblDate: TLabel
     Left = 0
     Top = 216
-    Width = 132
+    Width = 133
     Height = 15
     Caption = 'Choose Desired Test Date'
   end

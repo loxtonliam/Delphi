@@ -37,6 +37,11 @@ uses
   DBConnection, LoginScreenUI, Shared_U;
 
 procedure TfrmProfile.btnLogoutClick(Sender: TObject);
+{
+logout user
+- check for confirmation
+- reset ID and show login screen
+}
 begin
  if UpperCase(inputbox('','Are you sure you want to logout? Y/N','')) = 'Y' then
  begin
@@ -49,11 +54,17 @@ begin
 end;
 
 procedure TfrmProfile.FormClose(Sender: TObject; var Action: TCloseAction);
+//close app on form close
 begin
 application.terminate;
 end;
 
 procedure TfrmProfile.FormShow(Sender: TObject);
+{
+ - open DB tables
+ - clear rich edits and then display to string method
+    - display user info
+}
 begin
 DataModule1.OpenTables;
 redAccountInfo.clear;

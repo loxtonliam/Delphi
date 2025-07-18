@@ -12,21 +12,21 @@ type
   TfrmLogin = class(TForm)
     imgBG: TImage;
     imgGreyDiv: TImage;
-    imgLoginLineLbl: TImage;
     edtUsernameLogin: TEdit;
     edtPasswordLogin: TEdit;
     imgLoginButton: TImage;
-    LblLogin: TLabel;
-    lblSignUp: TLabel;
-    imgEmailIcon: TImage;
     imgPassIcon: TImage;
     DBGrid1: TDBGrid;
     imgLogoMain: TImage;
-    chbAdmin: TCheckBox;
-    procedure lblSignUpClick(Sender: TObject);
+    Image1: TImage;
+    Notebook1: TNotebook;
+    Image2: TImage;
+    Image3: TImage;
+
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure imgLoginButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -40,7 +40,6 @@ var
   sUsername, sPassword, sID: String;
   fDatafile: textfile;
 
-
 implementation
 
 uses
@@ -48,114 +47,100 @@ uses
 
 {$R *.dfm}
 
-
-
 procedure TfrmLogin.FormClose(Sender: TObject; var Action: TCloseAction);
+// close app on form close
 begin
   Application.Terminate;
 end;
 
 procedure TfrmLogin.FormShow(Sender: TObject);
+// open Db tables
 begin
   Datamodule1.OpenTables;
+end;
+
+procedure TfrmLogin.Image1Click(Sender: TObject);
+{
+  button to show sign up screen
+}
+begin
+  frmSignup.show;
+  frmLogin.hide;
 end;
 
 procedure TfrmLogin.imgLoginButtonClick(Sender: TObject);
 var
   sLine: string;
   {
-    Login using sql query
-    - check for matching records
+    - validate edit boxes
+    - extract username + password from form
+    - Check if username and password combo is found in DB using query
+    - extract user type from DB
+    - Update login trail with details + date/time
   }
 begin
   bAdmin := false;
   if TValidation.notEmpty(edtUsernameLogin.text, 'Username') then
+  // checking if empty
   begin
     if TValidation.notEmpty(edtPasswordLogin.text, 'Password') then
+    // checking if empty
     begin
-      sUsername := edtUsernameLogin.text;
+      sUsername := edtUsernameLogin.text; // extraction
       sPassword := edtPasswordLogin.text;
 
-      if chbAdmin.checked then
+      with Datamodule1 do
       begin
-        with Datamodule1 do
+        ADOQuery1.sql.text := 'SELECT * FROM tblUsers WHERE Username = "' +
+          sUsername + '" AND Password = "' + sPassword + '"';
+        // checking login for admins
+        ADOQuery1.open;
+        if ADOQuery1.RecordCount > 0 then
         begin
-          ADOQuery1.sql.text := 'SELECT * FROM tblUsers WHERE Username = "' +
-            sUsername + '" AND Password = "' + sPassword +
-            '" AND userRoleID = 0';
-          ADOQuery1.open;
-          if ADOQuery1.RecordCount > 0 then
+          showmessage('Successful login');
+          sID := ADOQuery1.FieldByName('UserID').asstring;
+          if ADOQuery1.FieldByName('UserRoles').asstring = 'Admin' then
           begin
-            showmessage('Successful login');
-            sID := ADOQuery1.FieldByName('UserID').AsString;
             bAdmin := True;
-            // Text file login trail
 
-            if FileExists('LoginTrail.txt') then // TO DO: USER TYPES
-            begin
-              Assignfile(fDatafile, 'LoginTrail.txt');
-              Append(fDatafile);
-              sLine := sID + '#' + Datetostr(Date) + '#' + timetostr(time) + '#'
-                + 'Admin';
-              writeln(fDatafile, sLine);
-              closefile(fDatafile);
-            end;
-
-            frmMain.show;
-            frmLogin.hide;
           end
           else
           begin
-            showmessage('unsuccessful');
-          end
-        end;
-      end
-      else
-      begin
-        with Datamodule1 do
+            bAdmin := false;
+
+          end;
+          if FileExists('LoginTrail.txt') then // TO DO: USER TYPES
+          begin
+            Assignfile(fDatafile, 'LoginTrail.txt');
+            Append(fDatafile);
+            sLine := sID + '#' + Datetostr(Date) + '#' + timetostr(time) + '#' +
+              ADOQuery1.FieldByName('UserRoles').asstring;
+            writeln(fDatafile, sLine);
+            closefile(fDatafile);
+          end;
+
+
+
+          // Text file login trail
+
+          frmMain.show;
+          frmLogin.hide;
+        end // record count if
+        else
         begin
-          ADOQuery1.sql.text := 'SELECT * FROM tblUsers WHERE Username = "' +
-            sUsername + '" AND Password = "' + sPassword + '"';
-          ADOQuery1.open;
-          if ADOQuery1.RecordCount > 0 then
-          begin
-            showmessage('Successful login');
-            sID := ADOQuery1.FieldByName('UserID').AsString;
-            // Text file login trail
+          showmessage('unsuccessful');
+        end // else
 
-            if FileExists('LoginTrail.txt') then // TO DO: USER TYPES
-            begin
-              Assignfile(fDatafile, 'LoginTrail.txt');
-              Append(fDatafile);
-              sLine := sID + '#' + Datetostr(Date) + '#' + timetostr(time) + '#'
-                + 'Car Owner';
-              writeln(fDatafile, sLine);
-              closefile(fDatafile);
-            end;
+      end // dm
 
-            frmMain.show;
-            frmLogin.hide;
-          end
-          else
-          begin
-            showmessage('unsuccessful');
-          end
-        end
-      end;;
-    end;
+    end; // if val
 
   end
   else
   begin
-    showmessage('Email cannot be blank');
-  end;
+    showmessage('Username cannot be blank');
+  end; // if val
 
-end;
-
-procedure TfrmLogin.lblSignUpClick(Sender: TObject);
-begin
-  frmSignup.show;
-  frmLogin.hide;
 end;
 
 end.

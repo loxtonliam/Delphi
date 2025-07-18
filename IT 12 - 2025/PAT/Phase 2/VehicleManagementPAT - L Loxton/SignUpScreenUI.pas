@@ -12,9 +12,6 @@ type
   TfrmSignup = class(TForm)
     imgBG: TImage;
     imgGreyDiv: TImage;
-    lblSignUpScreen: TLabel;
-    imgLoginLineLbl: TImage;
-    lblLoginSignUpScreen: TLabel;
     edtUsername: TEdit;
     chbCarOwner: TCheckBox;
     chbAdmin: TCheckBox;
@@ -27,13 +24,16 @@ type
     edtContact: TEdit;
     dtpDOB: TDateTimePicker;
     imgLogoMain: TImage;
-    procedure lblLoginSignUpScreenClick(Sender: TObject);
+    Image1: TImage;
+    imgLoginBlock: TImage;
+    lblDOB: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure chbCarOwnerClick(Sender: TObject);
     procedure chbAdminClick(Sender: TObject);
     procedure imgLoginButtonClick(Sender: TObject);
     procedure edtPassConSignUpChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure imgLoginBlockClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,11 +51,13 @@ uses
   LoginSCreenUI, DBConnection, Shared_U;
 
 procedure TfrmSignup.chbAdminClick(Sender: TObject);
+//setting user type to admin
 begin
   chbCarOwner.checked := false;
 end;
 
 procedure TfrmSignup.chbCarOwnerClick(Sender: TObject);
+// setting user type to car owner
 begin
   chbAdmin.checked := false;
 end;
@@ -73,19 +75,29 @@ begin
 end;
 
 procedure TfrmSignup.FormClose(Sender: TObject; var Action: TCloseAction);
+//close app on form close
 begin
   Application.terminate;
 end;
 
 procedure TfrmSignup.FormShow(Sender: TObject);
+//open DB tables and setting max date of date picker
 begin
   Datamodule1.opentables;
+  dtpDOB.MaxDate := date;
+end;
+
+procedure TfrmSignup.imgLoginBlockClick(Sender: TObject);
+//showing login screen
+begin
+    frmLogin.show;
+  frmSignup.hide;
 end;
 
 procedure TfrmSignup.imgLoginButtonClick(Sender: TObject);
 {
   Sign up of user
-  - extract from edit boxed
+  - extract from edit boxes
   - check for unique vals
   - update DB
 }
@@ -147,29 +159,29 @@ begin
       try
         if chbAdmin.checked then
         begin
-          sType := '0';
+          sType := 'Admin';
         end // if
         else
         begin
-          sType := '1';
+          sType := 'User';
 
         end; // else
 
         with Datamodule1 do
         begin
           tblUsers.insert;
-          tdb.UpdateField('userID', sUserID, tblUsers);
+          tdb.UpdateField('UserID', sUserID, tblUsers);
           tdb.UpdateField('Username', sUser, tblUsers);
-          tdb.UpdateField('firstName', sFirstName, tblUsers);
-          tdb.UpdateField('lastName', sFirstName, tblUsers);
+          tdb.UpdateField('FirstName', sFirstName, tblUsers);
+          tdb.UpdateField('LastName', sFirstName, tblUsers);
           tdb.UpdateField('Password', sPass, tblUsers);
-          tdb.UpdateField('contactNumber', sContact, tblUsers);
-          tdb.UpdateField('dateOfBirth', DateToStr(DOB), tblUsers);
-          tdb.UpdateField('accountStatus', 'Active', tblUsers);
-          tdb.UpdateField('userRoleID', sType, tblUsers);
-          tdb.UpdateField('createdAt', DateToStr(Date), tblUsers);
-          tdb.UpdateField('updatedAt', DateToStr(Date), tblUsers);
-          tdb.UpdateField('emailAddress', sEmail, tblUsers);
+          tdb.UpdateField('ContactNumber', sContact, tblUsers);
+          tdb.UpdateField('DateOfBirth', DateToStr(DOB), tblUsers);
+          tdb.UpdateField('AccountStatus', 'Active', tblUsers);
+          tdb.UpdateField('UserRoles', sType, tblUsers);
+          tdb.UpdateField('CreatedAt', DateToStr(Date), tblUsers);
+          tdb.UpdateField('UpdatedAt', DateToStr(Date), tblUsers);
+          tdb.UpdateField('EmailAddress', sEmail, tblUsers);
 
           tblUsers.post;
           tblUsers.refresh;
@@ -191,12 +203,6 @@ begin
     showmessage('Passwords are not the same');
   end;
 
-end;
-
-procedure TfrmSignup.lblLoginSignUpScreenClick(Sender: TObject);
-begin
-  frmLogin.show;
-  frmSignup.hide;
 end;
 
 end.

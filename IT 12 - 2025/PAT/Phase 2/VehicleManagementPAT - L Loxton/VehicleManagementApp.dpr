@@ -12,7 +12,8 @@ uses
   RoutingUI in 'RoutingUI.pas' {frmRouting},
   FinesUI in 'FinesUI.pas' {frmFines},
   Fines_U in 'Fines_U.pas',
-  TestsUI in 'TestsUI.pas' {frmTests};
+  TestsUI in 'TestsUI.pas' {frmTests},
+  PaymentUI in 'PaymentUI.pas' {frmPayment};
 
 {$R *.res}
 
@@ -20,13 +21,14 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmLogin, frmLogin);
+  Application.CreateForm(TfrmRouting, frmRouting);
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TfrmFines, frmFines);
-  Application.CreateForm(TfrmRouting, frmRouting);
   Application.CreateForm(TfrmLicenseGen, frmLicenseGen);
   Application.CreateForm(TDataModule1, DataModule1);
   Application.CreateForm(TfrmSignup, frmSignup);
   Application.CreateForm(TfrmProfile, frmProfile);
   Application.CreateForm(TfrmTests, frmTests);
+  Application.CreateForm(TfrmPayment, frmPayment);
   Application.Run;
 end.

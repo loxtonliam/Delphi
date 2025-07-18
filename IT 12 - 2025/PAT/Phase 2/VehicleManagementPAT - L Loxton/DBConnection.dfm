@@ -22,28 +22,12 @@ object DataModule1: TDataModule1
     Left = 316
     Top = 308
   end
-  object tblProvinces: TADOTable
-    Left = 128
-    Top = 388
-  end
-  object tblLicenseTypes: TADOTable
-    Left = 320
-    Top = 228
-  end
   object dsTblUsers: TDataSource
     Left = 476
     Top = 236
   end
-  object dsProvinces: TDataSource
-    Left = 472
-    Top = 360
-  end
   object dsTestApplications: TDataSource
     Left = 560
-    Top = 228
-  end
-  object dsLicenseTypes: TDataSource
-    Left = 648
     Top = 228
   end
   object dsLicensingStations: TDataSource
@@ -63,16 +47,17 @@ object DataModule1: TDataModule1
     Top = 108
   end
   object ADOQuery1: TADOQuery
+    FieldOptions.UpdatePersistent = True
     Parameters = <>
     Left = 556
     Top = 472
   end
-  object tblUserRoles: TADOTable
-    Left = 248
-    Top = 396
+  object tblPayments: TADOTable
+    Left = 136
+    Top = 388
   end
-  object dsUserRoles: TDataSource
-    Left = 536
-    Top = 368
+  object dsPayments: TDataSource
+    Left = 616
+    Top = 372
   end
 end

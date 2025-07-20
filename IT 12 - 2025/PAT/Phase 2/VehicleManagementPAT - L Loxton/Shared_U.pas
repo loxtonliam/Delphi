@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DBConnection, Data.Win.ADODB, Vcl.StdCtrls, Vcl.ExtCtrls,
   MainScreenUI, LoginScreenUI, LicenseGenerationUI, FinesUI, SignUpScreenUI,
-  TestsUI, RoutingUI, PaymentUI;
+  TestsUI, RoutingUI, PaymentUI, ProfileUI;
 
 type
   TValidation = class(Tobject)
@@ -51,6 +51,7 @@ type
     class procedure TestScreen(Form: TForm);
     class procedure RoutingScreen(Form: TForm);
     class procedure FinesScreen(Form: TForm);
+    class procedure Profile(Form:TForm);
   end;
 
   TPay = class(Tobject)
@@ -480,6 +481,12 @@ class procedure TMenu.MainScreen(Form: TForm);
 begin
   Form.hide;
   frmMain.show;
+end;
+
+class procedure TMenu.Profile(Form: TForm);
+begin
+form.hide;
+frmProfile.show;
 end;
 
 class procedure TMenu.RoutingScreen(Form: TForm);

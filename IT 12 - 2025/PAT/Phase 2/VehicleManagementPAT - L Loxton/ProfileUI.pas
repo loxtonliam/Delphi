@@ -50,119 +50,118 @@ uses
   DBConnection, LoginScreenUI, Shared_U;
 
 procedure TfrmProfile.btnLogoutClick(Sender: TObject);
-var
-response: string;
-{
-  logout user
-  - check for confirmation
-  - reset ID and show login screen
-}
-begin
-response :=UpperCase(inputbox('', 'Are you sure you want to logout? Y/N', ''))
-  if response = 'Y'
-  then
-  begin
-    frmProfile.hide;
-    frmLogin.show;
-    sID := '';
-    bAdmin := false;
-  end
-  else if response := 'N' then
-  begin
-    showmessage('Deletion cancelled');
-  end
-  else
-  begin
-    showmessage('Invalid answer, please answer with either Y or N end');
-
-  end;
-
-end;
-
-procedure TfrmProfile.FormClose(Sender: TObject; var Action: TCloseAction);
-// close app on form close
-begin
-  application.terminate;
-end;
-
-procedure TfrmProfile.FormShow(Sender: TObject);
-{
-  - open DB tables
-  - clear rich edits and then display to string method
-  - display user info
-}
-begin
-  DataModule1.OpenTables;
-  redAccountInfo.clear;
-  redAccountInfo.lines.add(DataModule1.userToString(sID));
-  pnlMenu.hide;
-end;
-
-procedure TfrmProfile.imgBlueMenuBarClick(Sender: TObject);
-begin
-  pnlMenu.show;
-end;
-
-procedure TfrmProfile.imgLoginButtonClick(Sender: TObject);
+// Logs out user after confirmation
 var
   response: string;
 begin
-  response := UpperCase
-    (inputbox('Are you sure you want to delete your account? Y/N', '', ''));
+  response := UpperCase(InputBox('', 'Are you sure you want to logout? Y/N', ''));
+  if response = 'Y' then
+  begin
+    frmProfile.Hide;
+    frmLogin.Show;
+    sID := '';
+    bAdmin := false;
+  end
+  else if response = 'N' then
+  begin
+    ShowMessage('Logout cancelled');
+  end
+  else
+  begin
+    ShowMessage('Invalid answer, please answer with either Y or N');
+  end;
+end; // procedure btnLogoutClick
+
+procedure TfrmProfile.FormClose(Sender: TObject; var Action: TCloseAction);
+// Terminates application on form close
+begin
+  Application.Terminate;
+end; // procedure FormClose
+
+procedure TfrmProfile.FormShow(Sender: TObject);
+// Displays user account info in RichEdit when form is shown
+begin
+  DataModule1.OpenTables;
+  redAccountInfo.Clear;
+  redAccountInfo.Lines.Add(DataModule1.userToString(sID));
+  pnlMenu.Hide;
+end; // procedure FormShow
+
+procedure TfrmProfile.imgBlueMenuBarClick(Sender: TObject);
+// Shows menu panel
+begin
+  pnlMenu.Show;
+end; // procedure imgBlueMenuBarClick
+
+procedure TfrmProfile.imgLoginButtonClick(Sender: TObject);
+// Deletes user account after confirmation
+var
+  response: string;
+begin
+  response := UpperCase(InputBox('Are you sure you want to delete your account? Y/N', '', ''));
   if response = 'Y' then
   begin
     if sID = '' then
     begin
-      showmessage('No user ID found, contact an Admin');
-      exit;
+      ShowMessage('No user ID found, contact an Admin');
+      Exit;
     end;
+
     with DataModule1 do
     begin
       try
         ADOQuery1.Close;
-        ADOQuery1.SQL.text := 'DELETE  FROM tblUsers WHERE userID = "' +
-          sID + '"';
+        ADOQuery1.SQL.Text := 'DELETE FROM tblUsers WHERE userID = "' + sID + '"';
         ADOQuery1.ExecSQL;
 
-        showmessage('Account successfully deleted');
-        frmProfile.hide;
-        frmLogin.show;
+        ShowMessage('Account successfully deleted');
+        frmProfile.Hide;
+        frmLogin.Show;
       except
         on E: Exception do
-          showmessage('Problem with deletion: ' + E.Message);
-
-      end;
-
-    end;
+          ShowMessage('Problem with deletion: ' + E.Message);
+      end; // try..except
+    end; // with
   end
-  else if response := 'N' then
+  else if response = 'N' then
   begin
-    showmessage('Deletion cancelled');
+    ShowMessage('Deletion cancelled');
   end
   else
   begin
-    showmessage('Invalid answer, please answer with either Y or N end');
-
+    ShowMessage('Invalid answer, please answer with either Y or N');
   end;
+end; // procedure imgLoginButtonClick
 
-  procedure TfrmProfile.imgWhiteMenuClick(Sender: TObject);
-  begin
-    pnlMenu.hide;
-  end;
+procedure TfrmProfile.imgWhiteMenuClick(Sender: TObject);
+// Hides menu panel
+begin
+  pnlMenu.Hide;
+end; // procedure imgWhiteMenuClick
 
-  procedure TfrmProfile.lblFinesMenuClick(Sender: TObject);
-  begin
-    TMenu.FinesScreen(frmProfile);
-  end;
+procedure TfrmProfile.lblFinesMenuClick(Sender: TObject);
+// Navigates to Fines screen
+begin
+  TMenu.FinesScreen(frmProfile);
+end; // procedure lblFinesMenuClick
 
-  procedure TfrmProfile.lblMenuLicensesClick(Sender: TObject);
-  begin
-    TMenu.LicenseScreen(frmProfile);
-  end;
+procedure TfrmProfile.lblMenuLicensesClick(Sender: TObject);
+// Navigates to Licenses screen
+begin
+  TMenu.LicenseScreen(frmProfile);
+end; // procedure lblMenuLicensesClick
 
-  procedure TfrmProfile.lblStationsMenuClick(Sender: TObject);
-  begin
-    TMenu.RoutingScreen(frmProfile);
-  end;
+procedure TfrmProfile.lblStationsMenuClick(Sender: TObject);
+// Navigates to Stations (Routing) screen
+begin
+  TMenu.RoutingScreen(frmProfile);
+end; // procedure lblStationsMenuClick
 
-end.
+procedure TfrmProfile.lblTestsMenuClick(Sender: TObject);
+// Navigates to Tests screen
+begin
+  TMenu.TestScreen(frmProfile);
+end; // procedure lblTestsMenuClick
+
+end. // unit ProfileUI
+

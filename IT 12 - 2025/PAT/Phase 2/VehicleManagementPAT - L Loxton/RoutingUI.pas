@@ -14,7 +14,6 @@ type
     imgGreyDiv: TImage;
     lblRoutingTitle: TLabel;
     pnlMenu: TPanel;
-    lblTestsMenu: TLabel;
     lblLicense: TLabel;
     lblMainMenu: TLabel;
     lblFinesMenu: TLabel;
@@ -38,9 +37,7 @@ type
     imgLocBrack: TImage;
     imgSmallLlogo: TImage;
     procedure FormShow(Sender: TObject);
-
     procedure lblMainMenuClick(Sender: TObject);
-
     procedure lblFinesMenuClick(Sender: TObject);
     procedure lblTestsMenuClick(Sender: TObject);
     procedure lblLicenseClick(Sender: TObject);
@@ -51,11 +48,11 @@ type
     procedure btnRArrowClick(Sender: TObject);
     procedure btnLArrowClick(Sender: TObject);
     procedure btnGoClick(Sender: TObject);
+    procedure btnProfileClick(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
-
     procedure openMap(coords: string);
   end;
 
@@ -81,6 +78,7 @@ implementation
 uses DBConnection, Shared_U;
 
 procedure TfrmRouting.locChange(arrow: string);
+// Changes current location and updates UI indicator
 var
   ResetIndex: integer;
 begin
@@ -88,6 +86,7 @@ begin
   lblName.caption := arrLocs[index];
 
   arrLocImgs[index].Picture.LoadFromFile('whiteloc.png');
+
   if arrow = 'R' then
   begin
     if index > 0 then
@@ -109,18 +108,19 @@ begin
     begin
       ResetIndex := 0;
     end;
-
   end;
-  arrLocImgs[ResetIndex].Picture.LoadFromFile('redloc.png')
 
-end;
+  arrLocImgs[ResetIndex].Picture.LoadFromFile('redloc.png');
+end; // procedure locChange
 
 procedure TfrmRouting.FormClose(Sender: TObject; var Action: TCloseAction);
+// Terminates application on form close
 begin
   application.Terminate;
-end;
+end; // procedure FormClose
 
 procedure TfrmRouting.FormShow(Sender: TObject);
+// Initializes map pins and sets default location
 var
   i: integer;
 begin
@@ -137,20 +137,16 @@ begin
   arrLocImgs[6] := imgLocParow;
   arrLocImgs[7] := imgLocStell;
 
-  // init image
   for i := 0 to 7 do
   begin
-    arrLocImgs[i].Picture.LoadFromFile('redloc.png')
+    arrLocImgs[i].Picture.LoadFromFile('redloc.png');
   end;
 
-  locChange('R')
-end;
+  locChange('R');
+end; // procedure FormShow
 
 procedure TfrmRouting.btnGoClick(Sender: TObject);
-{
-  extracting coordinates by using DB and location selected
-  - use openMap method to direct user to google maps
-}
+// Loads coordinates for selected location and opens Google Maps
 begin
   with DataModule1 do
   begin
@@ -167,9 +163,10 @@ begin
 
     openMap(ADOQuery1.FieldByName('coordinates').AsString);
   end;
-end;
+end; // procedure btnGoClick
 
 procedure TfrmRouting.btnLArrowClick(Sender: TObject);
+// Moves location index left and updates UI
 begin
   if index > 0 then
   begin
@@ -182,8 +179,15 @@ begin
 
   locChange('L');
 end;
+procedure TfrmRouting.btnProfileClick(Sender: TObject);
+begin
+TMenu.Profile(frmRouting);
+end;
+
+
 
 procedure TfrmRouting.btnRArrowClick(Sender: TObject);
+// Moves location index right and updates UI
 begin
   if index < 7 then
   begin
@@ -195,49 +199,49 @@ begin
   end;
 
   locChange('R');
-end;
+end; // procedure btnRArrowClick
 
 procedure TfrmRouting.imgBlueMenuBarClick(Sender: TObject);
+// Shows menu panel
 begin
   pnlMenu.show;
-end;
+end; // procedure imgBlueMenuBarClick
 
 procedure TfrmRouting.imgWhiteMenuClick(Sender: TObject);
+// Hides menu panel
 begin
   pnlMenu.Hide;
-end;
+end; // procedure imgWhiteMenuClick
 
 procedure TfrmRouting.lblFinesMenuClick(Sender: TObject);
+// Navigates to Fines screen
 begin
-  TMenu.FinesScreen(frmRouting)
-end;
+  TMenu.FinesScreen(frmRouting);
+end; // procedure lblFinesMenuClick
 
 procedure TfrmRouting.lblLicenseClick(Sender: TObject);
+// Navigates to License screen
 begin
-  TMenu.LicenseScreen(frmRouting)
-end;
+  TMenu.LicenseScreen(frmRouting);
+end; // procedure lblLicenseClick
 
 procedure TfrmRouting.lblMainMenuClick(Sender: TObject);
+// Navigates to Main screen
 begin
   TMenu.MainScreen(frmRouting);
-end;
+end; // procedure lblMainMenuClick
 
 procedure TfrmRouting.lblTestsMenuClick(Sender: TObject);
+// Navigates to Tests screen
 begin
-  TMenu.TestScreen(frmRouting)
-end;
+  TMenu.TestScreen(frmRouting);
+end; // procedure lblTestsMenuClick
 
 procedure TfrmRouting.openMap(coords: string);
-{
-  uses shellexecute method
-  - 0 indicates default browser
-  - uses google maps url + selected coords
-
-}
-
+// Opens Google Maps with the given coordinates using the default browser
 begin
-  ShellExecute(0, 'open', PChar('https://www.google.com/maps?q=' + coords), nil,
-    nil, SW_SHOWNORMAL);
-end;
+  ShellExecute(0, 'open', PChar('https://www.google.com/maps?q=' + coords), nil, nil, SW_SHOWNORMAL);
+end; // procedure openMap
 
-end.
+end. // unit RoutingUI
+

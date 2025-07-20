@@ -1102,6 +1102,7 @@ object frmLicenseGen: TfrmLicenseGen
         4E44AE426082}
       Proportional = True
       Stretch = True
+      OnClick = btnProfileClick
     end
   end
 end

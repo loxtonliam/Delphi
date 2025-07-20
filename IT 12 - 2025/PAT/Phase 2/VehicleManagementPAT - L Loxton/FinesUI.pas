@@ -32,6 +32,7 @@ type
     btnPay: TImage;
     lblNoFines: TLabel;
     RichEdit1: TRichEdit;
+    btnHighest: TButton;
 
     procedure FormShow(Sender: TObject);
     procedure btnLoadFineClick(Sender: TObject);
@@ -40,11 +41,11 @@ type
     procedure lblLicenseClick(Sender: TObject);
     procedure lblRoutingMenuClick(Sender: TObject);
     procedure lblTestsMenuClick(Sender: TObject);
-
     procedure btnSubmitClick(Sender: TObject);
     procedure imgBlueMenuBarClick(Sender: TObject);
     procedure btnPayClick(Sender: TObject);
     procedure btnProfileClick(Sender: TObject);
+    procedure btnHighestClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -63,241 +64,248 @@ implementation
 uses
   DBConnection, LoginScreenUI, Shared_U, PaymentUI, ProfileUI;
 
+procedure TfrmFines.btnHighestClick(Sender: TObject);
+begin
+//displays the highest fine amount using max function in query
+  with DataModule1.ADOQuery1 do
+  begin
+
+    try
+      close;
+      sql.text :=
+        'SELECT * FROM tblFines WHERE FineAmount = (SELECT MAX(FineAmount) FROM tblFines)';
+      open;
+    except
+      on E: exception  do
+      showmessage('Database error: ' + E.message);
+    end;
+    showmessage('The highest fine to date was for an amount of ' + fieldByName('FineAmount').AsString + ', incurred by license plate: ' + FieldByName('LicenseID').AsString);
+  end;
+end;
+
 procedure TfrmFines.btnLoadFineClick(Sender: TObject);
-{
-  - Extract selected fine from listbox
-  - Create fine object using sql query (field by name)
-
-
-}
-
+// Loads selected fine from list and displays details using TFine object
 var
   iPos: integer;
   sFineSelected: string;
 begin
-  ListBox1.hide;
-  RichEdit1.show;
-  sFineSelected := ListBox1.items[ListBox1.ItemIndex];
+  ListBox1.Hide;
+  RichEdit1.Show;
+  sFineSelected := ListBox1.Items[ListBox1.ItemIndex];
+
   if ListBox1.ItemIndex > -1 then
-  begin
-    iPos := pos('#', sFineSelected);
-    sFineID := copy(sFineSelected, 1, iPos - 1);
-    with Datamodule1 do
-    begin
+  begin // if fine selected
+    iPos := Pos('#', sFineSelected);
+    sFineID := Copy(sFineSelected, 1, iPos - 1);
+
+    with DataModule1 do
+    begin // with DB module
       ADOQuery1.close;
-      ADOQuery1.SQL.Text :=
+      ADOQuery1.sql.text :=
         'SELECT FineDate,LicenseID,FineType,FineAmount FROM tblFines WHERE FineID = "'
         + sFineID + '"';
       ADOQuery1.open;
-      ObjFine := TFine.create(sFineID, sID, ADOQuery1.FieldByName('FineDate')
+
+      ObjFine := TFine.Create(sFineID, sID, ADOQuery1.FieldByName('FineDate')
         .AsString, ADOQuery1.FieldByName('LicenseID').AsString,
         ADOQuery1.FieldByName('FineType').AsString,
         ADOQuery1.FieldByName('FineAmount').AsFloat);
-    end;
-    RichEdit1.clear;
-    RichEdit1.lines.add(ObjFine.tostring);
-    btnPay.show;
-  end // if selected
+    end; // end with DB module
+
+    RichEdit1.Clear;
+    RichEdit1.Lines.Add(ObjFine.ToString);
+    btnPay.Show;
+  end // end if selected
   else
   begin
     showmessage('Please select a fine');
-  end;
-end;
+  end; // else
+end; // procedure btnLoadFineClick
 
 procedure TfrmFines.btnPayClick(Sender: TObject);
+// Initiates payment process for selected fine
 begin
   TPay.PayFine(ObjFine.getFineID, ObjFine.getAmt);
-end;
+end; // procedure btnPayClick
 
 procedure TfrmFines.btnProfileClick(Sender: TObject);
+// Opens profile screen
 begin
-  frmFines.hide;
-  frmProfile.show;
-end;
+  TMenu.Profile(frmFines);
+end; // procedure btnProfileClick
 
 procedure TfrmFines.btnSubmitClick(Sender: TObject);
-{
-  - allow admin to submit a fine on a specific license plate and give the reason + amount for fine
-
-  - validate inputs
-  - generate fineIDs until it is unique by checking with queries
-  - update DB with new fine
-}
+// Allows admin to submit a new fine with details and inserts it into the DB
 var
   fineID, sType: string;
 begin
-  if (spnFine.value <> 0) AND (cmbLicenses.ItemIndex > -1) AND
-    (DatePicker1.date >= date) then
-  begin
-    sType := cmbType.items[cmbType.ItemIndex];
-    fineID := sType[1] + IntToStr(random(1000 - 100 + 1) + 100);
-    with Datamodule1 do
-    begin
-      // check for ids
+  if (spnFine.Value <> 0) AND (cmbLicenses.ItemIndex > -1) AND
+    (DatePicker1.Date >= Date) then
+  begin // validation
+    sType := cmbType.Items[cmbType.ItemIndex];
+    fineID := sType[1] + IntToStr(Random(901) + 100); // 100–1000
+
+    with DataModule1 do
+    begin // with DB module
       ADOQuery1.close;
-      ADOQuery1.SQL.Text := 'SELECT * FROM tblFines WHERE fineID = "' + fineID +
-        '"'; // checking if unique
+      ADOQuery1.sql.text := 'SELECT * FROM tblFines WHERE FineID = "' +
+        fineID + '"';
       ADOQuery1.open;
+
       while ADOQuery1.RecordCount > 0 do
-      begin
-        fineID := sType[1] + IntToStr(random(10000 - 1000 + 1) + 1000);
-        // regenerate if not unique
+      begin // generate new ID if duplicate
+        fineID := sType[1] + IntToStr(Random(9001) + 1000); // 1000–10000
         ADOQuery1.close;
-        ADOQuery1.SQL.Text := 'SELECT * FROM tblFines WHERE fineID = "' +
+        ADOQuery1.sql.text := 'SELECT * FROM tblFines WHERE FineID = "' +
           fineID + '"';
         ADOQuery1.open;
-
-      end;
-
-      // insert
+      end; // while
 
       ADOQuery1.close;
-      ADOQuery1.SQL.Text :=
-        'INSERT INTO tblFines (FineID,FineAmount,FineDate,CreatedAt,UpdatedAt,FineType,LicenseID) VALUES (:FineID,:FineAmount,:FineDate,:Created,:Update,:FineType,:License)';
-      ADOQuery1.parameters.ParamByName('FineID').value := fineID;
+      ADOQuery1.sql.text :=
+        'INSERT INTO tblFines (FineID,FineAmount,FineDate,CreatedAt,UpdatedAt,FineType,LicenseID) '
+        + 'VALUES (:FineID,:FineAmount,:FineDate,:Created,:Update,:FineType,:License)';
 
-      ADOQuery1.parameters.ParamByName('FineAmount').value := spnFine.value;
-
-      ADOQuery1.parameters.ParamByName('FineDate').DataType := ftDateTime;
-      ADOQuery1.parameters.ParamByName('FineDate').value := DatePicker1.date;
-
-      ADOQuery1.parameters.ParamByName('Created').value := date;
-
-      ADOQuery1.parameters.ParamByName('Update').value := date;
-      ADOQuery1.parameters.ParamByName('FineType').value := sType;
-      ADOQuery1.parameters.ParamByName('License').value :=
-        cmbLicenses.items[cmbLicenses.ItemIndex];
+      ADOQuery1.Parameters.ParamByName('FineID').Value := fineID;
+      ADOQuery1.Parameters.ParamByName('FineAmount').Value := spnFine.Value;
+      ADOQuery1.Parameters.ParamByName('FineDate').DataType := ftDateTime;
+      ADOQuery1.Parameters.ParamByName('FineDate').Value := DatePicker1.Date;
+      ADOQuery1.Parameters.ParamByName('Created').Value := Date;
+      ADOQuery1.Parameters.ParamByName('Update').Value := Date;
+      ADOQuery1.Parameters.ParamByName('FineType').Value := sType;
+      ADOQuery1.Parameters.ParamByName('License').Value :=
+        cmbLicenses.Items[cmbLicenses.ItemIndex];
 
       ADOQuery1.ExecSQL;
-    end;
-    showmessage('added');
-  end;
+    end; // end with DB module
 
-end;
+    showmessage('Added');
+  end; // if validation
+end; // procedure btnSubmitClick
 
 procedure TfrmFines.FormClose(Sender: TObject; var Action: TCloseAction);
-// close app if form close
+// Closes the application
 begin
-  Application.terminate;
-end;
+  Application.Terminate;
+end; // procedure FormClose
 
 procedure TfrmFines.FormShow(Sender: TObject);
-{
-  setting UI based on user type
-}
+// Sets up UI depending on whether user is admin or not
 begin
-  ListBox1.clear;
-  lblNoFines.hide;
-  pnlMenu.hide;
-  btnPay.hide;
-  DatePicker1.hide;
-  DatePicker1.date := date;
-  ListBox1.hide;
-  btnSubmit.hide;
+  ListBox1.Clear;
+  lblNoFines.Hide;
+  pnlMenu.Hide;
+  btnPay.Hide;
+  DatePicker1.Hide;
+  DatePicker1.Date := Date;
+  ListBox1.Hide;
+  btnSubmit.Hide;
+  spnFine.Hide;
+  btnHighest.hide;
+  cmbLicenses.hide;
+  cmbType.hide;
 
-  spnFine.hide;
+  DataModule1.OpenTables;
 
-  Datamodule1.OpenTables;
-  with Datamodule1 do
+  with DataModule1 do
   begin
-
     if sID = '' then
     begin
-      sID := 'FL4802'
-    end;
-    RichEdit1.hide;
+      sID := 'FL4802';
+    end; // if sID empty
+
+    RichEdit1.Hide;
+
     if bAdmin = True then
-    begin
-      cmbType.show;
-      cmbLicenses.show;
-      spnFine.show;
-      DatePicker1.show;
-      btnLoadFine.hide;
-      btnSubmit.show;
+    begin // admin UI
+      cmbType.Show;
+      cmbLicenses.Show;
+      spnFine.Show;
+      DatePicker1.Show;
+      btnLoadFine.Hide;
+      btnSubmit.Show;
+      btnhighest.show;
 
       ADOQuery1.close;
-      ADOQuery1.SQL.Text := 'SELECT LicenseID FROM tblLicenses';
+      ADOQuery1.sql.text := 'SELECT LicenseID FROM tblLicenses';
       ADOQuery1.open;
-      ADOQuery1.first;
+
+      ADOQuery1.First;
       while not ADOQuery1.Eof do
       begin
-        cmbLicenses.items.add(ADOQuery1.FieldByName('LicenseID').AsString);
-        ADOQuery1.next;
-      end;
-
+        cmbLicenses.Items.Add(ADOQuery1.FieldByName('LicenseID').AsString);
+        ADOQuery1.Next;
+      end; // while
     end
     else
-    begin
-
+    begin // normal user UI
       ListBox1.show;
-      btnLoadFine.show;
+      RichEdit1.hide;
+      btnLoadFine.Show;
+
       ADOQuery1.close;
-      ADOQuery1.SQL.Text :=
-        'SELECT * FROM tblFines WHERE LicenseID IN (SELECT LicenseID FROM tblLicenses WHERE OwnerID = "'
-        + sID + '") AND FineID NOT IN (SELECT FineID FROM tblPayments WHERE Status = "Paid")';
+      ADOQuery1.sql.text := 'SELECT * FROM tblFines WHERE LicenseID IN ' +
+        '(SELECT LicenseID FROM tblLicenses WHERE OwnerID = "' + sID + '") ' +
+        'AND FineID NOT IN (SELECT FineID FROM tblPayments WHERE Status = "Paid")';
       ADOQuery1.open;
-      ADOQuery1.first;
+
+      ADOQuery1.First;
       if ADOQuery1.RecordCount > 0 then
       begin
         while not ADOQuery1.Eof do
         begin
-          ListBox1.items.add(ADOQuery1.FieldByName('FineID').AsString + '#' +
-            floattostrf(ADOQuery1.FieldByName('FineAmount').AsCurrency,
-            ffcurrency, 8, 2) + '#' + ADOQuery1.FieldByName('LicenseID')
+          ListBox1.Items.Add(ADOQuery1.FieldByName('FineID').AsString + '#' +
+            FloatToStrF(ADOQuery1.FieldByName('FineAmount').AsCurrency,
+            ffCurrency, 8, 2) + '#' + ADOQuery1.FieldByName('LicenseID')
             .AsString + '#' + ADOQuery1.FieldByName('FineType').AsString + '#' +
             ADOQuery1.FieldByName('FineDate').AsString);
-          ADOQuery1.next;
+          ADOQuery1.Next;
+        end; // while
 
-        end;
-
-        DatePicker1.hide;
-        spnFine.hide;
-        btnSubmit.hide;
+        DatePicker1.Hide;
+        spnFine.Hide;
+        btnSubmit.Hide;
       end
       else
       begin
-
-        cmbType.hide;
-        cmbLicenses.hide;
-        btnLoadFine.hide;
-        btnSubmit.hide;
-
-        lblNoFines.show;
-      end;
-
-    end;
-  end;
-
-end;
+        cmbType.Hide;
+        cmbLicenses.Hide;
+        btnLoadFine.Hide;
+        btnSubmit.Hide;
+        lblNoFines.Show;
+      end; // else no fines
+    end; // else user
+  end; // with
+end; // procedure FormShow
 
 procedure TfrmFines.imgBlueMenuBarClick(Sender: TObject);
-// menu
+// Shows side menu
 begin
-  pnlMenu.show;
-end;
+  pnlMenu.Show;
+end; // procedure imgBlueMenuBarClick
 
 procedure TfrmFines.lblRoutingMenuClick(Sender: TObject);
-// menu
+// Navigates to Routing menu
 begin
-  TMenu.RoutingScreen(frmFines)
-end;
+  TMenu.RoutingScreen(frmFines);
+end; // procedure lblRoutingMenuClick
 
 procedure TfrmFines.lblLicenseClick(Sender: TObject);
-// menu
+// Navigates to License menu
 begin
-  TMenu.LicenseScreen(frmFines)
-end;
+  TMenu.LicenseScreen(frmFines);
+end; // procedure lblLicenseClick
 
 procedure TfrmFines.lblMainMenuClick(Sender: TObject);
-// menu
+// Navigates to Main menu
 begin
-  TMenu.MainScreen(frmFines)
-end;
+  TMenu.MainScreen(frmFines);
+end; // procedure lblMainMenuClick
 
 procedure TfrmFines.lblTestsMenuClick(Sender: TObject);
-// menu
+// Navigates to Tests menu
 begin
-  TMenu.TestScreen(frmFines)
-end;
+  TMenu.TestScreen(frmFines);
+end; // procedure lblTestsMenuClick
 
-end.
+end. // unit FinesUI

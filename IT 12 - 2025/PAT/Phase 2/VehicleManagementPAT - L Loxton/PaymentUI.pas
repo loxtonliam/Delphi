@@ -38,31 +38,31 @@ uses
   DBConnection, FinesUI, Fines_U;
 
 procedure TfrmPayment.btnSimPayClick(Sender: TObject);
+// Simulates payment: generates payment ID, inserts payment record, then redirects to fines screen
 var
   sPayID, sType: string;
 begin
   if cmbPayType.ItemIndex > -1 then
-  begin
+  begin // if payment type selected
     sType := cmbPayType.items[cmbPayType.ItemIndex];
 
     with DataModule1 do
-    begin
-      // gen unique id
-
+    begin // with DataModule1
       try
         sPayID := 'P' + inttostr(random(1000 - 100 + 1) + 100);
         ADOQuery1.close;
         ADOQuery1.SQL.text := 'SELECT * FROM tblPayments WHERE PaymentID = "' +
           sPayID + '"';
         ADOQuery1.Open;
+
         while ADOQuery1.RecordCount > 0 do
-        begin
+        begin // ensure payment ID is unique
           sPayID := 'P' + inttostr(random(1000 - 100 + 1) + 100);
           ADOQuery1.close;
-          ADOQuery1.SQL.text := 'SELECT * FROM tblPayments WHERE PaymentID = "'
-            + sPayID + '"';
+          ADOQuery1.SQL.text := 'SELECT * FROM tblPayments WHERE PaymentID = "' +
+            sPayID + '"';
           ADOQuery1.Open;
-        end;
+        end; // while
 
         ADOQuery1.close;
         ADOQuery1.SQL.text :=
@@ -81,30 +81,31 @@ begin
       except
         on E: Exception do
           Showmessage('Database error: ' + E.Message);
-
-      end;
-
-    end;
+      end; // try..except
+    end; // with
   end
   else
   begin
     Showmessage('Please select payment type before proceeding');
-  end;
-end;
+  end; // if/else
+end; // procedure btnSimPayClick
 
 procedure TfrmPayment.FormClose(Sender: TObject; var Action: TCloseAction);
+// Terminates application when payment form is closed
 begin
-application.Terminate;
-end;
+  application.Terminate;
+end; // procedure FormClose
 
 procedure TfrmPayment.FormShow(Sender: TObject);
+// Populates payment screen with fine details on show
 var
-sOut :string;
+  sOut: string;
 begin
-DataModule1.OpenTables;
-sOUt := frmFines.ObjFine.toString;
-redPayDisplay.clear;
-redPayDisplay.lines.add(sOut);
-end;
+  DataModule1.OpenTables;
+  sOut := frmFines.ObjFine.toString;
+  redPayDisplay.clear;
+  redPayDisplay.lines.add(sOut);
+end; // procedure FormShow
 
-end.
+end. // unit PaymentUI
+

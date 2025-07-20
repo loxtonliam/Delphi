@@ -15,10 +15,6 @@ type
     imgBlueMenuBar: TImage;
     imgSmallLlogo: TImage;
     lblTitleMain: TLabel;
-    lblNext: TLabel;
-    lblLicense: TLabel;
-    imgBlock1: TImage;
-    imgBlock2: TImage;
     btnSeeMore: TImage;
     btnStations: TImage;
     btnFines: TImage;
@@ -31,10 +27,7 @@ type
     lblFinesMenu: TLabel;
     btnProfile: TImage;
     pnlMenu: TPanel;
-    lblID1: TLabel;
-    lblID2: TLabel;
-    lblExp1: TLabel;
-    lblExp2: TLabel;
+    lblLicense: TLabel;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnGenClick(Sender: TObject);
@@ -45,12 +38,10 @@ type
     procedure imgWhiteMenuClick(Sender: TObject);
     procedure lblMenuLicensesClick(Sender: TObject);
     procedure lblTestsMenuClick(Sender: TObject);
-    procedure btnTestsClick(Sender: TObject);
+
     procedure btnSeeMoreClick(Sender: TObject);
     procedure lblStationsMenuClick(Sender: TObject);
     procedure lblFinesMenuClick(Sender: TObject);
-    procedure LoadLicenses;
-    function colourBox(): string;
 
   private
     { Private declarations }
@@ -70,71 +61,58 @@ uses
   FinesUI, TestsUI, Shared_U;
 
 procedure TfrmMain.btnFinesClick(Sender: TObject);
+// Navigates to Fines screen
 begin
   frmMain.hide;
   frmFines.show;
-end;
+end; // procedure btnFinesClick
 
 procedure TfrmMain.btnGenClick(Sender: TObject);
+// Navigates to License Generation screen
 begin
   frmMain.hide;
   frmLicenseGen.show;
-end;
+end; // procedure btnGenClick
 
 procedure TfrmMain.btnProfileClick(Sender: TObject);
+// Navigates to Profile screen
 begin
-  frmMain.hide;
-  frmprofile.show;
-end;
+ TMenu.Profile(frmMain);
+end; // procedure btnProfileClick
 
 procedure TfrmMain.btnSeeMoreClick(Sender: TObject);
+// Navigates to License Generation screen via See More button
 begin
   frmMain.hide;
   frmLicenseGen.show;
-end;
+end; // procedure btnSeeMoreClick
 
 procedure TfrmMain.btnStationsClick(Sender: TObject);
+// Navigates to Routing screen
 begin
   frmMain.hide;
   frmRouting.show;
-end;
+end; // procedure btnStationsClick
 
-procedure TfrmMain.btnTestsClick(Sender: TObject);
-begin
-  frmMain.hide;
-  frmTests.show;
-end;
 
-function TfrmMain.colourBox: string;
-var
-  dExp: TDateTime;
-begin
-  with DataModule1 do
-  begin
-    dExp := ADOQuery1.FieldByName('ExpirationDate').AsDateTime;
-    if dExp < Date then
-    begin
-      result := 'RedRec';
-    end
-    else
-    begin
-      result := 'GreenRec';
-    end;
-  end;
-end;
+
+
+
 
 procedure TfrmMain.FormClose(Sender: TObject; var Action: TCloseAction);
+// Terminates the application on form close
 begin
   application.terminate;
-end;
+end; // procedure FormClose
 
 procedure TfrmMain.FormShow(Sender: TObject);
+// Loads user greeting and license info on form show
 begin
   pnlMenu.visible := false;
   if bAdmin then
   begin
     lblTitleMain.caption := 'Hi, Admin';
-  end
+  end // if admin
   else
   begin
     with DataModule1 do
@@ -142,19 +120,17 @@ begin
       // getting first name for title
       try
         ADOQuery1.close;
-        ADOQuery1.SQL.Text := 'SELECT * FROM tblUsers WHERE Username = "' +
-          sUsername + '"';
+        ADOQuery1.SQL.Text := 'SELECT * FROM tblUsers WHERE Username = "' + sUsername + '"';
         ADOQuery1.open;
       except
         on E: Exception do
           showmessage('Database Error: ' + E.message);
-      end;
+      end; // try..except
 
       if ADOQuery1.RecordCount > 0 then
       begin
-        lblTitleMain.caption := 'Hi, ' + ADOQuery1.FieldByName
-          ('FirstName').AsString;
-      end;
+        lblTitleMain.caption := 'Hi, ' + ADOQuery1.FieldByName('FirstName').AsString;
+      end; // if user found
 
       // fine number
       if bAdmin = false then
@@ -168,105 +144,52 @@ begin
         except
           on E: Exception do
             showmessage('Database Error: ' + E.message);
-        end;
+        end; // try..except
 
         lblFines.caption := IntToStr(ADOQuery1.RecordCount) + ' Fines!';
-        LoadLicenses;
-      end;
 
-    end;
-  end;
-
-end;
+      end; // if not admin
+    end; // with
+  end; // else not admin
+end; // procedure FormShow
 
 procedure TfrmMain.imgBlueMenuBarClick(Sender: TObject);
+// Shows the side menu panel
 begin
   pnlMenu.visible := true;
-end;
+end; // procedure imgBlueMenuBarClick
 
 procedure TfrmMain.imgWhiteMenuClick(Sender: TObject);
+// Hides the side menu panel
 begin
   pnlMenu.visible := false;
-end;
+end; // procedure imgWhiteMenuClick
 
 procedure TfrmMain.lblFinesMenuClick(Sender: TObject);
+// Menu click to open Fines screen
 begin
   TMenu.FinesScreen(frmMain)
-end;
+end; // procedure lblFinesMenuClick
 
 procedure TfrmMain.lblMenuLicensesClick(Sender: TObject);
+// Menu click to open License screen
 begin
   TMenu.LicenseScreen(frmMain)
-end;
+end; // procedure lblMenuLicensesClick
 
 procedure TfrmMain.lblStationsMenuClick(Sender: TObject);
+// Menu click to open Routing screen
 begin
   TMenu.RoutingScreen(frmMain)
-end;
+end; // procedure lblStationsMenuClick
 
 procedure TfrmMain.lblTestsMenuClick(Sender: TObject);
+// Menu click to open Tests screen
 begin
   TMenu.TestScreen(frmMain)
-end;
+end; // procedure lblTestsMenuClick
 
-procedure TfrmMain.LoadLicenses;
-var
-  iCount: Integer;
-  sLicense: string;
-begin
-  with DataModule1 do
-  begin
-    try
-      ADOQuery1.close;
-      ADOQuery1.SQL.Text :=
-        'SELECT LicenseID, ExpirationDate FROM tblLicenses WHERE ownerID = "' +
-        sID + '"';
-      ADOQuery1.open;
-    except
-      on E: Exception do
-        showmessage('Database Error: ' + E.message);
-    end;
 
-    iCount := ADOQuery1.RecordCount;
-    if (ADOQuery1.RecordCount <= 2) then
-    begin
-      if ADOQuery1.RecordCount >= 1 then
-      begin
-        ADOQuery1.first;
-        sLicense := ADOQuery1.FieldByName('LicenseID').AsString;
-        imgBlock1.Picture.LoadFromFile(colourBox + '.png');
-        lblID1.caption := sLicense;
-        lblExp1.caption := ADOQuery1.FieldByName('ExpirationDate').AsString;
 
-        if ADOQuery1.RecordCount > 1 then
-        begin
-          ADOQuery1.Next;
-          sLicense := ADOQuery1.FieldByName('LicenseID').AsString;
-          imgBlock2.Picture.LoadFromFile(colourBox + '.png');
-          lblID2.caption := sLicense;
-          lblExp2.caption := ADOQuery1.FieldByName('ExpirationDate').AsString;
-        end
-        else
-        begin
-          lblID2.caption := 'N/A';
-          lblExp2.caption := 'N/A';
-        end;
-      end
-      else
-      begin
-        lblID1.caption := 'N/A';
-        lblExp1.caption := 'N/A';
-        lblID2.caption := 'N/A';
-        lblExp2.caption := 'N/A';
-      end;
+end. // unit MainScreenUI
 
-    end
-    else
-    begin
-      showmessage
-        ('too many licenses created for your ID, please contact an admin to manually delete from DB');
-    end;
-  end;
-end;
-
-end.

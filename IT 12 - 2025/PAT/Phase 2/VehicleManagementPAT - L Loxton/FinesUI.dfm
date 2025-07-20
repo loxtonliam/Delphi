@@ -2,8 +2,8 @@ object frmFines: TfrmFines
   Left = 0
   Top = 0
   Caption = 'Fines'
-  ClientHeight = 728
-  ClientWidth = 945
+  ClientHeight = 557
+  ClientWidth = 463
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -837,5 +837,14 @@ object frmFines: TfrmFines
       Stretch = True
       OnClick = btnProfileClick
     end
+  end
+  object btnHighest: TButton
+    Left = 304
+    Top = 195
+    Width = 158
+    Height = 25
+    Caption = 'Show Highest Fine Amount'
+    TabOrder = 9
+    OnClick = btnHighestClick
   end
 end

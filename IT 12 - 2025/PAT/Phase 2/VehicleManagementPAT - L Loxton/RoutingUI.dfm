@@ -9560,22 +9560,6 @@ object frmRouting: TfrmRouting
     ParentBackground = False
     TabOrder = 0
     Visible = False
-    object lblTestsMenu: TLabel
-      Left = 29
-      Top = 395
-      Width = 93
-      Height = 54
-      Caption = 'Tests'
-      Color = 3878202
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWhite
-      Font.Height = -40
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = lblTestsMenuClick
-    end
     object lblLicense: TLabel
       Left = 29
       Top = 213
@@ -9684,6 +9668,7 @@ object frmRouting: TfrmRouting
         4E44AE426082}
       Proportional = True
       Stretch = True
+      OnClick = btnProfileClick
     end
   end
 end

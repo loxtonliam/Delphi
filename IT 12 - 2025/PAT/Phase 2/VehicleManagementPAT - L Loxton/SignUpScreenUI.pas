@@ -51,7 +51,7 @@ uses
   LoginSCreenUI, DBConnection, Shared_U;
 
 procedure TfrmSignup.chbAdminClick(Sender: TObject);
-//setting user type to admin
+// setting user type to admin
 begin
   chbCarOwner.checked := false;
 end;
@@ -75,22 +75,22 @@ begin
 end;
 
 procedure TfrmSignup.FormClose(Sender: TObject; var Action: TCloseAction);
-//close app on form close
+// close app on form close
 begin
   Application.terminate;
 end;
 
 procedure TfrmSignup.FormShow(Sender: TObject);
-//open DB tables and setting max date of date picker
+// open DB tables and setting max date of date picker
 begin
   Datamodule1.opentables;
   dtpDOB.MaxDate := date;
 end;
 
 procedure TfrmSignup.imgLoginBlockClick(Sender: TObject);
-//showing login screen
+// showing login screen
 begin
-    frmLogin.show;
+  frmLogin.show;
   frmSignup.hide;
 end;
 
@@ -108,99 +108,138 @@ var
   DOB: tDatetime;
 
 begin
-
-  sPass := edtPassword.text;
-  sPassConfirmed := edtConfirmPassword.text;
-  if sPass = sPassConfirmed then
+  if TValidation.notEmpty(edtPassword.text, 'Password') AND
+    TValidation.notEmpty(sPassConfirmed, 'Confirm Password') then
   begin
-    if (tdb.ExistingRecordCheck('tblUsers', 'Username', sUser))
-    { (tdb.ExistingRecordCheck('tblUsers', 'Email', sEmail)) } then
-    begin
-      if (TValidation.notEmpty(edtUsername.text, 'Username')) AND
-        (TValidation.notEmpty(edtFirstName.text, 'First Name')) AND
-        (TValidation.notEmpty(edtLastName.text, 'Last Name')) then
-      begin
-        sUser := edtUsername.text;
-        sFirstName := edtFirstName.text;
-        sLastName := edtLastName.text;
-      end
-      else
-      begin
-        exit;
-      end;
+    sPass := edtPassword.text;
+    sPassConfirmed := edtConfirmPassword.text;
 
-      sEmail := edtEmail.text;
-      if TValidation.notEmpty(edtContact.text, 'Contact') then
+    if sPass = sPassConfirmed then
+    begin
+      if (tdb.ExistingRecordCheck('tblUsers', 'Username', sUser))
+      { (tdb.ExistingRecordCheck('tblUsers', 'Email', sEmail)) } then
       begin
-        sContact := edtContact.Text;
-        if length(sContact) = 10 then
+        if (TValidation.notEmpty(edtUsername.text, 'Username')) AND
+          (TValidation.notEmpty(edtFirstName.text, 'First Name')) AND
+          (TValidation.notEmpty(edtLastName.text, 'Last Name')) then
         begin
-          sContact := edtContact.text;
+          sUser := edtUsername.text;
+          sFirstName := edtFirstName.text;
+          sLastName := edtLastName.text;
         end
         else
         begin
-          showmessage('Contact number must be ten digits long');
           exit;
         end;
-      end;
+        if TValidation.notEmpty(edtEmail.text, 'Email') then
+        begin
+          sEmail := edtEmail.text;
+          if (Pos('@', sEmail) = 0) or (Pos('.', sEmail) = 0) then
+          begin
+            ShowMessage('Invalid email address.');
+            exit;
+          end;
 
-      if dtpDOB.Date < Date then
-      begin
-        DOB := dtpDOB.Date;
-      end
-      else
-      begin
-        exit;
-      end;
+        end;
 
-      sUserID := copy(sFirstName, 1, 1) + copy(sLastName, 1, 1) +
-        InttoStr(random(10000 - 1 + 1) + 1);
+        if TValidation.notEmpty(edtContact.text, 'Contact') then
+        begin
+          sContact := edtContact.text;
+          if length(sContact) = 10 then
+          begin
+            sContact := edtContact.text;
+          end
+          else
+          begin
+            ShowMessage('Contact number must be ten digits long');
+            exit;
+          end;
+        end;
 
-      try
+        if dtpDOB.date < date then
+        begin
+          DOB := dtpDOB.date;
+        end
+        else
+        begin
+          exit;
+        end;
+
         if chbAdmin.checked then
         begin
           sType := 'Admin';
         end // if
-        else
+        else if chbCarOwner.checked then
+
         begin
           sType := 'User';
 
+        end // else if
+        else
+        begin
+          ShowMessage('Please select a user type using the checkboxes');
+          exit;
         end; // else
 
-        with Datamodule1 do
+        with Datamodule1.ADOQuery1 do
         begin
-          tblUsers.insert;
-          tdb.UpdateField('UserID', sUserID, tblUsers);
-          tdb.UpdateField('Username', sUser, tblUsers);
-          tdb.UpdateField('FirstName', sFirstName, tblUsers);
-          tdb.UpdateField('LastName', sFirstName, tblUsers);
-          tdb.UpdateField('Password', sPass, tblUsers);
-          tdb.UpdateField('ContactNumber', sContact, tblUsers);
-          tdb.UpdateField('DateOfBirth', DateToStr(DOB), tblUsers);
-          tdb.UpdateField('AccountStatus', 'Active', tblUsers);
-          tdb.UpdateField('UserRoles', sType, tblUsers);
-          tdb.UpdateField('CreatedAt', DateToStr(Date), tblUsers);
-          tdb.UpdateField('UpdatedAt', DateToStr(Date), tblUsers);
-          tdb.UpdateField('EmailAddress', sEmail, tblUsers);
 
-          tblUsers.post;
-          tblUsers.refresh;
-        end; // if DM
+          try
+            sUserID := copy(sFirstName, 1, 1) + copy(sLastName, 1, 1) +
+              InttoStr(random(10000 - 1 + 1) + 1);
+            close;
+            sql.text := 'SELECT * FROM tblUsers WHERE UserID = :ID';
+            Parameters.ParamByName('ID').value := sUserID;
+            open;
+            while RecordCount > 0 do
+            begin
+              sUserID := copy(sFirstName, 1, 1) + copy(sLastName, 1, 1) +
+                InttoStr(random(10000 - 1 + 1) + 1);
+              close;
+              sql.text := 'SELECT * FROM tblUsers WHERE UserID = :ID';
+              Parameters.ParamByName('ID').value := sUserID;
+              open;
+            end;
 
-        showmessage('Account successfully added');
+            close;
+            sql.text :=
+              'INSERT INTO tblUsers VALUES (:ID,:Username,:Pass,:First,:Last,:Email,:Contact,:DOB,:Status,:Role,:Created,:Updated)';
+            Parameters.ParamByName('ID').value := sUserID;
+            Parameters.ParamByName('Username').value := sUser;
+            Parameters.ParamByName('Pass').value := sPass;
+            Parameters.ParamByName('Email').value := sEmail;
+            Parameters.ParamByName('First').value := sFirstName;
+            Parameters.ParamByName('Last').value := sLastName;
+            Parameters.ParamByName('Contact').value := sContact;
+            Parameters.ParamByName('DOB').value := DOB;
+            Parameters.ParamByName('Status').value := 'Active';
+            Parameters.ParamByName('Role').value := sType;
+            Parameters.ParamByName('Created').value := date;
+            Parameters.ParamByName('Updated').value := date;
+            ExecSQL;
+
+          except
+            on E: Exception do
+              ShowMessage('Database Error: ' + E.message);
+          end;
+
+        end; // adoquery
+
+        ShowMessage('Account successfully added');
         frmLogin.show;
         frmSignup.hide;
-      except
-        on E: Exception do
-          showmessage('Problem with adding data to DB');
-      end;
 
-    end; // if exist
+      end; // if exist
 
-  end // if passconfirm
+    end // if passconfirm
+    else
+    begin
+      ShowMessage('Passwords are not the same');
+    end;
+  end
   else
   begin
-    showmessage('Passwords are not the same');
+    exit;
   end;
 
 end;

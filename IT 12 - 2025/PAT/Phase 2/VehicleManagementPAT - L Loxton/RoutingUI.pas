@@ -80,24 +80,19 @@ implementation
 
 uses DBConnection, Shared_U;
 
-
-
-
 procedure TfrmRouting.locChange(arrow: string);
 var
-ResetIndex : integer;
+  ResetIndex: integer;
 begin
   imgStation.Picture.LoadFromFile(arrLocs[index] + '.jpg');
   lblName.caption := arrLocs[index];
-
-
 
   arrLocImgs[index].Picture.LoadFromFile('whiteloc.png');
   if arrow = 'R' then
   begin
     if index > 0 then
     begin
-      ResetIndex := index-1
+      ResetIndex := index - 1
     end
     else
     begin
@@ -106,9 +101,9 @@ begin
   end
   else
   begin
-  if index < 7 then
+    if index < 7 then
     begin
-      ResetIndex := index+1
+      ResetIndex := index + 1
     end
     else
     begin
@@ -159,11 +154,16 @@ procedure TfrmRouting.btnGoClick(Sender: TObject);
 begin
   with DataModule1 do
   begin
-    ADOQuery1.close;
-    ADOQuery1.SQL.Text :=
-      'SELECT * FROM tblLicensingStations WHERE stationID = ' +
-      inttostr(index) + '';
-    ADOQuery1.open;
+    try
+      ADOQuery1.close;
+      ADOQuery1.SQL.Text :=
+        'SELECT * FROM tblLicensingStations WHERE stationID = ' +
+        inttostr(index) + '';
+      ADOQuery1.open;
+    except
+      on E: Exception do
+        showmessage('Database Error: ' + E.message);
+    end;
 
     openMap(ADOQuery1.FieldByName('coordinates').AsString);
   end;

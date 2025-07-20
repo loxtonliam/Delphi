@@ -786,8 +786,8 @@ object frmMain: TfrmMain
     OnClick = btnStationsClick
   end
   object btnFines: TImage
-    Left = 201
-    Top = 478
+    Left = 313
+    Top = 476
     Width = 64
     Height = 95
     Picture.Data = {
@@ -816,35 +816,6 @@ object frmMain: TfrmMain
     Stretch = True
     OnClick = btnFinesClick
   end
-  object btnTests: TImage
-    Left = 337
-    Top = 477
-    Width = 64
-    Height = 96
-    Picture.Data = {
-      0954506E67496D61676589504E470D0A1A0A0000000D49484452000000300000
-      003008060000005702F987000000097048597300000B1300000B1301009A9C18
-      000000017352474200AECE1CE90000000467414D410000B18F0BFC6105000001
-      E44944415478DAED998171823014868D13E0028A1BD009AA1B7403ED04AD13B4
-      1BE80876825E37B013E8060517281340FF28DC419A440291F7BCF3DDE57287EF
-      C8F7250F391231B8F110D40077016A8032C2300C648726FB431CC7E94D08003C
-      CAF37C8D36AB8109B1437B8648CC5600F08B2CCBB6B69CE170B884C3073B8126
-      F0158907481CD80898E0513227489453A45CDF25493267216082C72CCB7ADF16
-      39AFC8592BBF8F740F76AF024DE0CB188FC77B745125475B46BD09B8C01B04E6
-      C8DB9108B8C223FF05F91B2597A6845AC0FFCB277B887DC017F953D30BED6A02
-      1EE1B5F95715E80BFE2A027DC27B17E81BDEAB0005BC37012A782F0294F09D05
-      A8E13B0970806F2DC005BE9500277867016EF04E021CE11B0B70856F24C019FE
-      A2007778ABC02DC05B05F051FD3338EF55B285370AC8FD4A00EDB9C3DB04D48D
-      A5AFE3F1F8C40DDE2830994C3EF33CAF02AF2050DBE6E0006F13F885405081AA
-      ED8A7181D70A68EA3FC5EC8F8AEB3321C4A3B23A64F02601B5FECBDDB0C07413
-      2A78AD80A6FEAD71E1DF696313778C1863BDAB871D3A815AFD1BCD8548D156A6
-      99D7BD473CC4A99C5B09486074F2DCEA5BF6A61313D78970098C1D274932B50A
-      60E99718F86D705EFAC6C0A6FBA0859EE0B52B4E7E4AD9598C1AE02E400D7017
-      A006E81A7FE1CD484F69E1D25B0000000049454E44AE426082}
-    Proportional = True
-    Stretch = True
-    OnClick = btnTestsClick
-  end
   object lblStations: TLabel
     Left = 32
     Top = 447
@@ -861,27 +832,12 @@ object frmMain: TfrmMain
     ParentFont = False
   end
   object lblFines: TLabel
-    Left = 201
+    Left = 319
     Top = 447
     Width = 58
     Height = 23
     Caption = 'X Fines!'
     Color = 3812665
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = 3747125
-    Font.Height = -17
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentColor = False
-    ParentFont = False
-  end
-  object lblTests: TLabel
-    Left = 350
-    Top = 447
-    Width = 36
-    Height = 23
-    Caption = 'Tests'
-    Color = 3812666
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 3747125
     Font.Height = -17
@@ -940,30 +896,14 @@ object frmMain: TfrmMain
     Caption = 'Label1'
   end
   object pnlMenu: TPanel
-    Left = 703
-    Top = 59
+    Left = 8
+    Top = 42
     Width = 218
     Height = 604
     Color = 4927789
     ParentBackground = False
     TabOrder = 0
     Visible = False
-    object lblTestsMenu: TLabel
-      Left = 29
-      Top = 395
-      Width = 93
-      Height = 54
-      Caption = 'Tests'
-      Color = 3878202
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWhite
-      Font.Height = -40
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = lblTestsMenuClick
-    end
     object lblStationsMenu: TLabel
       Left = 29
       Top = 213

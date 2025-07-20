@@ -49,7 +49,7 @@ object DataModule1: TDataModule1
   object ADOQuery1: TADOQuery
     FieldOptions.UpdatePersistent = True
     Parameters = <>
-    Left = 556
+    Left = 524
     Top = 472
   end
   object tblPayments: TADOTable

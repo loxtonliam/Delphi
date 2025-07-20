@@ -22,16 +22,13 @@ type
     btnSeeMore: TImage;
     btnStations: TImage;
     btnFines: TImage;
-    btnTests: TImage;
     lblStations: TLabel;
     lblFines: TLabel;
-    lblTests: TLabel;
     Image10: TImage;
     imgWhiteMenu: TImage;
     lblMenuLicenses: TLabel;
     lblStationsMenu: TLabel;
     lblFinesMenu: TLabel;
-    lblTestsMenu: TLabel;
     btnProfile: TImage;
     pnlMenu: TPanel;
     lblID1: TLabel;
@@ -140,14 +137,19 @@ begin
   end
   else
   begin
-    with Datamodule1 do
+    with DataModule1 do
     begin
       // getting first name for title
+      try
+        ADOQuery1.close;
+        ADOQuery1.SQL.Text := 'SELECT * FROM tblUsers WHERE Username = "' +
+          sUsername + '"';
+        ADOQuery1.open;
+      except
+        on E: Exception do
+          showmessage('Database Error: ' + E.message);
+      end;
 
-      ADOQuery1.close;
-      ADOQuery1.SQL.Text := 'SELECT * FROM tblUsers WHERE Username = "' +
-        sUsername + '"';
-      ADOQuery1.open;
       if ADOQuery1.RecordCount > 0 then
       begin
         lblTitleMain.caption := 'Hi, ' + ADOQuery1.FieldByName
@@ -155,21 +157,25 @@ begin
       end;
 
       // fine number
-      if badmin = false then
+      if bAdmin = false then
       begin
-       ADOQuery1.close;
-      ADOQuery1.SQL.Text := 'SELECT * FROM tblFines WHERE LicenseID IN ( ' +
-        'SELECT LicenseID FROM tblLicenses WHERE OwnerID = "' + sID + '") AND FineID NOT IN (SELECT FineID FROM tblPayments WHERE Status ="Paid")';
-      ADOQuery1.open;
-      lblFines.caption := IntToStr(ADOQuery1.RecordCount) + ' Fines!';
-      LoadLicenses;
+        try
+          ADOQuery1.close;
+          ADOQuery1.SQL.Text := 'SELECT * FROM tblFines WHERE LicenseID IN ( ' +
+            'SELECT LicenseID FROM tblLicenses WHERE OwnerID = "' + sID +
+            '") AND FineID NOT IN (SELECT FineID FROM tblPayments WHERE Status ="Paid")';
+          ADOQuery1.open;
+        except
+          on E: Exception do
+            showmessage('Database Error: ' + E.message);
+        end;
+
+        lblFines.caption := IntToStr(ADOQuery1.RecordCount) + ' Fines!';
+        LoadLicenses;
       end;
-
-
 
     end;
   end;
-
 
 end;
 
@@ -203,8 +209,6 @@ begin
   TMenu.TestScreen(frmMain)
 end;
 
-
-
 procedure TfrmMain.LoadLicenses;
 var
   iCount: Integer;
@@ -212,11 +216,17 @@ var
 begin
   with DataModule1 do
   begin
-    ADOQuery1.close;
-    ADOQuery1.SQL.text :=
-      'SELECT LicenseID, ExpirationDate FROM tblLicenses WHERE ownerID = "' +
-      sID + '"';
-    ADOQuery1.open;
+    try
+      ADOQuery1.close;
+      ADOQuery1.SQL.Text :=
+        'SELECT LicenseID, ExpirationDate FROM tblLicenses WHERE ownerID = "' +
+        sID + '"';
+      ADOQuery1.open;
+    except
+      on E: Exception do
+        showmessage('Database Error: ' + E.message);
+    end;
+
     iCount := ADOQuery1.RecordCount;
     if (ADOQuery1.RecordCount <= 2) then
     begin
@@ -228,7 +238,7 @@ begin
         lblID1.caption := sLicense;
         lblExp1.caption := ADOQuery1.FieldByName('ExpirationDate').AsString;
 
-        if ADOQuery1.RecordCount >1 then
+        if ADOQuery1.RecordCount > 1 then
         begin
           ADOQuery1.Next;
           sLicense := ADOQuery1.FieldByName('LicenseID').AsString;
@@ -258,6 +268,5 @@ begin
     end;
   end;
 end;
-
 
 end.

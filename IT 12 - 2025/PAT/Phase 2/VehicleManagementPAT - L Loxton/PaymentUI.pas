@@ -103,6 +103,7 @@ sOut :string;
 begin
 DataModule1.OpenTables;
 sOUt := frmFines.ObjFine.toString;
+redPayDisplay.clear;
 redPayDisplay.lines.add(sOut);
 end;
 

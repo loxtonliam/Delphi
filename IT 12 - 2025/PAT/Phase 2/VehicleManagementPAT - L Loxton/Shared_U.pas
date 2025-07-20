@@ -52,8 +52,9 @@ type
     class procedure RoutingScreen(Form: TForm);
     class procedure FinesScreen(Form: TForm);
   end;
-  TPay = class(TObject)
-    public
+
+  TPay = class(Tobject)
+  public
     class procedure PayFine(sFineID: string; dAmt: double);
   end;
 
@@ -442,10 +443,16 @@ begin
   bFlag := true;
   with DataModule1 do
   begin
-    ADoQuery1.close;
-    ADoQuery1.sql.text := 'SELECT * FROM ' + tblName + ' WHERE ' + sFieldName +
-      ' = "' + varCheck + '"';
-    ADoQuery1.open;
+    try
+      ADoQuery1.close;
+      ADoQuery1.sql.text := 'SELECT * FROM ' + tblName + ' WHERE ' + sFieldName
+        + ' = "' + varCheck + '"';
+      ADoQuery1.open;
+    except
+      on E: Exception do
+        showmessage('Database Error: ' + E.message);
+    end;
+
     if ADoQuery1.RecordCount > 0 then
     begin
       showmessage(sFieldName + ' Taken');
@@ -459,8 +466,8 @@ end; // function
 
 class procedure TMenu.FinesScreen(Form: TForm);
 begin
- Form.hide;
-frmFines.show;
+  Form.hide;
+  frmFines.show;
 end;
 
 class procedure TMenu.LicenseScreen(Form: TForm);
@@ -483,7 +490,7 @@ end;
 
 class procedure TMenu.TestScreen(Form: TForm);
 begin
-  form.hide;
+  Form.hide;
   frmTests.show;
 end;
 
@@ -491,9 +498,20 @@ end;
 
 class procedure TPay.PayFine(sFineID: string; dAmt: double);
 begin
-frmPayment.redPayDisplay.clear;
-  frmPayment.sFineID := sFineID;
-  frmPayment.dFineAmt := dAmt;
+  frmPayment.redPayDisplay.clear;
+  if TValidation.notEmpty(sFineID, 'FineID') then
+  begin
+    frmPayment.sFineID := sFineID;
+  end
+  else
+  begin
+    exit;
+  end;
+  if dAmt > 0 then
+  begin
+    frmPayment.dFineAmt := dAmt;
+  end;
+
   frmFines.hide;
   frmPayment.show;
 

@@ -672,8 +672,8 @@ object frmTests: TfrmTests
     OnClick = btnApplyClick
   end
   object pnlMenu: TPanel
-    Left = -9
-    Top = 0
+    Left = 0
+    Top = -10
     Width = 218
     Height = 586
     Color = 4927789

@@ -91,10 +91,17 @@ begin
 
       with Datamodule1 do
       begin
-        ADOQuery1.sql.text := 'SELECT * FROM tblUsers WHERE Username = "' +
-          sUsername + '" AND Password = "' + sPassword + '"';
-        // checking login for admins
-        ADOQuery1.open;
+        try
+          ADOQuery1.close;
+          ADOQuery1.sql.text := 'SELECT * FROM tblUsers WHERE Username = "' +
+            sUsername + '" AND Password = "' + sPassword + '"';
+          // checking login for admins
+          ADOQuery1.open;
+        except
+          on E: Exception do
+            showmessage('Database Error: ' + E.message);
+        end;
+
         if ADOQuery1.RecordCount > 0 then
         begin
           showmessage('Successful login');
@@ -111,12 +118,18 @@ begin
           end;
           if FileExists('LoginTrail.txt') then // TO DO: USER TYPES
           begin
-            Assignfile(fDatafile, 'LoginTrail.txt');
-            Append(fDatafile);
-            sLine := sID + '#' + Datetostr(Date) + '#' + timetostr(time) + '#' +
-              ADOQuery1.FieldByName('UserRoles').asstring;
-            writeln(fDatafile, sLine);
-            closefile(fDatafile);
+            try
+              Assignfile(fDatafile, 'LoginTrail.txt');
+              Append(fDatafile);
+              sLine := sID + '#' + Datetostr(Date) + '#' + timetostr(time) + '#'
+                + ADOQuery1.FieldByName('UserRoles').asstring;
+              writeln(fDatafile, sLine);
+              closefile(fDatafile);
+            except
+              on E: Exception do
+                showmessage('Could not write login trail: ' + E.message);
+            end;
+
           end;
 
 
@@ -128,7 +141,7 @@ begin
         end // record count if
         else
         begin
-          showmessage('unsuccessful');
+          showmessage('Login failed: invalid username or password.');
         end // else
 
       end // dm
@@ -140,6 +153,13 @@ begin
   begin
     showmessage('Username cannot be blank');
   end; // if val
+
+  try
+
+  except
+    on E: Exception do
+      showmessage('Database Error: ' + E.message);
+  end;
 
 end;
 

@@ -12,7 +12,6 @@ uses
   RoutingUI in 'RoutingUI.pas' {frmRouting},
   FinesUI in 'FinesUI.pas' {frmFines},
   Fines_U in 'Fines_U.pas',
-  TestsUI in 'TestsUI.pas' {frmTests},
   PaymentUI in 'PaymentUI.pas' {frmPayment};
 
 {$R *.res}
@@ -28,7 +27,6 @@ begin
   Application.CreateForm(TDataModule1, DataModule1);
   Application.CreateForm(TfrmSignup, frmSignup);
   Application.CreateForm(TfrmProfile, frmProfile);
-  Application.CreateForm(TfrmTests, frmTests);
   Application.CreateForm(TfrmPayment, frmPayment);
   Application.Run;
 end.

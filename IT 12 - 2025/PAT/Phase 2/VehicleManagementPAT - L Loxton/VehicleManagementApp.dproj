@@ -160,10 +160,6 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Fines_U.pas"/>
-        <DCCReference Include="TestsUI.pas">
-            <Form>frmTests</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="PaymentUI.pas">
             <Form>frmPayment</Form>
             <FormType>dfm</FormType>

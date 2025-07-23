@@ -704,7 +704,7 @@ object frmFines: TfrmFines
     TabOrder = 8
   end
   object pnlMenu: TPanel
-    Left = 0
+    Left = -16
     Top = 1
     Width = 218
     Height = 586

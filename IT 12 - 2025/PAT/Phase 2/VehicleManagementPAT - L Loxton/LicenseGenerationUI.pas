@@ -75,7 +75,7 @@ uses
 
 procedure TfrmLicenseGen.btnProfileClick(Sender: TObject);
 begin
-TMenu.Profile(frmLicenseGen);
+  TMenu.Profile(frmLicenseGen);
 end;
 
 procedure TfrmLicenseGen.btnRenew1Click(Sender: TObject);
@@ -141,28 +141,45 @@ procedure TfrmLicenseGen.DelLicense(sLicense: string);
 begin
   with DataModule1 do
   begin
-    ADOQuery1.close;
-    ADOQuery1.SQL.text := ' SELECT * FROM tblFines WHERE LicenseID = "' +
-      sLicense + '"';
-    ADOQuery1.open;
-    if ADOQuery1.RecordCount = 0 then
-    begin
-      if uppercase(inputbox('Are you sure you want to delete Y/N', '', '')) = 'Y'
-      then
+    try
+      ADOQuery1.close;
+      ADOQuery1.SQL.text :=
+        'SELECT * FROM tblFines WHERE LicenseID IN (SELECT LicenseID FROM tblLicenses WHERE OwnerID = "'
+        + sID + '" ) AND FineID NOT IN (SELECT FineID FROM tblPayments WHERE Status = "Paid")';
+      ADOQuery1.open;
+      if ADOQuery1.RecordCount = 0 then
       begin
-        ADOQuery1.close;
-        ADOQuery1.SQL.text := 'DELETE FROM tblLicenses WHERE LicenseID = "' +
-          sLicense + '"';
-        ADOQuery1.ExecSQL;
-        showmessage('Record deleted');
-        LoadLicenses;
-      end; // if
-    end // if
-    else
-    begin
-      showmessage
-        ('Please pay off all fines related to the selected license before deleting');
-    end; // else
+        if uppercase(inputbox('Are you sure you want to delete Y/N', '', '')) = 'Y'
+        then
+        begin
+          ADOQuery1.close;
+          ADOQuery1.SQL.text :=
+            'DELETE FROM tblPayments WHERE FineID IN (SELECT FineID FROM tblFines WHERE LicenseID ="'
+            + sLicense + '")';
+          ADOQuery1.ExecSQL;
+
+          ADOQuery1.SQL.Text := 'DELETE FROM tblFines WHERE LicenseID = "'+sLicense+'"';
+          ADOQuery1.ExecSQL;
+
+          ADOQuery1.close;
+          ADOQuery1.SQL.text := 'DELETE FROM tblLicenses WHERE LicenseID = "' +
+            sLicense + '"';
+          ADOQuery1.ExecSQL;
+          showmessage('Record deleted');
+          LoadLicenses;
+        end; // if
+      end // if
+      else
+      begin
+        showmessage
+          ('Please pay off all fines related to the selected license before deleting');
+      end; // else
+    except
+      on E: Exception do
+        showmessage('Database Error: ' + E.Message);
+
+    end;
+
   end; // with
 end; // procedure DelLicense
 
@@ -330,14 +347,16 @@ begin
   with DataModule1 do
   begin
     ADOQuery1.close;
-    ADOQuery1.SQL.text := 'SELECT COUNT(*) AS TotalNumber FROM tblLicenses WHERE ownerID = "'+sID+'"';
+    ADOQuery1.SQL.text :=
+      'SELECT COUNT(*) AS TotalNumber FROM tblLicenses WHERE ownerID = "' +
+      sID + '"';
     ADOQuery1.open;
     iCount := ADOQuery1.FieldByName('TotalNumber').AsInteger;
 
-      ADOQuery1.close;
+    ADOQuery1.close;
     ADOQuery1.SQL.text :=
-      'SELECT LicenseID, ExpirationDate FROM tblLicenses WHERE ownerID = "'
-      + sID + '"';
+      'SELECT LicenseID, ExpirationDate FROM tblLicenses WHERE ownerID = "' +
+      sID + '"';
     ADOQuery1.open;
 
     if (iCount <= 2) then

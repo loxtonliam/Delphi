@@ -8,12 +8,10 @@ uses
 type
   TDataModule1 = class(TDataModule)
     tblUsers: TADOTable;
-    tblTestApplications: TADOTable;
     tblLicensingStations: TADOTable;
     tblLicenses: TADOTable;
     tblFines: TADOTable;
     dsTblUsers: TDataSource;
-    dsTestApplications: TDataSource;
     dsLicensingStations: TDataSource;
     dsLicenses: TDataSource;
     dsFines: TDataSource;
@@ -56,7 +54,7 @@ begin
 
    //Connection for every table you have
    tblUsers.Connection := VehicleManagementDB;//ADOTable1 must be named ADOtablename(your associated table)
-   tblTestApplications.Connection := VehicleManagementDB;
+
 
    tblLicensingStations.Connection := VehicleManagementDB;
    tblLicenses.Connection := VehicleManagementDB;
@@ -67,7 +65,7 @@ begin
 
    //Each ADOTable is associated with each table name in access
    tblUsers.TableName := 'tblUsers';//table name spelled as in in MS access
-   tblTestApplications.TableName := 'tblTestApplications';//table name spelled as in in MS access
+
 
    tblLicensingStations.TableName := 'tblLicensingStations';
    tblLicenses.TableName := 'tblLicenses';
@@ -80,7 +78,7 @@ begin
    //each data source must be associated with the correct ADOtable
    dsTblUsers.DataSet := tblUsers;
 
-   dsTestApplications.DataSet := tblTestApplications;
+
    dsLicensingStations.DataSet := tblLicensingStations;
    dsLicenses.DataSet := tblLicenses;
    dsFines.DataSet := tblFines;
@@ -94,7 +92,7 @@ end;
 procedure TDataModule1.OpenTables;
 begin
  tblUsers.open;
- tblTestApplications.open;
+
  tblLicensingStations.open;
  tblLicenses.open;
  tblFines.open;

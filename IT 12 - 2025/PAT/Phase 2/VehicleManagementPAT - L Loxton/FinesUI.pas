@@ -66,7 +66,7 @@ uses
 
 procedure TfrmFines.btnHighestClick(Sender: TObject);
 begin
-//displays the highest fine amount using max function in query
+  // displays the highest fine amount using max function in query
   with DataModule1.ADOQuery1 do
   begin
 
@@ -76,10 +76,12 @@ begin
         'SELECT * FROM tblFines WHERE FineAmount = (SELECT MAX(FineAmount) FROM tblFines)';
       open;
     except
-      on E: exception  do
-      showmessage('Database error: ' + E.message);
+      on E: exception do
+        showmessage('Database error: ' + E.message);
     end;
-    showmessage('The highest fine to date was for an amount of ' + fieldByName('FineAmount').AsString + ', incurred by license plate: ' + FieldByName('LicenseID').AsString);
+    showmessage('The highest fine to date was for an amount of ' +
+      fieldByName('FineAmount').AsString + ', incurred by license plate: ' +
+      fieldByName('LicenseID').AsString);
   end;
 end;
 
@@ -106,10 +108,10 @@ begin
         + sFineID + '"';
       ADOQuery1.open;
 
-      ObjFine := TFine.Create(sFineID, sID, ADOQuery1.FieldByName('FineDate')
-        .AsString, ADOQuery1.FieldByName('LicenseID').AsString,
-        ADOQuery1.FieldByName('FineType').AsString,
-        ADOQuery1.FieldByName('FineAmount').AsFloat);
+      ObjFine := TFine.Create(sFineID, sID, ADOQuery1.fieldByName('FineDate')
+        .AsString, ADOQuery1.fieldByName('LicenseID').AsString,
+        ADOQuery1.fieldByName('FineType').AsString,
+        ADOQuery1.fieldByName('FineAmount').AsFloat);
     end; // end with DB module
 
     RichEdit1.Clear;
@@ -201,9 +203,9 @@ begin
   ListBox1.Hide;
   btnSubmit.Hide;
   spnFine.Hide;
-  btnHighest.hide;
-  cmbLicenses.hide;
-  cmbType.hide;
+  btnHighest.Hide;
+  cmbLicenses.Hide;
+  cmbType.Hide;
 
   DataModule1.OpenTables;
 
@@ -224,7 +226,7 @@ begin
       DatePicker1.Show;
       btnLoadFine.Hide;
       btnSubmit.Show;
-      btnhighest.show;
+      btnHighest.Show;
 
       ADOQuery1.close;
       ADOQuery1.sql.text := 'SELECT LicenseID FROM tblLicenses';
@@ -233,20 +235,20 @@ begin
       ADOQuery1.First;
       while not ADOQuery1.Eof do
       begin
-        cmbLicenses.Items.Add(ADOQuery1.FieldByName('LicenseID').AsString);
+        cmbLicenses.Items.Add(ADOQuery1.fieldByName('LicenseID').AsString);
         ADOQuery1.Next;
       end; // while
     end
     else
     begin // normal user UI
-      ListBox1.show;
-      RichEdit1.hide;
+      ListBox1.Show;
+      RichEdit1.Hide;
       btnLoadFine.Show;
 
       ADOQuery1.close;
-      ADOQuery1.sql.text := 'SELECT * FROM tblFines WHERE LicenseID IN ' +
-        '(SELECT LicenseID FROM tblLicenses WHERE OwnerID = "' + sID + '") ' +
-        'AND FineID NOT IN (SELECT FineID FROM tblPayments WHERE Status = "Paid")';
+      ADOQuery1.sql.text :=
+        'SELECT * FROM tblFines WHERE LicenseID IN (SELECT LicenseID FROM tblLicenses WHERE OwnerID = "'
+        + sID + '" ) AND FineID NOT IN (SELECT FineID FROM tblPayments WHERE Status = "Paid")';
       ADOQuery1.open;
 
       ADOQuery1.First;
@@ -254,11 +256,11 @@ begin
       begin
         while not ADOQuery1.Eof do
         begin
-          ListBox1.Items.Add(ADOQuery1.FieldByName('FineID').AsString + '#' +
-            FloatToStrF(ADOQuery1.FieldByName('FineAmount').AsCurrency,
-            ffCurrency, 8, 2) + '#' + ADOQuery1.FieldByName('LicenseID')
-            .AsString + '#' + ADOQuery1.FieldByName('FineType').AsString + '#' +
-            ADOQuery1.FieldByName('FineDate').AsString);
+          ListBox1.Items.Add(ADOQuery1.fieldByName('FineID').AsString + '#' +
+            FloatToStrF(ADOQuery1.fieldByName('FineAmount').AsCurrency,
+            ffCurrency, 8, 2) + '#' + ADOQuery1.fieldByName('LicenseID')
+            .AsString + '#' + ADOQuery1.fieldByName('FineType').AsString + '#' +
+            ADOQuery1.fieldByName('FineDate').AsString);
           ADOQuery1.Next;
         end; // while
 
@@ -268,6 +270,7 @@ begin
       end
       else
       begin
+        ListBox1.Hide;
         cmbType.Hide;
         cmbLicenses.Hide;
         btnLoadFine.Hide;

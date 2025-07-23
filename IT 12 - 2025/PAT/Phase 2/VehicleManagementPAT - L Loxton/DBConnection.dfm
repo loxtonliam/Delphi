@@ -6,10 +6,6 @@ object DataModule1: TDataModule1
     Left = 144
     Top = 228
   end
-  object tblTestApplications: TADOTable
-    Left = 232
-    Top = 228
-  end
   object tblLicensingStations: TADOTable
     Left = 144
     Top = 308
@@ -25,10 +21,6 @@ object DataModule1: TDataModule1
   object dsTblUsers: TDataSource
     Left = 476
     Top = 236
-  end
-  object dsTestApplications: TDataSource
-    Left = 560
-    Top = 228
   end
   object dsLicensingStations: TDataSource
     Left = 472

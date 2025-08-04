@@ -14,22 +14,14 @@ type
     cmbProvince: TComboBox;
     imgBG: TImage;
     imgGreyDiv: TImage;
-    imgSmallLlogo: TImage;
     imgBlueMenuBar: TImage;
-    pnlMenu: TPanel;
-    lblTestsMenu: TLabel;
-    lblStationsMenu: TLabel;
-    lblMainMenu: TLabel;
-    lblFinesMenu: TLabel;
-    imgWhiteMenu: TImage;
-    btnProfile: TImage;
     Image1: TImage;
     lblNext: TLabel;
     lblLicenses: TLabel;
     btnRenew1: TImage;
     btnRenew2: TImage;
-    imgBlock1: TImage;
     imgBlock2: TImage;
+    imgBlock1: TImage;
     btnTrash1: TImage;
     btnTrash2: TImage;
     lblGen: TLabel;
@@ -38,9 +30,27 @@ type
     lblID2: TLabel;
     lblExp2: TLabel;
     lblExp1: TLabel;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    pnlMenu: TPanel;
+    Label1: TLabel;
+    lblMenuMain: TLabel;
+    Label2: TLabel;
+    Image3: TImage;
+    Image4: TImage;
+    Image5: TImage;
+    Image6: TImage;
+    Image7: TImage;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Image8: TImage;
+    Image9: TImage;
+    Image10: TImage;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
-    procedure lblMainMenuClick(Sender: TObject);
+
     procedure lblStationsMenuClick(Sender: TObject);
     procedure lblFinesMenuClick(Sender: TObject);
     procedure lblTestsMenuClick(Sender: TObject);
@@ -56,6 +66,10 @@ type
     procedure LoadLicenses;
     function colourBox(): string;
     procedure btnProfileClick(Sender: TObject);
+    procedure btnChange(btn: TImage; b: boolean);
+    procedure Image8Click(Sender: TObject);
+    procedure Image9Click(Sender: TObject);
+    procedure lblMenuMainClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -149,8 +163,10 @@ begin
       ADOQuery1.open;
       if ADOQuery1.RecordCount = 0 then
       begin
-        if uppercase(inputbox('Are you sure you want to delete Y/N', '', '')) = 'Y'
-        then
+        if uppercase
+          (inputbox(
+          'Are you sure you want to delete your registered license from the database? Y/N',
+          '', '')) = 'Y' then
         begin
           ADOQuery1.close;
           ADOQuery1.SQL.text :=
@@ -158,7 +174,8 @@ begin
             + sLicense + '")';
           ADOQuery1.ExecSQL;
 
-          ADOQuery1.SQL.Text := 'DELETE FROM tblFines WHERE LicenseID = "'+sLicense+'"';
+          ADOQuery1.SQL.text := 'DELETE FROM tblFines WHERE LicenseID = "' +
+            sLicense + '"';
           ADOQuery1.ExecSQL;
 
           ADOQuery1.close;
@@ -181,7 +198,24 @@ begin
     end;
 
   end; // with
-end; // procedure DelLicense
+end;
+
+procedure TfrmLicenseGen.btnChange(btn: TImage; b: boolean);
+begin
+  if b then
+  begin
+    btn.enabled := true;
+    btn.show;
+  end
+  else
+  begin
+    btn.enabled := false;
+    btn.hide;
+  end;
+
+end;
+
+// procedure DelLicense
 
 procedure TfrmLicenseGen.FormClose(Sender: TObject; var Action: TCloseAction);
 // Terminates the application when form is closed
@@ -207,6 +241,16 @@ var
   sProv, sType, sLicense, sNewest, sNum: string;
   i: Integer;
 begin
+  if cmbProvince.itemindex = -1 then
+  begin
+    showmessage('Please select a province');
+    exit;
+  end;
+  if cmbLicenseType.itemindex = -1 then
+  begin
+    showmessage('Please select a license type');
+    exit;
+  end;
   sProv := cmbProvince.items[cmbProvince.itemindex];
   sType := cmbLicenseType.items[cmbLicenseType.itemindex];
   with DataModule1 do
@@ -291,7 +335,10 @@ begin
         tblLicenses.Refresh;
       end; // with
 
-      showmessage('License added: ' + sLicense);
+      showmessage
+        ('Your license has been created, the associated license plate is: ' +
+        sLicense + #13 +
+        'Please look at the boxes above for information regarding your license, such as plate number and expiry date');
       LoadLicenses;
     end // if
     else
@@ -300,7 +347,21 @@ begin
         ('A maximum of two licenses are allowed, please delete one of your licenses if you wish to generate a new one');
     end; // else
   end; // with
-end; // procedure Image2Click
+end;
+
+procedure TfrmLicenseGen.Image8Click(Sender: TObject);
+begin
+  showmessage
+    ('Select License Type and your province before clicking generate button to create a new license');
+end;
+
+procedure TfrmLicenseGen.Image9Click(Sender: TObject);
+begin
+  showmessage
+    ('Your two licenses are displayed in the red/green blocks. Green means it is an active license and red means it is expired. Your plate number and expiry date is diplayed. You are able to renew your license when there is 3 months left on it.');
+end;
+
+// procedure Image2Click
 
 procedure TfrmLicenseGen.imgBlueMenuBarClick(Sender: TObject);
 // Shows the menu panel
@@ -320,11 +381,14 @@ begin
   TMenu.FinesScreen(frmLicenseGen)
 end; // procedure lblFinesMenuClick
 
-procedure TfrmLicenseGen.lblMainMenuClick(Sender: TObject);
-// Navigates to the Main screen
+
+
+procedure TfrmLicenseGen.lblMenuMainClick(Sender: TObject);
 begin
   TMenu.MainScreen(frmLicenseGen);
-end; // procedure lblMainMenuClick
+end;
+
+// procedure lblMainMenuClick
 
 procedure TfrmLicenseGen.lblStationsMenuClick(Sender: TObject);
 // Navigates to the Stations (Routing) screen
@@ -346,6 +410,20 @@ var
 begin
   with DataModule1 do
   begin
+    ADOQuery1.SQL.text :=
+      'SELECT MIN(ExpirationDate) AS NextExp FROM tblLicenses WHERE ownerID ="'
+      + sID + '"';
+    ADOQuery1.open;
+    if ADOQuery1.RecordCount > 0 then
+    begin
+      lblNext.caption := 'NEXT RENEWAL: ' + ADOQuery1.FieldByName
+        ('NextExp').AsString;
+    end
+    else
+    begin
+      lblNext.caption := '';
+    end;
+
     ADOQuery1.close;
     ADOQuery1.SQL.text :=
       'SELECT COUNT(*) AS TotalNumber FROM tblLicenses WHERE ownerID = "' +
@@ -368,6 +446,10 @@ begin
         imgBlock1.Picture.LoadFromFile(colourBox + '.png');
         lblID1.caption := sLicense;
         lblExp1.caption := ADOQuery1.FieldByName('ExpirationDate').AsString;
+        btnRenew1.enabled := true;
+        btnRenew1.show;
+        btnRenew2.enabled := true;
+        btnRenew2.show;
 
         if iCount > 1 then
         begin
@@ -376,19 +458,32 @@ begin
           imgBlock2.Picture.LoadFromFile(colourBox + '.png');
           lblID2.caption := sLicense;
           lblExp2.caption := ADOQuery1.FieldByName('ExpirationDate').AsString;
+          btnChange(btnRenew1, true);
+          btnChange(btnRenew2, true);
+          btnChange(btnTrash1, true);
+          btnChange(btnTrash2, true);
+
         end // if
         else
         begin
-          lblID2.caption := 'N/A';
-          lblExp2.caption := 'N/A';
+          lblID2.caption := 'No license plate registered';
+          lblExp2.caption := '';
+
+          btnChange(btnRenew2, false);
+          btnChange(btnTrash2, false);
+
         end; // else
       end // if
       else
       begin
-        lblID1.caption := 'N/A';
-        lblExp1.caption := 'N/A';
-        lblID2.caption := 'N/A';
-        lblExp2.caption := 'N/A';
+        lblID1.caption := 'No license plate registered';
+        lblExp1.caption := '';
+        lblID2.caption := 'No license plate registered';
+        lblExp2.caption := '';
+        btnChange(btnRenew1, false);
+        btnChange(btnRenew2, false);
+        btnChange(btnTrash1, false);
+        btnChange(btnTrash2, false);
       end; // else
     end // if
     else
@@ -404,25 +499,42 @@ procedure TfrmLicenseGen.renewLicense(sLicense: string);
 var
   sRenewDate: string;
 begin
-  if uppercase(inputbox('Are you sure you want to renew Y/N', '', '')) = 'Y'
-  then
+  with DataModule1 do
   begin
-    sRenewDate := DateTostr(incYear(Date, 1));
-    with DataModule1 do
+    ADOQuery1.SQL.text :=
+      'SELECT ExpirationDate FROM tblLicenses WHERE LicenseID = "' +
+      sLicense + '"';
+    ADOQuery1.open;
+    if MonthsBetween(Date, ADOQuery1.FieldByName('ExpirationDate')
+      .AsDateTime) <= 3 then
     begin
-      ADOQuery1.close;
-      ADOQuery1.SQL.text := 'UPDATE tblLicenses SET ExpirationDate = "' +
-        sRenewDate + '" WHERE LicenseID = "' + sLicense + '"';
-      ADOQuery1.ExecSQL;
+
+      if uppercase(inputbox('Are you sure you want to renew Y/N', '', '')) = 'Y'
+      then
+      begin
+        sRenewDate := DateTostr(incYear(Date, 1));
+
+        ADOQuery1.close;
+        ADOQuery1.SQL.text := 'UPDATE tblLicenses SET ExpirationDate = "' +
+          sRenewDate + '" WHERE LicenseID = "' + sLicense + '"';
+        ADOQuery1.ExecSQL;
+        showmessage
+          ('License renewed, expiration date is now one year later from today');
+        LoadLicenses;
+      end // if
+      else
+      begin
+        exit;
+      end;
+    end // if
+    else
+    begin
       showmessage
-        ('License renewed, expiration date is now one year later from today');
-      LoadLicenses;
-    end; // with
-  end // if
-  else
-  begin
-    exit;
-  end; // else
+        ('You can only renew your license when there is three months left to renew');
+      exit;
+    end;
+  end // with
+  // else
 end; // procedure renewLicense
 
 end. // unit LicenseGenerationUI

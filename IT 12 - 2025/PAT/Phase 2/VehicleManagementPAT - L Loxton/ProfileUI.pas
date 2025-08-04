@@ -17,12 +17,16 @@ type
     redAccountInfo: TRichEdit;
     btnLogout: TButton;
     imgBlueMenuBar: TImage;
+    Image9: TImage;
     pnlMenu: TPanel;
     lblStationsMenu: TLabel;
     lblMenuLicenses: TLabel;
     lblFinesMenu: TLabel;
     imgWhiteMenu: TImage;
     btnProfile: TImage;
+    Image1: TImage;
+    Image3: TImage;
+    Image4: TImage;
     procedure imgLoginButtonClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -33,6 +37,7 @@ type
     procedure lblFinesMenuClick(Sender: TObject);
     procedure lblTestsMenuClick(Sender: TObject);
     procedure imgBlueMenuBarClick(Sender: TObject);
+    procedure Image9Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -85,7 +90,12 @@ begin
   redAccountInfo.Clear;
   redAccountInfo.Lines.Add(DataModule1.userToString(sID));
   pnlMenu.Hide;
-end; // procedure FormShow
+end; procedure TfrmProfile.Image9Click(Sender: TObject);
+begin
+showmessage('Check your account details using the rich edit, logout using the logout button or delete your account');
+end;
+
+// procedure FormShow
 
 procedure TfrmProfile.imgBlueMenuBarClick(Sender: TObject);
 // Shows menu panel

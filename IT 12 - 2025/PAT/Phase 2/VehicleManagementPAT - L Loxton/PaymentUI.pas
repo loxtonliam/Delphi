@@ -16,9 +16,12 @@ type
     redPayDisplay: TRichEdit;
     cmbPayType: TComboBox;
     btnSimPay: TImage;
+    Image9: TImage;
+    Image2: TImage;
     procedure btnSimPayClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
+    procedure Image9Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -105,7 +108,12 @@ begin
   sOut := frmFines.ObjFine.toString;
   redPayDisplay.clear;
   redPayDisplay.lines.add(sOut);
-end; // procedure FormShow
+end; procedure TfrmPayment.Image9Click(Sender: TObject);
+begin
+showmessage('Select payment type and press simulate payment in order to pay off your fine');
+end;
+
+// procedure FormShow
 
 end. // unit PaymentUI
 

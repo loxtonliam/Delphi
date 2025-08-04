@@ -22,11 +22,13 @@ type
     Notebook1: TNotebook;
     Image2: TImage;
     Image3: TImage;
+    Image4: TImage;
 
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure imgLoginButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Image1Click(Sender: TObject);
+    procedure Image4Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -64,92 +66,67 @@ procedure TfrmLogin.Image1Click(Sender: TObject);
 begin
   frmSignup.show;
   frmLogin.hide;
-end; // procedure Image1Click
+end;
 
-procedure TfrmLogin.imgLoginButtonClick(Sender: TObject);
-// Handles the login process:
-//  - Validates input fields
-//  - Checks user credentials against the database
-//  - Detects admin role
-//  - Writes login trail to file
-//  - Navigates to main screen if successful
-var
-  sLine: string;
+procedure TfrmLogin.Image4Click(Sender: TObject);
 begin
-  bAdmin := false;
-  if TValidation.notEmpty(edtUsernameLogin.text, 'Username') then
-  begin // if Username not empty
-    if TValidation.notEmpty(edtPasswordLogin.text, 'Password') then
-    begin // if Password not empty
-      sUsername := edtUsernameLogin.text;
-      sPassword := edtPasswordLogin.text;
+  showmessage('Please enter your Username and Password in their respective fields, click login once you have the correct details in the fields');
+  end;
 
-      with Datamodule1 do
-      begin // with DataModule1
-        try
-          ADOQuery1.Close;
-          ADOQuery1.SQL.Text := 'SELECT * FROM tblUsers WHERE Username = "' +
-            sUsername + '" AND Password = "' + sPassword + '"';
-          ADOQuery1.Open;
-        except
-          on E: Exception do
-            ShowMessage('Database Error: ' + E.Message);
-        end;
+    // procedure Image1Click
 
-        if ADOQuery1.RecordCount > 0 then
-        begin // if credentials match
-          ShowMessage('Successful login');
-          sID := ADOQuery1.FieldByName('UserID').AsString;
+  procedure TfrmLogin.imgLoginButtonClick(Sender: TObject);
+  // Handles the login process:
+  // - Validates input fields
+  // - Checks user credentials against the database
+  // - Detects admin role
+  // - Writes login trail to file
+  // - Navigates to main screen if successful
+  var sLine: string; begin bAdmin := false;
+  if TValidation.notEmpty(edtUsernameLogin.text, 'Username') then begin
+  // if Username not empty
+  if TValidation.notEmpty(edtPasswordLogin.text, 'Password') then begin
+  // if Password not empty
+  sUsername := edtUsernameLogin.text; sPassword := edtPasswordLogin.text;
 
-          if ADOQuery1.FieldByName('UserRoles').AsString = 'Admin' then
-          begin
-            bAdmin := True;
-          end // if Admin
-          else
-          begin
-            bAdmin := false;
-          end; // else (not admin)
+  with Datamodule1 do begin // with DataModule1
+  try ADOQuery1.Close; ADOQuery1.SQL.text :=
+    'SELECT * FROM tblUsers WHERE Username = "' + sUsername +
+    '" AND Password = "' + sPassword + '"'; ADOQuery1.Open;
+  except on E: Exception do showmessage('Database Error: ' + E.Message); end;
 
-          if FileExists('LoginTrail.txt') then
-          begin // if file exists
-            try
-              AssignFile(fDatafile, 'LoginTrail.txt');
-              Append(fDatafile);
-              sLine := sID + '#' + DateToStr(Date) + '#' + TimeToStr(Time) + '#'
-                + ADOQuery1.FieldByName('UserRoles').AsString;
-              Writeln(fDatafile, sLine);
-              CloseFile(fDatafile);
-            except
-              on E: Exception do
-                ShowMessage('Could not write login trail: ' + E.Message);
-            end; // try..except for writing file
-          end; // if file exists
+  if ADOQuery1.RecordCount > 0 then begin // if credentials match
+  showmessage('Successful login');
+  sID := ADOQuery1.FieldByName('UserID').AsString;
 
-          frmMain.Show;
-          frmLogin.Hide;
-        end // if RecordCount > 0
-        else
-        begin
-          ShowMessage('Login failed: invalid username or password.');
-        end; // else login failed
+  if ADOQuery1.FieldByName('UserRoles').AsString = 'Admin' then begin bAdmin :=
+    True; end // if Admin
+  else begin bAdmin := false; end; // else (not admin)
 
-      end; // with DataModule1
+  if FileExists('LoginTrail.txt') then begin // if file exists
+  try AssignFile(fDatafile, 'LoginTrail.txt'); Append(fDatafile);
+  sLine := sID + '#' + DateToStr(Date) + '#' + TimeToStr(Time) + '#' +
+    ADOQuery1.FieldByName('UserRoles').AsString; Writeln(fDatafile, sLine);
+  CloseFile(fDatafile);
+  except on E: Exception do showmessage('Could not write login trail: ' +
+    E.Message); end; // try..except for writing file
+  end; // if file exists
 
-    end; // if Password not empty
-  end
-  else
-  begin
-    ShowMessage('Username cannot be blank');
-  end; // else Username is empty
+  frmMain.show; frmLogin.hide; end // if RecordCount > 0
+  else begin showmessage('Login failed: invalid username or password.'); end;
+  // else login failed
+
+  end; // with DataModule1
+
+  end; // if Password not empty
+  end else begin showmessage('Username cannot be blank'); end;
+  // else Username is empty
 
   try
-    // Optional: catch any other exceptions
-  except
-    on E: Exception do
-      ShowMessage('Database Error: ' + E.Message);
-  end; // try..except
+  // Optional: catch any other exceptions
+    except on E: Exception do showmessage('Database Error: ' + E.Message); end;
+  // try..except
 
-end; // procedure imgLoginButtonClick
+  end; // procedure imgLoginButtonClick
 
-end. // unit LoginScreenUI
-
+  end. // unit LoginScreenUI

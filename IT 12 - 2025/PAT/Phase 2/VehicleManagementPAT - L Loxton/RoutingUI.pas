@@ -13,16 +13,9 @@ type
     imgBG: TImage;
     imgGreyDiv: TImage;
     lblRoutingTitle: TLabel;
-    pnlMenu: TPanel;
-    lblLicense: TLabel;
-    lblMainMenu: TLabel;
-    lblFinesMenu: TLabel;
-    imgWhiteMenu: TImage;
-    btnProfile: TImage;
     imgBlueMenuBar: TImage;
     Image1: TImage;
     Image2: TImage;
-    lblName: TLabel;
     imgStation: TImage;
     btnLArrow: TImage;
     btnRArrow: TImage;
@@ -35,7 +28,19 @@ type
     imgLocMiln: TImage;
     imgLocDurb: TImage;
     imgLocBrack: TImage;
-    imgSmallLlogo: TImage;
+    pnlMenu: TPanel;
+    lblMainMenu: TLabel;
+    lblMenuLicenses: TLabel;
+    lblFinesMenu: TLabel;
+    imgWhiteMenu: TImage;
+    btnProfile: TImage;
+    Image3: TImage;
+    Image4: TImage;
+    Image5: TImage;
+    GroupBox1: TGroupBox;
+    Label1: TLabel;
+    Image9: TImage;
+    Image6: TImage;
     procedure FormShow(Sender: TObject);
     procedure lblMainMenuClick(Sender: TObject);
     procedure lblFinesMenuClick(Sender: TObject);
@@ -49,6 +54,8 @@ type
     procedure btnLArrowClick(Sender: TObject);
     procedure btnGoClick(Sender: TObject);
     procedure btnProfileClick(Sender: TObject);
+    procedure Image9Click(Sender: TObject);
+    procedure lblMenuLicensesClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -83,7 +90,7 @@ var
   ResetIndex: integer;
 begin
   imgStation.Picture.LoadFromFile(arrLocs[index] + '.jpg');
-  lblName.caption := arrLocs[index];
+  GroupBox1.caption := arrLocs[index];
 
   arrLocImgs[index].Picture.LoadFromFile('whiteloc.png');
 
@@ -143,7 +150,15 @@ begin
   end;
 
   locChange('R');
-end; // procedure FormShow
+end;
+
+procedure TfrmRouting.Image9Click(Sender: TObject);
+begin
+  showmessage
+    ('Use the left and right arrows to switch between locations and press the Go button to get directions to your desired location');
+end;
+
+// procedure FormShow
 
 procedure TfrmRouting.btnGoClick(Sender: TObject);
 // Loads coordinates for selected location and opens Google Maps
@@ -179,12 +194,11 @@ begin
 
   locChange('L');
 end;
+
 procedure TfrmRouting.btnProfileClick(Sender: TObject);
 begin
-TMenu.Profile(frmRouting);
+  TMenu.Profile(frmRouting);
 end;
-
-
 
 procedure TfrmRouting.btnRArrowClick(Sender: TObject);
 // Moves location index right and updates UI
@@ -222,14 +236,21 @@ end; // procedure lblFinesMenuClick
 procedure TfrmRouting.lblLicenseClick(Sender: TObject);
 // Navigates to License screen
 begin
-  TMenu.LicenseScreen(frmRouting);
+
 end; // procedure lblLicenseClick
 
 procedure TfrmRouting.lblMainMenuClick(Sender: TObject);
 // Navigates to Main screen
 begin
   TMenu.MainScreen(frmRouting);
-end; // procedure lblMainMenuClick
+end;
+
+procedure TfrmRouting.lblMenuLicensesClick(Sender: TObject);
+begin
+  TMenu.LicenseScreen(frmRouting);
+end;
+
+// procedure lblMainMenuClick
 
 procedure TfrmRouting.lblTestsMenuClick(Sender: TObject);
 // Navigates to Tests screen
@@ -240,8 +261,8 @@ end; // procedure lblTestsMenuClick
 procedure TfrmRouting.openMap(coords: string);
 // Opens Google Maps with the given coordinates using the default browser
 begin
-  ShellExecute(0, 'open', PChar('https://www.google.com/maps?q=' + coords), nil, nil, SW_SHOWNORMAL);
+  ShellExecute(0, 'open', PChar('https://www.google.com/maps?q=' + coords), nil,
+    nil, SW_SHOWNORMAL);
 end; // procedure openMap
 
 end. // unit RoutingUI
-

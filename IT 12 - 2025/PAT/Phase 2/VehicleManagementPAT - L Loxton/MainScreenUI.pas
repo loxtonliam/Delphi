@@ -13,7 +13,6 @@ type
     imgBG: TImage;
     imgGreyDiv: TImage;
     imgBlueMenuBar: TImage;
-    imgSmallLlogo: TImage;
     lblTitleMain: TLabel;
     btnSeeMore: TImage;
     btnStations: TImage;
@@ -27,7 +26,26 @@ type
     lblFinesMenu: TLabel;
     btnProfile: TImage;
     pnlMenu: TPanel;
-    lblLicense: TLabel;
+    Panel1: TPanel;
+    imgBlock2: TImage;
+    imgBlock1: TImage;
+    lblExp1: TLabel;
+    lblExp2: TLabel;
+    lblID1: TLabel;
+    lblID2: TLabel;
+    btnTrash2: TImage;
+    btnTrash1: TImage;
+    btnRenew1: TImage;
+    btnRenew2: TImage;
+    lblNext: TLabel;
+    Image1: TImage;
+    Image2: TImage;
+    Image3: TImage;
+    Image4: TImage;
+    Label4: TLabel;
+    Label3: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnGenClick(Sender: TObject);
@@ -42,6 +60,10 @@ type
     procedure btnSeeMoreClick(Sender: TObject);
     procedure lblStationsMenuClick(Sender: TObject);
     procedure lblFinesMenuClick(Sender: TObject);
+    procedure LoadLicenses;
+    procedure btnChange(btn: TImage; b: boolean);
+    function colourBox: string;
+    procedure pnlMenuClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -60,6 +82,21 @@ uses
   DBConnection, LoginScreenUI, LicenseGenerationUI, ProfileUI, RoutingUI,
   FinesUI, TestsUI, Shared_U;
 
+procedure TfrmMain.btnChange(btn: TImage; b: boolean);
+begin
+  if b then
+  begin
+    btn.enabled := true;
+    btn.show;
+  end
+  else
+  begin
+    btn.enabled := false;
+    btn.hide;
+  end;
+
+end;
+
 procedure TfrmMain.btnFinesClick(Sender: TObject);
 // Navigates to Fines screen
 begin
@@ -77,7 +114,7 @@ end; // procedure btnGenClick
 procedure TfrmMain.btnProfileClick(Sender: TObject);
 // Navigates to Profile screen
 begin
- TMenu.Profile(frmMain);
+  TMenu.Profile(frmMain);
 end; // procedure btnProfileClick
 
 procedure TfrmMain.btnSeeMoreClick(Sender: TObject);
@@ -92,12 +129,27 @@ procedure TfrmMain.btnStationsClick(Sender: TObject);
 begin
   frmMain.hide;
   frmRouting.show;
-end; // procedure btnStationsClick
+end;
 
+function TfrmMain.colourBox: string;
+var
+  dExp: TDateTime;
+begin
+  with DataModule1 do
+  begin
+    dExp := ADOQuery1.FieldByName('ExpirationDate').AsDateTime;
+    if dExp < Date then
+    begin
+      result := 'RedRec';
+    end // if
+    else
+    begin
+      result := 'GreenRec';
+    end; // else
+  end; // with
+end; // function colourBox
 
-
-
-
+// procedure btnStationsClick
 
 procedure TfrmMain.FormClose(Sender: TObject; var Action: TCloseAction);
 // Terminates the application on form close
@@ -120,7 +172,8 @@ begin
       // getting first name for title
       try
         ADOQuery1.close;
-        ADOQuery1.SQL.Text := 'SELECT * FROM tblUsers WHERE Username = "' + sUsername + '"';
+        ADOQuery1.SQL.Text := 'SELECT * FROM tblUsers WHERE Username = "' +
+          sUsername + '"';
         ADOQuery1.open;
       except
         on E: Exception do
@@ -129,7 +182,8 @@ begin
 
       if ADOQuery1.RecordCount > 0 then
       begin
-        lblTitleMain.caption := 'Hi, ' + ADOQuery1.FieldByName('FirstName').AsString;
+        lblTitleMain.caption := 'Hi, ' + ADOQuery1.FieldByName
+          ('FirstName').AsString;
       end; // if user found
 
       // fine number
@@ -147,7 +201,7 @@ begin
         end; // try..except
 
         lblFines.caption := IntToStr(ADOQuery1.RecordCount) + ' Fines!';
-
+        LoadLicenses;
       end; // if not admin
     end; // with
   end; // else not admin
@@ -187,9 +241,104 @@ procedure TfrmMain.lblTestsMenuClick(Sender: TObject);
 // Menu click to open Tests screen
 begin
   TMenu.TestScreen(frmMain)
-end; // procedure lblTestsMenuClick
+end;
 
+procedure TfrmMain.LoadLicenses;
+var
+  iCount: Integer;
+  sLicense: string;
+begin
+  with DataModule1 do
+  begin
+    ADOQuery1.SQL.Text :=
+      'SELECT MIN(ExpirationDate) AS NextExp FROM tblLicenses WHERE ownerID ="'
+      + sID + '"';
+    ADOQuery1.open;
+    if ADOQuery1.RecordCount > 0 then
+    begin
+      lblNext.caption := 'NEXT RENEWAL: ' + ADOQuery1.FieldByName
+        ('NextExp').AsString;
+    end
+    else
+    begin
+      lblNext.caption := '';
+    end;
 
+    ADOQuery1.close;
+    ADOQuery1.SQL.Text :=
+      'SELECT COUNT(*) AS TotalNumber FROM tblLicenses WHERE ownerID = "' +
+      sID + '"';
+    ADOQuery1.open;
+    iCount := ADOQuery1.FieldByName('TotalNumber').AsInteger;
+
+    ADOQuery1.close;
+    ADOQuery1.SQL.Text :=
+      'SELECT LicenseID, ExpirationDate FROM tblLicenses WHERE ownerID = "' +
+      sID + '"';
+    ADOQuery1.open;
+
+    if (iCount <= 2) then
+    begin
+      if iCount >= 1 then
+      begin
+        ADOQuery1.first;
+        sLicense := ADOQuery1.FieldByName('LicenseID').AsString;
+        imgBlock1.Picture.LoadFromFile(colourBox + '.png');
+        lblID1.caption := sLicense;
+        lblExp1.caption := ADOQuery1.FieldByName('ExpirationDate').AsString;
+        btnRenew1.enabled := true;
+        btnRenew1.show;
+        btnRenew2.enabled := true;
+        btnRenew2.show;
+
+        if iCount > 1 then
+        begin
+          ADOQuery1.Next;
+          sLicense := ADOQuery1.FieldByName('LicenseID').AsString;
+          imgBlock2.Picture.LoadFromFile(colourBox + '.png');
+          lblID2.caption := sLicense;
+          lblExp2.caption := ADOQuery1.FieldByName('ExpirationDate').AsString;
+          btnChange(btnRenew1, true);
+          btnChange(btnRenew2, true);
+          btnChange(btnTrash1, true);
+          btnChange(btnTrash2, true);
+
+        end // if
+        else
+        begin
+          lblID2.caption := 'No license plate registered';
+          lblExp2.caption := '';
+
+          btnChange(btnRenew2, false);
+          btnChange(btnTrash2, false);
+
+        end; // else
+      end // if
+      else
+      begin
+        lblID1.caption := 'No license plate registered';
+        lblExp1.caption := '';
+        lblID2.caption := 'No license plate registered';
+        lblExp2.caption := '';
+        btnChange(btnRenew1, false);
+        btnChange(btnRenew2, false);
+        btnChange(btnTrash1, false);
+        btnChange(btnTrash2, false);
+      end; // else
+    end // if
+    else
+    begin
+      showmessage
+        ('too many licenses created for your ID, please contact an admin to manually delete from DB');
+    end; // else
+  end; // with
+end; procedure TfrmMain.pnlMenuClick(Sender: TObject);
+begin
+
+end;
+
+// procedure LoadLicenses
+
+// procedure lblTestsMenuClick
 
 end. // unit MainScreenUI
-
